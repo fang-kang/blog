@@ -4,8 +4,10 @@ date: 2020-11-05 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/6.png
 tags:
  - uniApp
+ - utils
 categories:
  - uniApp
+ - utils
 ---
 
 ## uniApp常用js函数

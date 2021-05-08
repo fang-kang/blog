@@ -5,8 +5,10 @@ index_img: https://fang-kang.gitee.io/blog-img/1cm6iu.webp
 tags:
  - uniApp
  - scss
+ - utils
 categories:
  - uniApp
+ - utils
 ---
 
 ## 内置的一些类名，方便全局使用

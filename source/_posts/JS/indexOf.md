@@ -4,8 +4,10 @@ index_img: https://fang-kang.gitee.io/blog-img/5.jpg
 date: 2020-11-04 15:33:01
 tags:
  - Js
+ - utils
 categories:
  - Js
+ - utils
 ---
 # JS判断字符串中是否存在某个字符
 ## 可以用String 中的 indexOf()
