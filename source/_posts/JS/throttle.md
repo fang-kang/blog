@@ -7,7 +7,6 @@ tags:
  - utils
 categories:
  - Js
- - utils
 ---
 
 ## 什么是节流和防抖？

@@ -8,7 +8,6 @@ tags:
  - utils
 categories:
  - uniApp
- - utils
 ---
 
 ## 内置的一些类名，方便全局使用

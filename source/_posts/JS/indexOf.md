@@ -7,7 +7,6 @@ tags:
  - utils
 categories:
  - Js
- - utils
 ---
 # JS判断字符串中是否存在某个字符
 ## 可以用String 中的 indexOf()

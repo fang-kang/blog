@@ -7,7 +7,6 @@ tags:
  - utils
 categories:
  - uniApp
- - utils
 ---
 
 ## uniApp常用js函数
