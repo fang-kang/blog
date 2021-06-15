@@ -2,7 +2,7 @@
 title: Vue全家桶
 date: 2020-12-10
 sticky: 1
-index_img: https://fang-kang.gitee.io/blog-img/73twhs.webp
+index_img: https://fang-kang.gitee.io/blog-img/5.png
 tags:
   - vue
 categories:
