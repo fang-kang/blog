@@ -7,7 +7,7 @@ tags:
  - utils
 categories:
  - Js
-index_img: https://fang-kang.gitee.io/blog-img/2.jpg
+index_img: https://fang-kang.gitee.io/blog-img/1.jpg
 ---
 
 ```js

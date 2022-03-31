@@ -42,7 +42,7 @@ jobs:
         with:
           # 部署到 gh-pages 分支
           target_branch: gh-pages
-          # 部署目录
+          # 部署目录为 
           build_dir: public
         env:
           # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret

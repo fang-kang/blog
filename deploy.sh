@@ -14,6 +14,6 @@ git commit -m ':art: update'
 
 
 # 填写你需要发布的仓库地址
-git push https://github.com/fang-kang/blog.git master
+#git push https://github.com/fang-kang/blog.git master
 git push https://gitee.com/fang-kang/blog.git master
 cd -
