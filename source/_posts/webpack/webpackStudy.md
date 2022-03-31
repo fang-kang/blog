@@ -1057,9 +1057,8 @@ devServer: {
 ## 6.6 optimization
 
 `contenthash` 缓存会导致一个问题：修改 `a` 文件导致 `b` 文件 `contenthash` 变化。
-因为在 `index.js` 中引入 `a.js`，打包后 `index.js` 中记录了 `a.js` 的 `hash` 值，而` a.js` 改变，其重新打包后的 `hash` 改变，导致 `index.js` 文件内容中记录的 `a.js` 的 `hash` 也改变，从而重新打包后 `index.js` 的 `hash` 值也会变，这样就会使缓存失效。（改变的是`a.js`文件但是 `index.js` 文件的 `hash` 值也改变了）
+因为在 `index.js` 中引入 `a.js`，打包后 `index.js` 中记录了 `a.js` 的 `hash` 值，而`a.js` 改变，其重新打包后的 `hash` 改变，导致 `index.js` 文件内容中记录的 `a.js` 的 `hash` 也改变，从而重新打包后 `index.js` 的 `hash` 值也会变，这样就会使缓存失效。（改变的是`a.js`文件但是 `index.js` 文件的 `hash` 值也改变了）
 解决办法：`runtimeChunk` --> 将当前模块记录其他模块的 `hash` 单独打包为一个文件 `runtime`，这样 `a.js` 的 `hash` 改变只会影响 `runtime` 文件，不会影响到 `index.js` 文件
-
 
 ``` js
 output: {

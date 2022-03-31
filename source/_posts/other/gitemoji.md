@@ -10,13 +10,9 @@ categories:
 
 # git提交消息的表情符号指南
 
-
-
 ## Gitmoji
 
 > 是一项倡议，旨在标准化和解释GitHub提交消息上表情符号的使用。
-
-
 
 记录一下emoji在git中的使用方法，直接在git提交时添加emoji图标代码就可以了，如下：
 

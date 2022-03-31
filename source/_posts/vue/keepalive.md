@@ -10,13 +10,11 @@ categories:
 
 ## keep-alive
 
-
-
 `<keep-alive>`是Vue的内置组件，能在组件切换过程中将状态保留在内存中，防止重复渲染DOM。
 
 {% note success %}
 
-`<keep-alive> `包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。和 `<transition>` 相似，`<keep-alive>` 是一个抽象组件：它自身不会渲染一个 DOM 元素，也不会出现在父组件链中。
+`<keep-alive>`包裹动态组件时，会缓存不活动的组件实例，而不是销毁它们。和 `<transition>` 相似，`<keep-alive>` 是一个抽象组件：它自身不会渲染一个 DOM 元素，也不会出现在父组件链中。
 
 {% endnote %}
 
@@ -40,8 +38,6 @@ export default {
   }
 }
 ```
-
-
 
 ```html
 <keep-alive include="test-keep-alive">
@@ -82,8 +78,6 @@ export default {
 </keep-alive>
 <router-view v-if="!$route.meta.keepAlive"></router-view>
 ```
-
-
 
 需要在`router`中设置router的元信息meta：
 

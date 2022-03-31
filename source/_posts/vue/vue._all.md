@@ -1141,15 +1141,15 @@ function Dep() {
 
 4.subs 属性说明
 
-- 当 `watcher `被创建时，内部将当前 `watcher `对象添加到对应的 `dep `对象的`subs `中
-- 当此 `data `属性的值发生改变时，`subs `中所有的 `watcher `都会收到更新的通知，从而最终更新对应的界面
+- 当 `watcher`被创建时，内部将当前 `watcher`对象添加到对应的 `dep`对象的`subs`中
+- 当此 `data`属性的值发生改变时，`subs`中所有的 `watcher`都会收到更新的通知，从而最终更新对应的界面
 
 ##### Compiler（指令解析器）
 
 1. 用来解析模板页面的对象的构造函数（一个实例）
-2. 利用 `compile `对象解析模板页面
-3. 每解析一个表达式（非事件指令，如`{{}}`或`v-text`，`v-html`）都会创建一个对应的 `watcher `对象，并建立 `watcher `与 `dep `的关系
-4. `complie` 与 `watcher `关系：一对多的关系
+2. 利用 `compile`对象解析模板页面
+3. 每解析一个表达式（非事件指令，如`{{}}`或`v-text`，`v-html`）都会创建一个对应的 `watcher`对象，并建立 `watcher`与 `dep`的关系
+4. `complie` 与 `watcher`关系：一对多的关系
 
 ##### Watcher（订阅者）
 

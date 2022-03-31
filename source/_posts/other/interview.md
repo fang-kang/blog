@@ -297,7 +297,7 @@ Not a Number，表示非数字，typeof NaN === 'number'
 
 ```javascript
 function foo() {
- 	console.log(this.a); 
+  console.log(this.a); 
 }
 
 var a = 2;
@@ -639,13 +639,9 @@ a.myLabel(); // "obj a"
 
 - 箭头函数使用被称为 “胖箭头” 的操作
 
-   
-
   ```
   =>
   ```
-
-   
 
   定义，箭头函数不应用普通函数 this 绑定的四种规则，而是根据外层（函数或全局）的作用域来决定 this，且箭头函数的绑定无法被修改（new 也不行）。
 
@@ -692,21 +688,21 @@ bar.call(obj2);
 先执行宏任务队列，然后执行微任务队列，然后开始下一轮事件循环，继续先执行宏任务队列，再执行微任务队列。
 
 - 宏任务：script/setTimeout/setInterval/setImmediate/ I/O / UI Rendering
-- 微任务：process.nextTick()/Promise 
+- 微任务：process.nextTick()/Promise
 
 上诉的 setTimeout 和 setInterval 等都是任务源，真正进入任务队列的是他们分发的任务。
 
 ### 优先级
 
 - setTimeout = setInterval 一个队列
-- setTimeout > setImmediate 
+- setTimeout > setImmediate
 - process.nextTick > Promise
 
 ```javascript
 for (const macroTask of macroTaskQueue) {  
   handleMacroTask();    
   for (const microTask of microTaskQueue) {    
-  	handleMicroTask(microTask);  
+   handleMicroTask(microTask);  
   }
 }
 复制代码
@@ -779,7 +775,7 @@ let 会产生临时性死区，在当前的执行上下文中，会进行变量�
 
 函数在运行的时候，会首先创建执行上下文，然后将执行上下文入栈，然后当此执行上下文处于栈顶时，开始运行执行上下文。
 
-在创建执行上下文的过程中会做三件事：创建变量对象，创建作用域链，确定 this 指向，其中创建变量对象的过程中，首先会为 arguments 创建一个属性，值为 arguments，然后会扫码 function 函数声明，创建一个同名属性，值为函数的引用，接着会扫码 var 变量声明，创建一个同名属性，值为 undefined，这就是变量提升 ** **问：**如何看待 PWA App、原生 App 以及 Flutter 和 React Native 这种前端驱动的开发模式？
+在创建执行上下文的过程中会做三件事：创建变量对象，创建作用域链，确定 this 指向，其中创建变量对象的过程中，首先会为 arguments 创建一个属性，值为 arguments，然后会扫码 function 函数声明，创建一个同名属性，值为函数的引用，接着会扫码 var 变量声明，创建一个同名属性，值为 undefined，这就是变量提升 ****问：**如何看待 PWA App、原生 App 以及 Flutter 和 React Native 这种前端驱动的开发模式？
 
 ## instance 如何使用
 
@@ -797,4 +793,3 @@ let 会产生临时性死区，在当前的执行上下文中，会进行变量�
 - [www.jianshu.com/p/cd3fee40e…](https://www.jianshu.com/p/cd3fee40ef59)
 
 [本文转自https://juejin.cn/post/6934500357091360781](https://juejin.cn/post/6934500357091360781)
-

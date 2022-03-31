@@ -165,7 +165,7 @@ module.exports = {
 
 ### css相关
 
-#### style-loader 和 css-loader 
+#### style-loader 和 css-loader
 
 - css-loader：加入 a.css 中引入了 b.css 和 c.css，css-loader 会将其合并成一个css文件
 - style-loader：将合并后的 css 文件挂载到 head 标签内
@@ -514,14 +514,13 @@ sourceMap 通过配置中的 devtool 去配置，参数的含义大概有以下�
 }
 ```
 
-### webpack-dev-server 
+### webpack-dev-server
 
 上面的html的打开的方式还是需要通过 `file` 协议打开一个本地文件，在浏览器地址是这样的：`file:///Users/reco/workSpace/git/personal/work/test.html`。这样的话发送 `AJAX` 请求就有问题了，因为发送请求需要 `http` 或者 `https` 协议，这时需要的是在本地启动一个服务，我们可以借助 `webpack-dev-server` （打包时将打包的文件放在内存中，提高打包速度）。
 
 ```bash
 yarn add webpack-dev-server --dev
 ```
-
 
 ```json
 {
@@ -564,7 +563,6 @@ module.exports = {
 
 **自己写一个简单的 webpack-dev-server**
 
-
 ```json
 {
   "scripts": {
@@ -601,10 +599,12 @@ app.listen(3000, () => {
 **开启 Hot Module Replacement**
 
 解决下面的问题：
+
    1. 修改页面某个颜色，页面会刷新，导致动态添加的 dom 会消失；
    2. 一个页面同时引入两个模块的js，修改某个模块的js，页面会刷新，导致灵感一个模块的js也会初始化。
 
 存在的问题：
+
    1. 在多页面应用里，html更改时并不会刷新，需手动，所以这种情况下，可以去掉更更新功能。
 
 ```js
@@ -876,6 +876,7 @@ module.exports = {
 
 1. 将开发环境和线上环境的公共配置提取到 `/build/webpack.base.js` 中
 2. 分别在开发环境和线上环境的配置中合并公共配置，配置合并需要使用 `webpack-merge`
+
     ```js
     // /build/webpack.dev.js
     const merge = require('webpack-merge')
@@ -887,7 +888,9 @@ module.exports = {
 
     module.exports = merge(baseConfig, devConfig)
     ```
-3. 修改 `package.json` 
+
+3. 修改 `package.json`
+
     ```json
     {
       "script": {
@@ -896,7 +899,9 @@ module.exports = {
       }
     }
     ```
+
 4. 这个时候较之前打包输出和清空的目录就应该修改一下了
+
     ```js
     module.exports = {
       output: {
@@ -916,7 +921,7 @@ module.exports = {
 
     **更新**：上面 `CleanWebpackPlugin` 的语法是 `1.0` 版本的。`2.0` 它所清空的文件夹默认就是打包输出目录，无需再单独指定。
 
-## Code Splitting 
+## Code Splitting
 
 ### 原理
 
@@ -1052,7 +1057,7 @@ document.addEventListener('click', () => {
 
 ### Chunk
 
-像上面的 `Lazy Loading` 所拆分打包的每一个文件都是一个 `Chunk`，而前面的配置参数` minChunks: 2` 的意思就是：当有2个以上的 · 使用到某个依赖时，才会对其进行拆分成一个 `Chunk`。
+像上面的 `Lazy Loading` 所拆分打包的每一个文件都是一个 `Chunk`，而前面的配置参数`minChunks: 2` 的意思就是：当有2个以上的 · 使用到某个依赖时，才会对其进行拆分成一个 `Chunk`。
 
 ```js
 const path = require('path')
@@ -1178,6 +1183,7 @@ npm install --save-dev mini-css-extract-plugin
 ```
 
 配置步骤：
+
 1. 配置 `plugins`；
 2. 将 `style-loader` 改为 `MiniCssExtractPlugin.loader`；
 3. 如果设置了 `Tree Shaking`，需要将 `"sideEffects": false` 改为 `"sideEffects": ["*.css"]`。
@@ -1406,7 +1412,8 @@ module.exports = (env) => {
 
 ## 区分模式打包
 
-区别： 
+区别：
+
 1. develop 模式下的sourceMap 是非常全的；
 2. develop 模式下的代码不需要压缩；
 
@@ -1449,7 +1456,7 @@ module.exports = {
 
 比如我的这个函数库依赖 `jquery`，但是用户也可能引用了 `jquery`，这样就会多打包一份，所以为了减少代码量，这时就可以通过 `externals` 来忽略 `jquery`（`externals` 支持 `Arrary/Object`）。
 
-## Progressive Web Application 
+## Progressive Web Application
 
 第一次访问成功，第二次访问时如果服务挂掉了，这个时候让项目走缓存，而不是显示服务错误页面。
 
@@ -1648,15 +1655,18 @@ module.exports = {
 
 :::tip
 实际项目中为了不影响打包速度，可以不配置 `eslint-loader`，而是直接通过 git 钩子，在提交命令代码时进行检测，当然这个时候就放弃了实时报错的特性。
+
 ```bash
 git 钩子 eslint src
 ```
+
 :::
 
 ## 提升打包速度
 
 1. 跟上技术的迭代，保持最新（Node/Npm/Yarn）
 2. 在尽快少的模块上使用 `loader`，比如通过 `include` 和 `exclude` 来指定打包监听范围
+
     ```js
     module.exports = {
       module: {
@@ -1675,8 +1685,10 @@ git 钩子 eslint src
       }
     }
     ```
+
 3. 尽量精简 `plugin`，并且确保其可靠性
 4. 合理配置 extensions
+
     ```js
     module.exports = {
       resolve: {

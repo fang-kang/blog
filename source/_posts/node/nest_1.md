@@ -799,9 +799,9 @@ app.useGlobalInterceptors(new LoggingInterceptor());
 1. 官网：[https://nestjs.com](https://nestjs.com/)
 2. 文档：[https://docs.nestjs.com](https://docs.nestjs.com/)
 3. 中文文档：[https://docs.nestjs.cn](https://docs.nestjs.cn/)
-4. Github：https://github.com/nestjs/nest
+4. Github：<https://github.com/nestjs/nest>
 5. 版本：目前稳定版v5.1.0
-6. CLI：https://github.com/nestjs/nest-cli
+6. CLI：<https://github.com/nestjs/nest-cli>
 
 ### nest-cli
 
@@ -813,7 +813,7 @@ app.useGlobalInterceptors(new LoggingInterceptor());
 npm i -g @nestjs/cli
 ```
 
-#### 常用命令：
+#### 常用命令
 
 ##### new(简写：n) 构建新项目
 
@@ -959,4 +959,3 @@ npm run test:e2e  // E2E测试
 [![j _ 2k2q0pqpjt 03o t16u](https://user-images.githubusercontent.com/6111778/44449034-92afec80-a61f-11e8-9dc8-3e8a0160b978.png)](https://user-images.githubusercontent.com/6111778/44449034-92afec80-a61f-11e8-9dc8-3e8a0160b978.png)
 
 [本文来自 https://github.com/jiayisheji/blog/issues/18](https://github.com/jiayisheji/blog/issues/18)
-

@@ -39,6 +39,7 @@ module.exports = {
   ]
 }
 ```
+
 3. 第三步
 
 1. 在 `src` 文件夹中新建我们的 `element` 文件夹，并在里面新建一个 `index.js` 文件

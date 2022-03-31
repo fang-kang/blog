@@ -404,8 +404,6 @@ b. **非受控组件**：需要时才手动读取表单输入框中的数据（r
 
 - componentWillUnmount()
 
-   
-
   ：组件将要被移除时（移出前）回调
 
   - 一般在 `componentDidMount` 里面注册的事件需要在这里删除
@@ -796,19 +794,19 @@ const {id} = this.props.match.params
 
 #### 7.1.1 material-ui(国外)
 
-1.官网：http://www.material-ui.com/#/
+1.官网：<http://www.material-ui.com/#/>
 
-2.github：https://github.com/callemall/material-ui
+2.github：<https://github.com/callemall/material-ui>
 
 #### 7.1.2 ant-design(国内蚂蚁金服)
 
-1.PC官网：https://ant.design/index-cn
+1.PC官网：<https://ant.design/index-cn>
 
-2.移动官网：https://mobile.ant.design/index-cn
+2.移动官网：<https://mobile.ant.design/index-cn>
 
-3.Github：https://github.com/ant-design/ant-design/
+3.Github：<https://github.com/ant-design/ant-design/>
 
-4.Github：https://github.com/ant-design/ant-design-mobile/
+4.Github：<https://github.com/ant-design/ant-design-mobile/>
 
 ### 7.2 ant-design-mobile 使用入门
 

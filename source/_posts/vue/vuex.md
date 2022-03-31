@@ -24,8 +24,7 @@ categories:
 
 默认组件的数据, 是独立的, 每个组件有着自己的状态(数据)
 
->  状态 === 数据
-
+> 状态 === 数据
 
 组件之间共享状态的两种典型方式：
 
@@ -41,7 +40,7 @@ categories:
 
   ``` html
   <div>
-  	<button @click="$emit('event-name')">通知父组件</button>
+   <button @click="$emit('event-name')">通知父组件</button>
   </div>
   ```
 
@@ -56,8 +55,6 @@ categories:
 
 这里就要引入Vuex了。
 
-
-
 ## vuex基本概念
 
 [中文文档](https://vuex.vuejs.org/zh/guide/)
@@ -71,8 +68,6 @@ vuex是vue的状态管理工具，**状态即数据**。 状态管理就是集�
 
 Vuex就像近视眼镜, 你自然会知道什么时候需要用它~
 
-
-
 ## vuex的优点: 方便的解决多组件的共享状态
 
  vuex的作用是解决多组件状态共享的问题。
@@ -83,7 +78,6 @@ Vuex就像近视眼镜, 你自然会知道什么时候需要用它~
   - 操作更简洁
   
   代码量非常少, 但是需要熟悉
-
 
 ## 什么数据适合存到vuex中
 
@@ -96,16 +90,12 @@ Vuex就像近视眼镜, 你自然会知道什么时候需要用它~
 - 对于所有组件而言，当前登陆的用户信息是需要在全体组件之间共享的，则它可以放在vuex中
 - 对于文章详情页组件来说，当前的用户浏览的文章列表数据则应该属于这个组件的私有数据，应该要放在这个组件data中。
 
-
-
-## 概述小结:
+## 概述小结
 
 1. vuex解决什么问题?   可以解决多组件共享状态的问题
 2. 什么样的数据, 适合存放到vuex?  多组件都需要用到的数据, 才往vuex中存
 
 vuex是响应式的, 只要vuex中的数据改了, 那么所有用到这个数据的地方, 都会更新!!!
-
-
 
 # vuex入门
 
@@ -255,8 +245,6 @@ h2 {
 </style>
 ```
 
-
-
 ## vuex 的使用 - 创建仓库
 
 1 安装 vuex, 与vue-router类似，vuex是一个独立存在的插件，如果脚手架初始化没有选 vuex，就需要额外安装。
@@ -269,7 +257,7 @@ yarn add vuex
 
 ​为了维护项目目录的整洁，在src目录下新建一个store目录其下放置一个index.js文件。 (和 `router/index.js` 类似)
 
-3 创建仓库 `store/index.js` 
+3 创建仓库 `store/index.js`
 
 ```js
 // 导入 vue
@@ -303,8 +291,6 @@ new Vue({
 
 此刻起, 就成功创建了一个空仓库!!
 
-
-
 ## 核心概念 - state 状态
 
 `State`提供唯一的公共数据源，所有共享的数据都要统一放到`Store`中的`State`中存储。
@@ -325,9 +311,7 @@ const store = new Vuex.Store({
 问题: 如何在组件中获取count?
 
 1. 插值表达式 =>  `$store.state.count`
-2. `mapState` 映射计算属性 =>   `count` 
-
-
+2. `mapState` 映射计算属性 =>   `count`
 
 **1 原始形式- 插值表达式**
 
@@ -339,7 +323,7 @@ const store = new Vuex.Store({
 <h1>state的数据 - {{ $store.state.count }}</h1>
 ```
 
-**计算属性** - 将`state`属性定义在计算属性中 https://vuex.vuejs.org/zh/guide/`state`.html
+**计算属性** - 将`state`属性定义在计算属性中 <https://vuex.vuejs.org/zh/guide/>`state`.html
 
 ```js
 // 把state中数据，定义在组件内的计算属性中
@@ -356,13 +340,11 @@ const store = new Vuex.Store({
 
 但是每次, 都这样一个个的提供计算属性, 太麻烦了, 所以我们需要辅助函数 `mapState` 帮我们简化语法
 
-
-
 **2 辅助函数  - mapState**
 
 >`mapState`是辅助函数，帮助我们把store中的数据映射到 组件的计算属性中, 它属于一种方便的用法
 
-用法 ： 
+用法 ：
 
 第一步：导入`mapState` (mapState是vuex中的一个函数)
 
@@ -395,8 +377,6 @@ count () {
 ```vue
  <div> state的数据：{{ count }}</div>
 ```
-
-
 
 ## 核心概念 - `mutations`
 
@@ -442,8 +422,6 @@ this.$store.commit('addCount')
 
 **解决问题: 两个子组件, 添加操作 add,  addN 实现**
 
-
-
 ### 带参数的 `mutation`
 
 需求: 父组件也希望能改到数据
@@ -485,8 +463,6 @@ this.$store.commit('inputCount', {
 
 **解决问题:  addN 的实现**
 
-
-
 ### **辅助函数** - `mapMutations`
 
 > `mapMutations`和`mapState`很像，它把位于`mutations`中的方法提取了出来，我们可以将它导入
@@ -517,8 +493,6 @@ methods: {
 
 但是请注意： `Vuex`中`mutations`中要求不能写异步代码，如果有异步的`ajax`请求，应该放置在`actions`中
 
-
-
 ## 核心概念-`actions`
 
 > `state`是存放数据的，mutations是同步更新数据 (便于监测数据的变化, 更新视图等, 方便于调试工具查看变化)，
@@ -526,7 +500,6 @@ methods: {
 > `actions`则负责进行异步操作
 
 **需求: 一秒钟之后, 要给一个数 去修改`state`**
-
 
 **定义`actions`**
 
@@ -549,8 +522,6 @@ setAsyncCount () {
 }
 ```
 
-
-
 **辅助函数** -`mapActions`
 
 > `actions`也有辅助函数，可以将`action`导入到组件中
@@ -567,10 +538,6 @@ methods: {
 ```html
 <button @click="setAsyncCount(200)">+异步</button>
 ```
-
-
-
-
 
 ## 核心概念-`getters`
 
@@ -616,8 +583,6 @@ computed: {
  <div>{{ filterList }}</div>
 ```
 
-
-
 ## 核心概念 - 模块 `module` (进阶拓展)
 
 > **由于使用单一状态树，应用的所有状态会集中到一个比较大的对象。当应用变得非常复杂时，`store` 对象就有可能变得相当臃肿。**
@@ -625,7 +590,6 @@ computed: {
 这句话的意思是，如果把所有的状态都放在`state`中，当项目变得越来越大的时候，`Vuex`会变得越来越难以维护
 
 由此，又有了`Vuex`的模块化
-
 
 ### **模块定义** - 准备 `state`
 
@@ -701,8 +665,6 @@ modules: {
 },
 ```
 
-
-
 ### 命名空间 `namespaced`
 
 默认情况下，模块内部的 `action`、`mutation` 和 `getter` 是注册在**全局命名空间**的
@@ -749,7 +711,7 @@ export default {
 模块中的: this.$store.commit('模块名/mutation函数名', 参数)
 ```
 
-`namespaced: true` 后, 要添加映射, 可以加上模块名, 找对应模块的` state/mutations/actions/getters`
+`namespaced: true` 后, 要添加映射, 可以加上模块名, 找对应模块的`state/mutations/actions/getters`
 
 ```js
 computed: {
@@ -765,4 +727,3 @@ methods: {
   ...mapMutations('user', ['updateMsg'])
 }
 ```
-

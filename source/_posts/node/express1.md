@@ -14,7 +14,7 @@ categories:
 
 这里 用的`express 5` 请注意
 
-## 1.创建一个新的[路由器](http://expressjs.com/en/5x/api.html#router)对象。
+## 1.创建一个新的[路由器](http://expressjs.com/en/5x/api.html#router)对象
 
 ```js
 const router = express.Router([options])
@@ -99,8 +99,6 @@ app.use('/admin/api/rest/:resourse', router)
 // 在 index.js 中引入
 require('./routes/admin')(app)
 ```
-
-
 
 ## 5.使用CRUD 公共接口
 

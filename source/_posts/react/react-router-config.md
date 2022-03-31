@@ -29,37 +29,37 @@ const routes = [
     {
         component: Layout,
         routes: [
-			{
-			    path: '/',
-			    component: React.lazy(() => import('@/pages/blog')),
-			    exact: true,
-			    key: 'home'
-			},
-			{
-			    path: '/about',
-			    component: React.lazy(() => import('@/pages/about')),
-			    key: 'about'
-			},
-			{
-			    path: '/blog/:id',
-			    component: React.lazy(() => import('@/pages/blog/show')),
-			    key: 'blog-show'
-			},
-			{
-			    path: '/tag',
-			    component: React.lazy(() => import('@/pages/tag')),
-			    key: 'tag'
-			},
-			{
-			    path: '/category',
-			    component: React.lazy(() => import('@/pages/category')),
-			    key: 'category'
-			},
-			{
-			    path: '/archive',
-			    component: React.lazy(() => import('@/pages/archive')),
-			    key: 'archive'
-			},
+   {
+       path: '/',
+       component: React.lazy(() => import('@/pages/blog')),
+       exact: true,
+       key: 'home'
+   },
+   {
+       path: '/about',
+       component: React.lazy(() => import('@/pages/about')),
+       key: 'about'
+   },
+   {
+       path: '/blog/:id',
+       component: React.lazy(() => import('@/pages/blog/show')),
+       key: 'blog-show'
+   },
+   {
+       path: '/tag',
+       component: React.lazy(() => import('@/pages/tag')),
+       key: 'tag'
+   },
+   {
+       path: '/category',
+       component: React.lazy(() => import('@/pages/category')),
+       key: 'category'
+   },
+   {
+       path: '/archive',
+       component: React.lazy(() => import('@/pages/archive')),
+       key: 'archive'
+   },
             {
                 path: '/error',
                 component: ServerError,

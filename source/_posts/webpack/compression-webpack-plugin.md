@@ -10,8 +10,8 @@ categories:
 
 > 打包的时候开启gzip可以很大程度减少包的大小，非常适合于上线部署。更小的体积对于用户体验来说就意味着更快的加载速度以及更好的用户体验。
 
- ## Vue-cli3.0项目 安装依赖：`compression-webpack-plugin`
-   
+## Vue-cli3.0项目 安装依赖：`compression-webpack-plugin`
+
 ```bash
 　　npm install compression-webpack-plugin@6.0.5 -D
 ```
@@ -27,54 +27,54 @@ const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const productionGzipExtensions = ["js", "css"];
 
 function resolve(dir) {
-	return path.join(__dirname, dir)
+ return path.join(__dirname, dir)
 }
 module.exports = {
-	lintOnSave: false,
-	publicPath: './',
-	// 配置webpack打包
-	productionSourceMap: false,
-	configureWebpack: (config) => {
-		// 取消console打印    
-		config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
-		if (process.env.NODE_ENV === 'production') {
-			return {
-				plugins: [
-					new CompressionWebpackPlugin({
-						filename: "[path].gz[query]",
-						algorithm: "gzip",
-						test: new RegExp("\\.(" + productionGzipExtensions.join("|") + ")$"), //匹配文件名
-						threshold: 10240, //对10K以上的数据进行压缩
-						minRatio: 0.8,
-						deleteOriginalAssets: true //是否删除源文件
-					})
-				]
+ lintOnSave: false,
+ publicPath: './',
+ // 配置webpack打包
+ productionSourceMap: false,
+ configureWebpack: (config) => {
+  // 取消console打印    
+  config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
+  if (process.env.NODE_ENV === 'production') {
+   return {
+    plugins: [
+     new CompressionWebpackPlugin({
+      filename: "[path].gz[query]",
+      algorithm: "gzip",
+      test: new RegExp("\\.(" + productionGzipExtensions.join("|") + ")$"), //匹配文件名
+      threshold: 10240, //对10K以上的数据进行压缩
+      minRatio: 0.8,
+      deleteOriginalAssets: true //是否删除源文件
+     })
+    ]
 
-			}
-		}
-	},
-	chainWebpack: config => {
-		config.plugins.delete('preload') 
-		config.plugins.delete('prefetch')
-	},
-	// 第三方插件配置
-	pluginOptions: {
-		// ...
-		pwa: {
-			iconPaths: {
-				favicon32: './favicon.ico',
-				favicon16: './favicon.ico',
-				appleTouchIcon: './favicon.ico',
-				maskIcon: './favicon.ico',
-				msTileImage: './favicon.ico'
-			}
-		},
-	}
+   }
+  }
+ },
+ chainWebpack: config => {
+  config.plugins.delete('preload') 
+  config.plugins.delete('prefetch')
+ },
+ // 第三方插件配置
+ pluginOptions: {
+  // ...
+  pwa: {
+   iconPaths: {
+    favicon32: './favicon.ico',
+    favicon16: './favicon.ico',
+    appleTouchIcon: './favicon.ico',
+    maskIcon: './favicon.ico',
+    msTileImage: './favicon.ico'
+   }
+  },
+ }
 }
 
 ```
 
-## 服务器启用`gzip`：
+## 服务器启用`gzip`
 
 **在 `nginx/conf/nginx.conf` 中配置**
 
@@ -107,19 +107,19 @@ gzip
 
 ```bash
 server {
-	listen 6002;
-	server_name **.234.133.**;
+ listen 6002;
+ server_name **.234.133.**;
 
-	gzip on;
-	gzip_proxied any;
-	gzip_types
-		text/css
-		text/javascript
-		text/xml
-		text/plain
-		image/x-icon
-		application/javascript
-		application/x-javascript
-		application/json;
+ gzip on;
+ gzip_proxied any;
+ gzip_types
+  text/css
+  text/javascript
+  text/xml
+  text/plain
+  image/x-icon
+  application/javascript
+  application/x-javascript
+  application/json;
 }
 ```

@@ -15,7 +15,7 @@ categories:
 
 ## 二、如何创建Mixins？
 
-在`src`目录下创建一个`mixins`文件夹，文件夹下新建一个`index.js`文件。前面我们说了`mixins`是一个`js`对象，所以应该以对象的形式来定义`index`，在对象中我们可以和`vue`组件一样来定义我们的`data`、`components`、`methods `、`created`、`computed`等属性，并通过`export`导出该对象
+在`src`目录下创建一个`mixins`文件夹，文件夹下新建一个`index.js`文件。前面我们说了`mixins`是一个`js`对象，所以应该以对象的形式来定义`index`，在对象中我们可以和`vue`组件一样来定义我们的`data`、`components`、`methods`、`created`、`computed`等属性，并通过`export`导出该对象
 
 `mixins/index.js`
 
@@ -60,8 +60,6 @@ export default{
   }
   ```
 
-  
-
 ## 三、项目中如何使用混入
 
 在vue组件内，如果想将一些公共功能，如组件、方法、钩子函数等复用，混入是一个很好的选择。下面简单介绍一下混入的方式及特点。
@@ -70,32 +68,32 @@ export default{
 ![在这里插入图片描述](https://img-blog.csdnimg.cn/20200922202240508.png#pic_center)
 
 1. 定义混入对象
-   `common.js `就是我们要混入其它组件的内容：
+   `common.js`就是我们要混入其它组件的内容：
 
 ```javascript
 export default {
-	data(){
-	return {
+ data(){
+ return {
       msg: 'erwerwe',
       form:{
         a:'aaa'
       }
     }
-	},
-	filters: { //过滤器
-		numToString(value) {
-			return value.toString();
-		}
-	},
-	created(){ //钩子函数
-		    console.log('这是混入的组件')
-	},
-	computed: {   //计算属性
-		ids() {
-				return  !this.loading
-			 }
-	},
-	methods:{
+ },
+ filters: { //过滤器
+  numToString(value) {
+   return value.toString();
+  }
+ },
+ created(){ //钩子函数
+      console.log('这是混入的组件')
+ },
+ computed: {   //计算属性
+  ids() {
+    return  !this.loading
+    }
+ },
+ methods:{
      exm(){
       console.log('这是混入的exm方法')
       },
@@ -103,8 +101,8 @@ export default {
       console.log(this.msg)
     },
 
-	// 其它属性方法......
-		}
+ // 其它属性方法......
+  }
 }
 ```
 
