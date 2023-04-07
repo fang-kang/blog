@@ -3,14 +3,14 @@ title: keep-alive基本使用
 date: 2020-11-03 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/73twhs.webp
 tags:
- - vue
+  - vue
 categories:
   - vue
 ---
 
 ## keep-alive
 
-`<keep-alive>`是Vue的内置组件，能在组件切换过程中将状态保留在内存中，防止重复渲染DOM。
+`<keep-alive>`是 Vue 的内置组件，能在组件切换过程中将状态保留在内存中，防止重复渲染 DOM。
 
 {% note success %}
 
@@ -31,11 +31,11 @@ categories:
 // 组件
 export default {
   name: 'test-keep-alive',
-  data () {
+  data() {
     return {
-        includedComponents: "test-keep-alive"
+      includedComponents: 'test-keep-alive',
     }
-  }
+  },
 }
 ```
 
@@ -64,22 +64,20 @@ export default {
   <!-- 将不缓存name为test-keep-alive的组件 -->
   <component></component>
 </keep-alive>
-
-
 ```
 
-**结合router，缓存部分页面**
+**结合 router，缓存部分页面**
 
-​     使用$route.meta的keepAlive属性：
+​ 使用$route.meta 的 keepAlive 属性：
 
 ```html
 <keep-alive>
-    <router-view v-if="$route.meta.keepAlive"></router-view>
+  <router-view v-if="$route.meta.keepAlive"></router-view>
 </keep-alive>
 <router-view v-if="!$route.meta.keepAlive"></router-view>
 ```
 
-需要在`router`中设置router的元信息meta：
+需要在`router`中设置 router 的元信息 meta：
 
 ```javascript
 //...router.js
@@ -90,23 +88,23 @@ export default new Router({
       name: 'Hello',
       component: Hello,
       meta: {
-        keepAlive: false // 不需要缓存
-      }
+        keepAlive: false, // 不需要缓存
+      },
     },
     {
       path: '/page1',
       name: 'Page1',
       component: Page1,
       meta: {
-        keepAlive: true // 需要被缓存
-      }
-    }
-  ]
+        keepAlive: true, // 需要被缓存
+      },
+    },
+  ],
 })
 ```
 
 ## 生命周期钩子函数
 
-keep-alive生命周期钩子函数：activated、deactivated
+keep-alive 生命周期钩子函数：activated、deactivated
 
-使用`<keep-alive>`会将数据保留在内存中，如果要在每次进入页面的时候获取最新的数据，需要在`activated`阶段获取数据，承担原来created钩子中获取数据的任务。
+使用`<keep-alive>`会将数据保留在内存中，如果要在每次进入页面的时候获取最新的数据，需要在`activated`阶段获取数据，承担原来 created 钩子中获取数据的任务。

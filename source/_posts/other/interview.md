@@ -3,9 +3,9 @@ title: JavaScript 基础面试
 date: 2021-03-02 ：17:14
 index_img: https://fang-kang.gitee.io/blog-img/1.png
 tags:
- - Js
+  - Js
 categories:
- - 其他
+  - 其他
 ---
 
 # JavaScript 基础
@@ -53,13 +53,13 @@ Math.pow(2, 53) ，53 为有效数字，会发生截断，等于 JS 能支持的
 
 ```javascript
 function shallowClone(obj) {
-  let cloneObj = {};
-  
+  let cloneObj = {}
+
   for (let i in obj) {
-    cloneObj[i] = obj[i];
+    cloneObj[i] = obj[i]
   }
-  
-  return cloneObj;
+
+  return cloneObj
 }
 复制代码
 ```
@@ -75,67 +75,82 @@ function shallowClone(obj) {
 ```javascript
 function deepCopy(obj) {
   if (typeof obj === 'object') {
-    var result = obj.constructor === Array ? [] : {};
-    
+    var result = obj.constructor === Array ? [] : {}
+
     for (var i in obj) {
-      result[i] = typeof obj[i] === 'object' ? deepCopy(obj[i]) : obj[i];
+      result[i] = typeof obj[i] === 'object' ? deepCopy(obj[i]) : obj[i]
     }
   } else {
-    var result = obj;
+    var result = obj
   }
-  
-  return result;
+
+  return result
 }
 复制代码
 ```
 
 ## 问：事件流
 
-事件流是网页元素接收事件的顺序，"DOM2级事件"规定的事件流包括三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段。 首先发生的事件捕获，为截获事件提供机会。然后是实际的目标接受事件。最后一个阶段是时间冒泡阶段，可以在这个阶段对事件做出响应。 虽然捕获阶段在规范中规定不允许响应事件，但是实际上还是会执行，所以有两次机会获取到目标对象。
+事件流是网页元素接收事件的顺序，"DOM2 级事件"规定的事件流包括三个阶段：事件捕获阶段、处于目标阶段、事件冒泡阶段。 首先发生的事件捕获，为截获事件提供机会。然后是实际的目标接受事件。最后一个阶段是时间冒泡阶段，可以在这个阶段对事件做出响应。 虽然捕获阶段在规范中规定不允许响应事件，但是实际上还是会执行，所以有两次机会获取到目标对象。
 
 ```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>事件冒泡</title>
-</head>
-<body>
+  </head>
+  <body>
     <div>
-        <p id="parEle">我是父元素    <span id="sonEle">我是子元素</span></p>
+      <p id="parEle">我是父元素 <span id="sonEle">我是子元素</span></p>
     </div>
-</body>
+  </body>
 </html>
 <script type="text/javascript">
-var sonEle = document.getElementById('sonEle');
-var parEle = document.getElementById('parEle');
+  var sonEle = document.getElementById('sonEle')
+  var parEle = document.getElementById('parEle')
 
-parEle.addEventListener('click', function () {
-    alert('父级 冒泡');
-}, false);
-parEle.addEventListener('click', function () {
-    alert('父级 捕获');
-}, true);
+  parEle.addEventListener(
+    'click',
+    function () {
+      alert('父级 冒泡')
+    },
+    false
+  )
+  parEle.addEventListener(
+    'click',
+    function () {
+      alert('父级 捕获')
+    },
+    true
+  )
 
-sonEle.addEventListener('click', function () {
-    alert('子级冒泡');
-}, false);
-sonEle.addEventListener('click', function () {
-    alert('子级捕获');
-}, true);
-
+  sonEle.addEventListener(
+    'click',
+    function () {
+      alert('子级冒泡')
+    },
+    false
+  )
+  sonEle.addEventListener(
+    'click',
+    function () {
+      alert('子级捕获')
+    },
+    true
+  )
 </script>
 复制代码
 ```
 
-当容器元素及嵌套元素，即在`捕获阶段`又在`冒泡阶段`调用事件处理程序时：**事件按DOM事件流的顺序**执行事件处理程序：
+当容器元素及嵌套元素，即在`捕获阶段`又在`冒泡阶段`调用事件处理程序时：**事件按 DOM 事件流的顺序**执行事件处理程序：
 
 - 父级捕获
 - 子级冒泡
 - 子级捕获
 - 父级冒泡
 
-且当事件处于目标阶段时，事件调用顺序决定于绑定事件的**书写顺序**，按上面的例子为，先调用冒泡阶段的事件处理程序，再调用捕获阶段的事件处理程序。依次alert出“子集冒泡”，“子集捕获”。
+且当事件处于目标阶段时，事件调用顺序决定于绑定事件的**书写顺序**，按上面的例子为，先调用冒泡阶段的事件处理程序，再调用捕获阶段的事件处理程序。依次 alert 出“子集冒泡”，“子集捕获”。
 
 ### IE 兼容
 
@@ -156,7 +171,7 @@ sonEle.addEventListener('click', function () {
 
 - DOM0 级事件，直接在 html 元素上绑定 on-event，比如 onclick，取消的话，dom.onclick = null，同一个事件只能有一个处理程序，后面的会覆盖前面的。
 - DOM2 级事件，通过 addEventListener 注册事件，通过 removeEventListener 来删除事件，一个事件可以有多个事件处理程序，按顺序执行，捕获事件和冒泡事件
-- DOM3级事件，增加了事件类型，比如 UI 事件，焦点事件，鼠标事件
+- DOM3 级事件，增加了事件类型，比如 UI 事件，焦点事件，鼠标事件
 
 ### 参考链接
 
@@ -173,7 +188,7 @@ sonEle.addEventListener('click', function () {
 
 ## 问：new 一个构造函数，如果函数返回 `return {}` 、 `return null` ， `return 1` ， `return true` 会发生什么情况？
 
-如果函数返回一个对象，那么new 这个函数调用返回这个函数的返回对象，否则返回 new 创建的新对象
+如果函数返回一个对象，那么 new 这个函数调用返回这个函数的返回对象，否则返回 new 创建的新对象
 
 ## 问：`symbol` 有什么用处
 
@@ -187,7 +202,7 @@ Symbol.for() 可以在全局访问 symbol
 
 闭包是指有权访问另外一个函数作用域中的变量的函数
 
-JavaScript代码的整个执行过程，分为两个阶段，代码编译阶段与代码执行阶段。编译阶段由编译器完成，将代码翻译成可执行代码，这个阶段作用域规则会确定。执行阶段由引擎完成，主要任务是执行可执行代码，执行上下文在这个阶段创建。
+JavaScript 代码的整个执行过程，分为两个阶段，代码编译阶段与代码执行阶段。编译阶段由编译器完成，将代码翻译成可执行代码，这个阶段作用域规则会确定。执行阶段由引擎完成，主要任务是执行可执行代码，执行上下文在这个阶段创建。
 
 ![image.png](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/c508a8bbade94a699d0baad47e5d43ed~tplv-k3u1fbpfcp-zoom-1.image)
 
@@ -232,7 +247,7 @@ Not a Number，表示非数字，typeof NaN === 'number'
 ### 字符串和数字
 
 - "+" 操作符，如果有一个为字符串，那么都转化到字符串然后执行字符串拼接
-- "-" 操作符，转换为数字，相减 (-a, a * 1 a/1) 都能进行隐式强制类型转换
+- "-" 操作符，转换为数字，相减 (-a, a \* 1 a/1) 都能进行隐式强制类型转换
 
 ```javascript
 [] + {} 和 {} + []
@@ -297,11 +312,11 @@ Not a Number，表示非数字，typeof NaN === 'number'
 
 ```javascript
 function foo() {
-  console.log(this.a); 
+  console.log(this.a)
 }
 
-var a = 2;
-foo();
+var a = 2
+foo()
 复制代码
 ```
 
@@ -309,7 +324,7 @@ foo();
 
 ```javascript
 function foo() {
-  console.log(this.a);
+  console.log(this.a)
 }
 
 var obj = {
@@ -317,7 +332,7 @@ var obj = {
   foo: foo,
 }
 
-obj.foo(); // 2
+obj.foo() // 2
 复制代码
 ```
 
@@ -325,14 +340,14 @@ obj.foo(); // 2
 
 ```javascript
 function foo() {
-  console.log(this.a);
+  console.log(this.a)
 }
 
 var obj = {
-  a: 2
-};
+  a: 2,
+}
 
-foo.call(obj);
+foo.call(obj)
 复制代码
 ```
 
@@ -340,22 +355,22 @@ foo.call(obj);
 
 ```javascript
 function foo(something) {
-  console.log(this.a, something);
-  
-  return this.a + something;
+  console.log(this.a, something)
+
+  return this.a + something
 }
 
 function bind(fn, obj) {
-  return function() {
-    return fn.apply(obj, arguments);
-  };
+  return function () {
+    return fn.apply(obj, arguments)
+  }
 }
 
 var obj = {
-  a: 2
+  a: 2,
 }
 
-var bar = bind(foo, obj);
+var bar = bind(foo, obj)
 复制代码
 ```
 
@@ -365,10 +380,10 @@ New 绑定，new 调用函数会创建一个全新的对象，并将这个对象
 
 ```javascript
 function foo(a) {
-  this.a = a;
+  this.a = a
 }
 
-var bar = new foo(2);
+var bar = new foo(2)
 console.log(bar.a)
 复制代码
 ```
@@ -379,42 +394,42 @@ console.log(bar.a)
 // call
 
 Function.prototype.call = function (context, ...args) {
-  context = context || window;
-  
-  const fnSymbol = Symbol("fn");
-  context[fnSymbol] = this;
-  
-  context[fnSymbol](...args);
-  delete context[fnSymbol];
+  context = context || window
+
+  const fnSymbol = Symbol('fn')
+  context[fnSymbol] = this
+
+  context[fnSymbol](...args)
+  delete context[fnSymbol]
 }
 复制代码
 // apply
 
 Function.prototype.apply = function (context, argsArr) {
-  context = context || window;
-  
-  const fnSymbol = Symbol("fn");
-  context[fnSymbol] = this;
-  
-  context[fnSymbol](...argsArr);
-  delete context[fnSymbol];
+  context = context || window
+
+  const fnSymbol = Symbol('fn')
+  context[fnSymbol] = this
+
+  context[fnSymbol](...argsArr)
+  delete context[fnSymbol]
 }
 复制代码
 // bind
 
 Function.prototype.bind = function (context, ...args) {
-  context = context || window;
-  const fnSymbol = Symbol("fn");
-  context[fnSymbol] = this;
-  
+  context = context || window
+  const fnSymbol = Symbol('fn')
+  context[fnSymbol] = this
+
   return function (..._args) {
-    args = args.concat(_args);
-    
-    context[fnSymbol](...args);
-    delete context[fnSymbol];   
+    args = args.concat(_args)
+
+    context[fnSymbol](...args)
+    delete context[fnSymbol]
   }
 }
-    
+
 复制代码
 ```
 
@@ -427,55 +442,53 @@ setTimeout 按照顺序放到队列里面，然后等待函数调用栈清空之
 ```javascript
 class MyPromise {
   constructor(fn) {
-    this.resolvedCallbacks = [];
-    this.rejectedCallbacks = [];
-    
-    this.state = 'PENDING';
-    this.value = '';
-    
-    fn(this.resolve.bind(this), this.reject.bind(this));
-    
+    this.resolvedCallbacks = []
+    this.rejectedCallbacks = []
+
+    this.state = 'PENDING'
+    this.value = ''
+
+    fn(this.resolve.bind(this), this.reject.bind(this))
   }
-  
+
   resolve(value) {
     if (this.state === 'PENDING') {
-      this.state = 'RESOLVED';
-      this.value = value;
-      
-      this.resolvedCallbacks.map(cb => cb(value));   
+      this.state = 'RESOLVED'
+      this.value = value
+
+      this.resolvedCallbacks.map(cb => cb(value))
     }
   }
-  
+
   reject(value) {
     if (this.state === 'PENDING') {
-      this.state = 'REJECTED';
-      this.value = value;
-      
-      this.rejectedCallbacks.map(cb => cb(value));
+      this.state = 'REJECTED'
+      this.value = value
+
+      this.rejectedCallbacks.map(cb => cb(value))
     }
   }
-  
+
   then(onFulfilled, onRejected) {
     if (this.state === 'PENDING') {
-      this.resolvedCallbacks.push(onFulfilled);
-      this.rejectedCallbacks.push(onRejected);
-      
+      this.resolvedCallbacks.push(onFulfilled)
+      this.rejectedCallbacks.push(onRejected)
     }
-    
+
     if (this.state === 'RESOLVED') {
-      onFulfilled(this.value);
+      onFulfilled(this.value)
     }
-    
+
     if (this.state === 'REJECTED') {
-      onRejected(this.value);
+      onRejected(this.value)
     }
   }
 }
-      
+
 复制代码
 ```
 
-## 问：js脚本加载问题，async、defer问题
+## 问：js 脚本加载问题，async、defer 问题
 
 - 如果依赖其他脚本和 DOM 结果，使用 defer
 - 如果与 DOM 和其他脚本依赖不强时，使用 async
@@ -488,9 +501,9 @@ class MyPromise {
 
 Object.keys(obj).length === 0
 
-手写题：在线编程，getUrlParams(url,key); 就是很简单的获取url的某个参数的问题，但要考虑边界情况，多个返回值等等
+手写题：在线编程，getUrlParams(url,key); 就是很简单的获取 url 的某个参数的问题，但要考虑边界情况，多个返回值等等
 
-## 问： <script src=’xxx’ ’xxx’/>外部js文件先加载还是onload先执行，为什么？
+## 问： <script src=’xxx’ ’xxx’/>外部 js 文件先加载还是 onload 先执行，为什么？
 
 onload 是所以加载完成之后执行的
 
@@ -509,7 +522,7 @@ onclick 和 addEventListener
 
 ```javascript
 function Person(name) {
-  this.name = name;
+  this.name = name
 }
 
 Person.prototype.constructor = Person
@@ -570,7 +583,7 @@ JS 严格意义上来说分为：语言标准部分（ECMAScript）+ 宿主环�
 
 Array.isArray
 
-## 问： 函数中的arguments是数组吗？类数组转数组的方法了解一下？
+## 问： 函数中的 arguments 是数组吗？类数组转数组的方法了解一下？
 
 是类数组，是属于鸭子类型的范畴，长得像数组，
 
@@ -582,9 +595,9 @@ Array.isArray
 
 为 JS 添加类型支持，以及提供最新版的 ES 语法的支持，是的利于团队协作和排错，开发大型项目
 
-## 问：PWA使用过吗？serviceWorker的使用原理是啥？
+## 问：PWA 使用过吗？serviceWorker 的使用原理是啥？
 
-`渐进式网络应用（PWA）`是谷歌在2015年底提出的概念。基本上算是web应用程序，但在外观和感觉上与`原生app`类似。支持`PWA`的网站可以提供脱机工作、推送通知和设备硬件访问等功能。
+`渐进式网络应用（PWA）`是谷歌在 2015 年底提出的概念。基本上算是 web 应用程序，但在外观和感觉上与`原生app`类似。支持`PWA`的网站可以提供脱机工作、推送通知和设备硬件访问等功能。
 
 `Service Worker`是浏览器在后台独立于网页运行的脚本，它打开了通向不需要网页或用户交互的功能的大门。 现在，它们已包括如推送通知和后台同步等功能。 将来，`Service Worker`将会支持如定期同步或地理围栏等其他功能。 本教程讨论的核心功能是拦截和处理网络请求，包括通过程序来管理缓存中的响应。
 
@@ -598,38 +611,38 @@ Object.create() 会创建一个 “新” 对象，然后将此对象内部的 [
 
 ```javascript
 function Foo(name) {
-  this.name = name;
+  this.name = name
 }
 
 Foo.prototype.myName = function () {
-  return this.name;
+  return this.name
 }
 
 // 继承属性，通过借用构造函数调用
 function Bar(name, label) {
-  Foo.call(this, name);
-  this.label = label;
+  Foo.call(this, name)
+  this.label = label
 }
 
 // 继承方法，创建备份
-Bar.prototype = Object.create(Foo.prototype);
+Bar.prototype = Object.create(Foo.prototype)
 
 // 必须设置回正确的构造函数，要不然在会发生判断类型出错
-Bar.prototype.constructor = Bar;
+Bar.prototype.constructor = Bar
 
- // 必须在上一步之后
+// 必须在上一步之后
 Bar.prototype.myLabel = function () {
-  return this.label;
+  return this.label
 }
 
-var a = new Bar("a", "obj a");
+var a = new Bar('a', 'obj a')
 
-a.myName(); // "a"
-a.myLabel(); // "obj a"
+a.myName() // "a"
+a.myLabel() // "obj a"
 复制代码
 ```
 
-## 问:如果一个构造函数，bind了一个对象，用这个构造函数创建出的实例会继承这个对象的属性吗？为什么？
+## 问:如果一个构造函数，bind 了一个对象，用这个构造函数创建出的实例会继承这个对象的属性吗？为什么？
 
 不会继承，因为根据 this 绑定四大规则，new 绑定的优先级高于 bind 显示绑定，通过 new 进行构造函数调用时，会创建一个新对象，这个新对象会代替 bind 的对象绑定，作为此函数的 this，并且在此函数没有返回对象的情况下，返回这个新建的对象
 
@@ -655,21 +668,21 @@ a.myLabel(); // "obj a"
 
 ```javascript
 function foo() {
-  return (a) => {
-    console.log(this.a);
+  return a => {
+    console.log(this.a)
   }
 }
 
 var obj1 = {
-  a: 2
+  a: 2,
 }
 
 var obj2 = {
-  a: 3 
+  a: 3,
 }
 
-var bar = foo.call(obj1);
-bar.call(obj2);
+var bar = foo.call(obj1)
+bar.call(obj2)
 复制代码
 ```
 
@@ -699,10 +712,10 @@ bar.call(obj2);
 - process.nextTick > Promise
 
 ```javascript
-for (const macroTask of macroTaskQueue) {  
-  handleMacroTask();    
-  for (const microTask of microTaskQueue) {    
-   handleMicroTask(microTask);  
+for (const macroTask of macroTaskQueue) {
+  handleMacroTask()
+  for (const microTask of microTaskQueue) {
+    handleMicroTask(microTask)
   }
 }
 复制代码
@@ -716,21 +729,21 @@ for (const macroTask of macroTaskQueue) {
 
 ```javascript
 function flatten(arr) {
-  let result = [];
+  let result = []
 
   for (let i = 0; i < arr.length; i++) {
     if (Array.isArray(arr[i])) {
-      result = result.concat(flatten(arr[i]));
+      result = result.concat(flatten(arr[i]))
     } else {
-      result = result.concat(arr[i]);
+      result = result.concat(arr[i])
     }
   }
 
-  return result;
+  return result
 }
 
-const a = [1, [2, [3, 4]]];
-console.log(flatten(a));
+const a = [1, [2, [3, 4]]]
+console.log(flatten(a))
 
 复制代码
 ```
@@ -743,18 +756,18 @@ console.log(flatten(a));
 
 ```javascript
 function createCurry(func, args) {
-  var argity = func.length;
-  var args = args || [];
-  
+  var argity = func.length
+  var args = args || []
+
   return function () {
-    var _args = [].slice.apply(arguments);
-    args.push(..._args);
-    
+    var _args = [].slice.apply(arguments)
+    args.push(..._args)
+
     if (args.length < argity) {
-      return createCurry.call(this, func, args);
+      return createCurry.call(this, func, args)
     }
-    
-    return func.apply(this, args);
+
+    return func.apply(this, args)
   }
 }
 复制代码
@@ -775,7 +788,7 @@ let 会产生临时性死区，在当前的执行上下文中，会进行变量�
 
 函数在运行的时候，会首先创建执行上下文，然后将执行上下文入栈，然后当此执行上下文处于栈顶时，开始运行执行上下文。
 
-在创建执行上下文的过程中会做三件事：创建变量对象，创建作用域链，确定 this 指向，其中创建变量对象的过程中，首先会为 arguments 创建一个属性，值为 arguments，然后会扫码 function 函数声明，创建一个同名属性，值为函数的引用，接着会扫码 var 变量声明，创建一个同名属性，值为 undefined，这就是变量提升 ****问：**如何看待 PWA App、原生 App 以及 Flutter 和 React Native 这种前端驱动的开发模式？
+在创建执行上下文的过程中会做三件事：创建变量对象，创建作用域链，确定 this 指向，其中创建变量对象的过程中，首先会为 arguments 创建一个属性，值为 arguments，然后会扫码 function 函数声明，创建一个同名属性，值为函数的引用，接着会扫码 var 变量声明，创建一个同名属性，值为 undefined，这就是变量提升 \***\*问：**如何看待 PWA App、原生 App 以及 Flutter 和 React Native 这种前端驱动的开发模式？
 
 ## instance 如何使用
 
@@ -792,4 +805,4 @@ let 会产生临时性死区，在当前的执行上下文中，会进行变量�
 - [mp.weixin.qq.com/s/bHclDpsGd…](https://mp.weixin.qq.com/s/bHclDpsGdfaZQT8u9VRAAw)
 - [www.jianshu.com/p/cd3fee40e…](https://www.jianshu.com/p/cd3fee40ef59)
 
-[本文转自https://juejin.cn/post/6934500357091360781](https://juejin.cn/post/6934500357091360781)
+[本文转自 https://juejin.cn/post/6934500357091360781](https://juejin.cn/post/6934500357091360781)

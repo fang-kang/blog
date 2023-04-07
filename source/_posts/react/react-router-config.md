@@ -3,7 +3,7 @@ title: react-router-config的使用
 date: 2020-12-21 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/1.jpg
 tags:
- - react
+  - react
 categories:
   - react
 ---
@@ -17,65 +17,64 @@ categories:
 在`routes/index.jsx`中
 
 ```jsx
- //eslint-disable-next-line
-import React from 'react';
+//eslint-disable-next-line
+import React from 'react'
 
-import Layout from '@/layouts';
+import Layout from '@/layouts'
 
-import ServerError from '@/pages/500';
-import NotFound from '@/pages/404';
+import ServerError from '@/pages/500'
+import NotFound from '@/pages/404'
 
 const routes = [
-    {
-        component: Layout,
-        routes: [
-   {
-       path: '/',
-       component: React.lazy(() => import('@/pages/blog')),
-       exact: true,
-       key: 'home'
-   },
-   {
-       path: '/about',
-       component: React.lazy(() => import('@/pages/about')),
-       key: 'about'
-   },
-   {
-       path: '/blog/:id',
-       component: React.lazy(() => import('@/pages/blog/show')),
-       key: 'blog-show'
-   },
-   {
-       path: '/tag',
-       component: React.lazy(() => import('@/pages/tag')),
-       key: 'tag'
-   },
-   {
-       path: '/category',
-       component: React.lazy(() => import('@/pages/category')),
-       key: 'category'
-   },
-   {
-       path: '/archive',
-       component: React.lazy(() => import('@/pages/archive')),
-       key: 'archive'
-   },
-            {
-                path: '/error',
-                component: ServerError,
-                key: 'server-error'
-            },
-            {
-                path: '*',
-                component: NotFound,
-                key: 'not-found'
-            },
-        ]
-    },
+  {
+    component: Layout,
+    routes: [
+      {
+        path: '/',
+        component: React.lazy(() => import('@/pages/blog')),
+        exact: true,
+        key: 'home',
+      },
+      {
+        path: '/about',
+        component: React.lazy(() => import('@/pages/about')),
+        key: 'about',
+      },
+      {
+        path: '/blog/:id',
+        component: React.lazy(() => import('@/pages/blog/show')),
+        key: 'blog-show',
+      },
+      {
+        path: '/tag',
+        component: React.lazy(() => import('@/pages/tag')),
+        key: 'tag',
+      },
+      {
+        path: '/category',
+        component: React.lazy(() => import('@/pages/category')),
+        key: 'category',
+      },
+      {
+        path: '/archive',
+        component: React.lazy(() => import('@/pages/archive')),
+        key: 'archive',
+      },
+      {
+        path: '/error',
+        component: ServerError,
+        key: 'server-error',
+      },
+      {
+        path: '*',
+        component: NotFound,
+        key: 'not-found',
+      },
+    ],
+  },
+]
 
-];
-
-export default routes;
+export default routes
 ```
 
 仔细阅读代码，我们发现配置文件本质就是一个数组，数组的每一项都有如下属性：`path`、`component`、`routes`、`render`，（注意：`render`和`component`只能使用一个）
@@ -89,48 +88,48 @@ export default routes;
 3. 将第二步的计算结果放到`Router`组件内部，代码如下：
 
 ```jsx
-import {
-  renderRoutes
-} from 'react-router-config';
+import { renderRoutes } from 'react-router-config'
 
-import routes from './routes/';
+import routes from './routes/'
 
 function App() {
-  return renderRoutes(routes);
+  return renderRoutes(routes)
 }
 
-export default App;
+export default App
 ```
 
 4. 这里需要注意，如果使用了嵌套路由，就需要这一步，如果没有嵌套路由，则忽略这一步。那就是在使用了嵌套路由的组件中设置占位符，本质是按照`react-router`的规则配置路由，我们在`Layout`组件中使用了嵌套路由`Layout`的代码如下：
 
 ```jsx
-import React, { Suspense } from 'react';
-import { Spin, } from 'antd';
-import { renderRoutes } from 'react-router-config';
+import React, { Suspense } from 'react'
+import { Spin } from 'antd'
+import { renderRoutes } from 'react-router-config'
 
-import Header from '@/components/header';
-import Footer from '@/components/footer';
+import Header from '@/components/header'
+import Footer from '@/components/footer'
 
 const Loading = () => {
-    return (
-        <div style={{ width: '100%', textAlign: 'center' }}><Spin /></div>
-    )
-};
-
-const BlogLayout = props => {
-    return <>
-        <Header />
-        <div className='blogs-body'>
-            <Suspense fallback={<Loading />}>
-                {renderRoutes(props.route.routes)}
-            </Suspense >
-        </div>
-        <Footer />
-    </>
+  return (
+    <div style={{ width: '100%', textAlign: 'center' }}>
+      <Spin />
+    </div>
+  )
 }
 
-export default BlogLayout;
+const BlogLayout = props => {
+  return (
+    <>
+      <Header />
+      <div className="blogs-body">
+        <Suspense fallback={<Loading />}>{renderRoutes(props.route.routes)}</Suspense>
+      </div>
+      <Footer />
+    </>
+  )
+}
+
+export default BlogLayout
 ```
 
 以上便是`react-router-config`的使用步骤，希望对你有所帮助。

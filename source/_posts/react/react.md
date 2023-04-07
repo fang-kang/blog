@@ -4,10 +4,11 @@ date: 2020-12-10 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/3.png
 sticky: 1
 tags:
- - react
+  - react
 categories:
- -  react
+  - react
 ---
+
 ## 一、React 入门
 
 ### 1.1 React 基本认识
@@ -48,10 +49,10 @@ React_DeveloperTools 浏览器插件
 a. React 提供的 API 来创建（纯 JS，一般不用）
 
 ```jsx
-var vDom = React.createElement('h1', {id: myId}, msg)
+var vDom = React.createElement('h1', { id: myId }, msg)
 ```
 
- b. JSX 语法（需要 babel 转换为 js）
+b. JSX 语法（需要 babel 转换为 js）
 
 ```jsx
 var vDom = <h1 id={myId}>{msg}</h1>
@@ -61,7 +62,7 @@ var vDom = <h1 id={myId}>{msg}</h1>
 
 3.我们编码时基本只需要操作 react 的虚拟 DOM 的相关数据，react 会转换为真实的 DOM 变化从而更新界面（因为虚拟 DOM 很“轻”，而真实 DOM 很“重”；真实 DOM 改变会重绘，而虚拟 DOM 变化不会更新界面，只有在渲染后才更新）
 
-> 在 Web 开发中，我们总需要将变化的数据实时反应到 UI 上，这时就需要对 DOM 进行操作。而复杂或频繁的DOM操作通常是性能瓶颈产生的原因，React 为此引入了虚拟 DOM（Virtual DOM）的机制：
+> 在 Web 开发中，我们总需要将变化的数据实时反应到 UI 上，这时就需要对 DOM 进行操作。而复杂或频繁的 DOM 操作通常是性能瓶颈产生的原因，React 为此引入了虚拟 DOM（Virtual DOM）的机制：
 >
 > 在浏览器端用 JS 实现了一套 DOM API。基于 React 进行开发时所有的 DOM 构造都是通过虚拟 DOM 进行，每当数据变化时，React 都会重新构建整个 DOM 树，然后 React 将当前整个 DOM 树和上一次的 DOM 树进行对比，得到 DOM 结构的区别，然后仅仅将需要变化的部分进行实际的浏览器 DOM 更新。而且 React 能够批处理虚拟 DOM 的刷新，在一个事件循环（Event Loop）内的两次数据变化会被合并，例如你连续的先将节点内容从 A 变成 B，然后又从 B 变成 A，React 会认为 UI 不发生任何变化，而如果通过手动控制，这种逻辑通常是极其复杂的。尽管每一次都需要构造完整的虚拟 DOM 树，但是因为虚拟 DOM 是内存数据，性能是极高的（很“轻”），而对实际 DOM 进行操作的仅仅是 Diff 部分，因而能达到提高性能的目的。
 >
@@ -75,11 +76,11 @@ var vDom = <h1 id={myId}>{msg}</h1>
 
 3.作用：用来创建 react 虚拟 DOM（元素）对象
 
- a. `var vDom = <h1>Hello JSX!</h1>`
+a. `var vDom = <h1>Hello JSX!</h1>`
 
- b. 注意1：它不是字符串，也不是 HTML/XML 标签
+b. 注意 1：它不是字符串，也不是 HTML/XML 标签
 
- c. 注意2：它最终产生的就是一个 JS 对象
+c. 注意 2：它最终产生的就是一个 JS 对象
 
 4.标签名任意：HTML 标签或其它标签（可以自定义）
 
@@ -87,17 +88,17 @@ var vDom = <h1 id={myId}>{msg}</h1>
 
 6.基本语法规则
 
- a. 遇到 '<' 开头的代码，以标签的语法解析：html 同名标签转换为 html 同名元素，其它标签需要特别解析
+a. 遇到 '<' 开头的代码，以标签的语法解析：html 同名标签转换为 html 同名元素，其它标签需要特别解析
 
- b. 遇到 '{' 开头的代码，以 JS 语法解析：**标签中的 js 代码必须用 {} 包含**
+b. 遇到 '{' 开头的代码，以 JS 语法解析：**标签中的 js 代码必须用 {} 包含**
 
- 也就是说：js 中可以直接嵌套<标签>，但标签要嵌套 js 需要放在 {} 中
+也就是说：js 中可以直接嵌套<标签>，但标签要嵌套 js 需要放在 {} 中
 
 7.babel.js 的作用
 
- a. 浏览器不能直接解析 JSX 代码，需要 babel 转译为纯 JS 的代码才能运行
+a. 浏览器不能直接解析 JSX 代码，需要 babel 转译为纯 JS 的代码才能运行
 
- b. 只要用了 JSX，都要在 script 标签中加上 `type="text/babel"` 来声明需要 babel 来处理
+b. 只要用了 JSX，都要在 script 标签中加上 `type="text/babel"` 来声明需要 babel 来处理
 
 #### 1.3.3 渲染虚拟 DOM(元素)
 
@@ -107,9 +108,9 @@ var vDom = <h1 id={myId}>{msg}</h1>
 
 3.参数说明
 
- a. 参数一：纯 js 或 jsx 创建的虚拟 dom 对象
+a. 参数一：纯 js 或 jsx 创建的虚拟 dom 对象
 
- b. 参数二：用来包含虚拟 DOM 元素的真实 dom 元素对象(一般是一个 div)
+b. 参数二：用来包含虚拟 DOM 元素的真实 dom 元素对象(一般是一个 div)
 
 ### 1.4 模块与组件、模块化与组件化的理解
 
@@ -169,7 +170,7 @@ ReactDOM.render(<MyComponent />, document.getElementById('example1'))
 - 虚拟 DOM 元素只能有一个根元素
 - 虚拟 DOM 元素必须有结束标签
 
-4.render() 渲染组件标签的基本流程：
+  4.render() 渲染组件标签的基本流程：
 
 1. React 内部会创建组件实例对象
 2. 得到包含的虚拟 DOM 并解析为真实 DOM
@@ -256,9 +257,9 @@ constructor(props) {
 
 1.组件内的标签都可以定义 ref 属性来标识自己
 
- a. `<input type="text" ref={input => this.msgInput = input} />`
+a. `<input type="text" ref={input => this.msgInput = input} />`
 
- b. ref 中的回调函数在组件初始化渲染完或卸载时自动调用（将 input 这个元素赋给组件实例对象的 this.msgInput）
+b. ref 中的回调函数在组件初始化渲染完或卸载时自动调用（将 input 这个元素赋给组件实例对象的 this.msgInput）
 
 2.在组件中可以通过 this.msgInput.value 来得到对应的真实 DOM 元素的值
 
@@ -268,9 +269,9 @@ constructor(props) {
 
 1.通过 onXxx 属性指定组件的事件处理函数（如：onClick、onBlur，注意需要大写）
 
- a. React 使用的是自定义（合成）事件，而不是使用的原生 DOM 事件
+a. React 使用的是自定义（合成）事件，而不是使用的原生 DOM 事件
 
- b. React 中的事件是通过事件委托方式处理的（委托给组件最外层的元素）
+b. React 中的事件是通过事件委托方式处理的（委托给组件最外层的元素）
 
 2.通过 event.target 得到发生事件的 DOM 元素对象
 
@@ -288,9 +289,9 @@ handleFocus(event) {
 
 2.在组件类中自定义的方法中 this 为 null
 
- a. 强制绑定 this：通过函数对象的 bind()
+a. 强制绑定 this：通过函数对象的 bind()
 
- b. 箭头函数（ES6模块化编码时才能使用）
+b. 箭头函数（ES6 模块化编码时才能使用）
 
 ### 2.3 组件的组合
 
@@ -302,9 +303,9 @@ handleFocus(event) {
 
 3.实现动态组件
 
- a. 动态显示初始化数据（数据定义在哪一个组件中）
+a. 动态显示初始化数据（数据定义在哪一个组件中）
 
- b. 交互功能（从绑定事件监听开始）
+b. 交互功能（从绑定事件监听开始）
 
 ### 2.4 收集表单数据
 
@@ -352,7 +353,7 @@ b. **非受控组件**：需要时才手动读取表单输入框中的数据（r
 - Update：更新过程，组件被重新渲染
 - Unmount：卸载过程，被移出真实 DOM
 
-2.**生命周期流程**：
+  2.**生命周期流程**：
 
 1）创建阶段（第一次初始化渲染显示）
 
@@ -386,7 +387,7 @@ b. **非受控组件**：需要时才手动读取表单输入框中的数据（r
 
 - shouldComponentUpdata(nextProps, nextState)
 
-  ：接收一个新的 props 和 state，返回true/false，表示是否允许更新
+  ：接收一个新的 props 和 state，返回 true/false，表示是否允许更新
 
   - 通常情况下为了优化，需要对新的 props 以及 state 和原来的数据作对比，如果发生变化才更新
 
@@ -419,7 +420,7 @@ b. **非受控组件**：需要时才手动读取表单输入框中的数据（r
 
 **注意**
 
-`componentWillMount`、`componentWillReceiveProps` 和 `componentWillUpdate` 这三个生命周期函数都被添加了 UNSAFE_ 不安全标记，并且在 17.0 版本将会被删除。
+`componentWillMount`、`componentWillReceiveProps` 和 `componentWillUpdate` 这三个生命周期函数都被添加了 UNSAFE\_ 不安全标记，并且在 17.0 版本将会被删除。
 
 > 由于 React 未来的版本中推出了异步渲染，在 `dom` 被挂载之前的阶段都可以被打断重来，导致 `componentWillMount`、`componentWillUpdate`、`componentWillReceiveProps` 在一次更新中可能会被触发多次，因此那些只希望触发一次的应该放在 `componentDidUpdate` 中。这也就是为什么要把异步请求放在 `componentDidMount` 中，而不是放在 `componentWillMount` 中的原因，为了向后兼容。
 
@@ -437,7 +438,7 @@ b. **非受控组件**：需要时才手动读取表单输入框中的数据（r
 
 ```jsx
 static getDerivedStateFromProps(props, state) {
-  if (props.currentRow !== state.lastRow) { 
+  if (props.currentRow !== state.lastRow) {
     // 如果新的props的当前行大于之前的state的最后一行，就向下滚动
     return { // 返回的对象将被映射到state（state原来的属性和值还在）
       isScrollingDown: props.currentRow > state.lastRow,
@@ -477,11 +478,11 @@ DOM Diff 能比较新旧虚拟 DOM 树，计算哪里改变，然后就只需要
 
 1.xxx 脚手架：用来帮助程序员快速创建一个基于 xxx 库的模板项目
 
- a. 包含了所有需要的配置
+a. 包含了所有需要的配置
 
- b. 指定好了所有的依赖
+b. 指定好了所有的依赖
 
- c. 可以直接安装/编译/运行一个简单效果
+c. 可以直接安装/编译/运行一个简单效果
 
 2.react 提供了一个用于创建 react 项目的脚手架库：`create-react-app`
 
@@ -506,7 +507,7 @@ npm start // 启动项目
 
 1.React 本身只关注于界面，并不包含发送 ajax 请求的代码
 
-2.前端应用需要通过 ajax 请求与后台进行交互（json数据）
+2.前端应用需要通过 ajax 请求与后台进行交互（json 数据）
 
 3.react 应用中需要集成第三方 ajax 库（或自己封装）
 
@@ -516,17 +517,17 @@ npm start // 启动项目
 
 2.axios：轻量级，建议使用
 
- a. 封装了 XmlHttpRequest 对象的 ajax
+a. 封装了 XmlHttpRequest 对象的 ajax
 
- b. 是 promise 风格
+b. 是 promise 风格
 
- c. 既可以用在浏览器端又可以用在 node 服务器端
+c. 既可以用在浏览器端又可以用在 node 服务器端
 
 3.fetch：原生函数，但老版本浏览器不支持
 
- a. 不再使用 XmlHttpRequest 对象提交 ajax 请求
+a. 不再使用 XmlHttpRequest 对象提交 ajax 请求
 
- b. 为了兼容低版本的浏览器，可以引入兼容库 fetch.js
+b. 为了兼容低版本的浏览器，可以引入兼容库 fetch.js
 
 ### 4.2 axios
 
@@ -577,11 +578,13 @@ axios.post('/user', {
 fetch(url)
   .then(response => {
     return response.json()
-}).then(data => {
+  })
+  .then(data => {
     console.log(data)
-}).catch(error => {
+  })
+  .catch(error => {
     console.log(error)
-})
+  })
 ```
 
 **POST 请求**
@@ -589,12 +592,14 @@ fetch(url)
 ```js
 fetch(url, {
   method: 'POST',
-  body: JSON.stringify(data)
-}).then(data => {
-    console.log(data)
-}).catch(error => {
-    console.log(error)
+  body: JSON.stringify(data),
 })
+  .then(data => {
+    console.log(data)
+  })
+  .catch(error => {
+    console.log(error)
+  })
 ```
 
 ## 五、几个重要技术总结
@@ -622,13 +627,13 @@ fetch(url, {
 ```jsx
 import PubSub from 'pubsub-js' //引入
 
-PubSub.subscribe('delete', function(data){ }); //订阅消息，绑定监听
+PubSub.subscribe('delete', function (data) {}) //订阅消息，绑定监听
 PubSub.publish('delete', data) //发布消息，触发事件
 ```
 
 #### 5.1.3 方式三：redux
 
-在八、redux中
+在八、redux 中
 
 ### 5.2 事件监听理解
 
@@ -636,31 +641,31 @@ PubSub.publish('delete', data) //发布消息，触发事件
 
 1.绑定事件监听
 
- a. 事件名(类型)：只有有限的几个，不能随便写
+a. 事件名(类型)：只有有限的几个，不能随便写
 
- b. 回调函数
+b. 回调函数
 
 2.触发事件
 
- a. 用户操作界面
+a. 用户操作界面
 
- b. 事件名(类型)
+b. 事件名(类型)
 
- c. 数据()
+c. 数据()
 
 #### 5.2.2 自定义事件(消息机制)
 
 1.绑定事件监听
 
- a. 事件名(类型)：任意
+a. 事件名(类型)：任意
 
- b. 回调函数：通过形参接收数据，在函数体处理事件
+b. 回调函数：通过形参接收数据，在函数体处理事件
 
 2.触发事件(编码)
 
- a. 事件名(类型)：与绑定的事件监听的事件名一致
+a. 事件名(类型)：与绑定的事件监听的事件名一致
 
- b. 数据：会自动传递给回调函数
+b. 数据：会自动传递给回调函数
 
 ## 六、react-router4
 
@@ -690,35 +695,35 @@ PubSub.publish('delete', data) //发布消息，触发事件
 
 1.**什么是路由?**
 
- a. 一个路由就是一个映射关系（key:value）
+a. 一个路由就是一个映射关系（key:value）
 
- b. key 为路由路径，value 可能是 function/component
+b. key 为路由路径，value 可能是 function/component
 
 2.**路由分类**
 
- a. 后台路由：node 服务器端路由，value 是 function，用来处理客户端提交的请求并返回一个响应数据
+a. 后台路由：node 服务器端路由，value 是 function，用来处理客户端提交的请求并返回一个响应数据
 
- b. 前台路由：浏览器端路由，value 是 component，当请求的是路由 path 时，浏览器端没有发送 http 请求，但界面会更新显示对应的组件
+b. 前台路由：浏览器端路由，value 是 component，当请求的是路由 path 时，浏览器端没有发送 http 请求，但界面会更新显示对应的组件
 
 3.**后台路由**
 
- a. 注册路由：router.get(path, function(req, res))，即路由器
+a. 注册路由：router.get(path, function(req, res))，即路由器
 
- b. 当 node 接收到一个请求时，根据请求路径找到匹配的路由，调用路由中的函数来处理请求，返回响应数据
+b. 当 node 接收到一个请求时，根据请求路径找到匹配的路由，调用路由中的函数来处理请求，返回响应数据
 
 4.**前端路由**
 
- a. 注册路由：`<Route path="/about" component={About}>`
+a. 注册路由：`<Route path="/about" component={About}>`
 
- b. 当浏览器的 hash 变为 #about 时，当前路由组件就会变为 About 组件
+b. 当浏览器的 hash 变为 #about 时，当前路由组件就会变为 About 组件
 
 #### 6.1.4 前端路由的实现
 
 1.history 库
 
- a. 管理浏览器会话历史（history）的工具库
+a. 管理浏览器会话历史（history）的工具库
 
- b. 包装的是原生 BOM 中的 window.history 和 window.location.hash
+b. 包装的是原生 BOM 中的 window.history 和 window.location.hash
 
 2.history API
 
@@ -757,7 +762,7 @@ PubSub.publish('delete', data) //发布消息，触发事件
 - match 对象：.match.params，通过路由参数向路由组件传递数据
 - history 对象：.history，push()/replace()/goBack()/goForward()
 
-2.withRouter 函数：用 this.props.history.push('/detail') 去跳转页面，但是报 this.props.history 错误 undefined，请在此组件中使用 withRouter 将 history 传入到 props 上。
+  2.withRouter 函数：用 this.props.history.push('/detail') 去跳转页面，但是报 this.props.history 错误 undefined，请在此组件中使用 withRouter 将 history 传入到 props 上。
 
 ### 6.3 路由使用
 
@@ -800,7 +805,7 @@ const {id} = this.props.match.params
 
 #### 7.1.2 ant-design(国内蚂蚁金服)
 
-1.PC官网：<https://ant.design/index-cn>
+1.PC 官网：<https://ant.design/index-cn>
 
 2.移动官网：<https://mobile.ant.design/index-cn>
 
@@ -814,7 +819,7 @@ const {id} = this.props.match.params
 
 [基本使用](https://mobile.ant.design/docs/react/introduce-cn#1.-创建一个项目)
 
-**实现按需打包(组件js/css)**
+**实现按需打包(组件 js/css)**
 
 [按需加载](https://mobile.ant.design/docs/react/use-with-create-react-app-cn#按需加载)
 
@@ -848,7 +853,7 @@ const {id} = this.props.match.params
 2. 编码 store.js：
 
 ```jsx
-import {createStore} from 'redux'
+import { createStore } from 'redux'
 import counter from './reducers/counter'
 
 const store = createStore(counter)
@@ -863,7 +868,7 @@ const store = createStore(counter)
 
 ```jsx
 store.getState() // 得到store中存储的state数据
-store.dispatch({type: 'INCREMENT', data: number}) // 分发action对象，通知reducer更新state数据
+store.dispatch({ type: 'INCREMENT', data: number }) // 分发action对象，通知reducer更新state数据
 store.subscribe(render) // 订阅监听，store中的状态变化就会调用进行重绘
 ```
 
@@ -874,8 +879,8 @@ store.subscribe(render) // 订阅监听，store中的状态变化就会调用进
 2.编码 store.js：
 
 ```jsx
-import {createStore, applyMiddleware} from 'redux'
-import thunk from 'redux-thunk'  // redux异步中间件
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk' // redux异步中间件
 
 const store = createStore(
   counter,
@@ -893,7 +898,7 @@ const store = createStore(
 export default combineReducers({
   user,
   chatUser,
-  chat
+  chat,
 })
 ```
 
@@ -902,7 +907,7 @@ export default combineReducers({
 #### 8.3.1 action
 
 1. 标识要执行行为的对象（**只是描述了有事情要发生，并没有描述如何去更新 state**）
-2. 包含2个方面的属性：
+2. 包含 2 个方面的属性：
    - type：标识属性，值为字符串，唯一，必要属性
    - data：数据属性，值类型任意，可选属性
 3. 例子：
@@ -910,14 +915,14 @@ export default combineReducers({
 ```jsx
 const action = {
   type: 'INCREMENT',
-  data: 2
+  data: 2,
 }
 ```
 
 1. **Action Creator（创建 action 的工厂函数）**
 
 ```jsx
-export const increment = (number) => ({type: 'INCREMENT', data: number})
+export const increment = number => ({ type: 'INCREMENT', data: number })
 ```
 
 #### 8.3.2 reducer
@@ -926,7 +931,7 @@ export const increment = (number) => ({type: 'INCREMENT', data: number})
 2. 例子：
 
 ```jsx
-export default function counter(state=0, action) {
+export default function counter(state = 0, action) {
   switch (action.type) {
     case 'INCREMENT':
       return state + action.data
@@ -948,7 +953,7 @@ export default function counter(state=0, action) {
 2. 如何得到此对象？
 
 ```jsx
-import {createStore} from 'redux'
+import { createStore } from 'redux'
 import reducer from './reducers'
 
 const store = createStore(reducer)
@@ -981,7 +986,7 @@ const store = createStore(reducer)
 - **不使用任何 Redux 的 API**
 - **一般保存在 components 文件夹下**
 
-2.容器组件
+  2.容器组件
 
 - 负责管理数据和业务逻辑，不负责 UI 的呈现
 - **使用 Redux 的 API**
@@ -992,9 +997,9 @@ const store = createStore(reducer)
 1.**Provider：让所有组件都可以得到 state 数据**
 
 ```jsx
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
 
-<Provider store={store}>
+;<Provider store={store}>
   <App />
 </Provider>
 ```
@@ -1006,7 +1011,7 @@ import {Provider} from 'react-redux'
 Provider 内部的组件想要获取到 redux 中的数据和方法，就必须要用 connect 进行一层包裹封装。内部轻松获得 state 的数据，并为 actionCreator 的函数调用 dispatch。
 
 ```jsx
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 // 用connect包装Counter组件再返回出去
 export default connect(
@@ -1015,12 +1020,12 @@ export default connect(
 )(Counter)
 ```
 
-3.mapStateToprops()：将保存在 redux 中的数据（即 state 对象）转换为 UI 组件的标签属性props
+3.mapStateToprops()：将保存在 redux 中的数据（即 state 对象）转换为 UI 组件的标签属性 props
 
 ```jsx
 const mapStateToprops = function (state) {
   return {
-    value: state
+    value: state,
   }
 }
 ```
@@ -1031,7 +1036,7 @@ const mapStateToprops = function (state) {
 
 ```jsx
 // 包含多个 action 方法的对象，mapDispatchToProps即{increment, decrement}
-import {increment, decrement} from '../redux/actions'
+import { increment, decrement } from '../redux/actions'
 // 或 指定为 actions 对象
 import * as mapDispatchToProps from '../redux/actions'
 ```
@@ -1049,7 +1054,7 @@ import * as mapDispatchToProps from '../redux/actions'
 store.js 中应用
 
 ```jsx
-import {createStore, applyMiddleware} from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 
 const store = createStore(
@@ -1061,8 +1066,9 @@ const store = createStore(
 actions.js 中添加异步 action
 
 ```jsx
-export const incrementAsync = (number) => {
-  return dispatch => { // 异步action会返回一个函数
+export const incrementAsync = number => {
+  return dispatch => {
+    // 异步action会返回一个函数
     // 异步的代码必须被封装到action中
     setTimeout(() => {
       // 1s后才去分发一个同步的action（dispatch一个同步action）
@@ -1072,13 +1078,13 @@ export const incrementAsync = (number) => {
 }
 ```
 
-然后在 UI组件的 propTypes 和容器组件的 connect() 中添加对应的异步 action 即可。
+然后在 UI 组件的 propTypes 和容器组件的 connect() 中添加对应的异步 action 即可。
 
 ### 8.6 redux 调试工具
 
 安装 chrome 浏览器插件：redux-devtools
 
-> 遇到的问题：下载 2.15.1 老版本后报错：*TypeError:* *Cannot* *read* *property* *'state'* *of* undefined，下载最新版本 2.17.0 后解决
+> 遇到的问题：下载 2.15.1 老版本后报错：_TypeError:_ _Cannot_ _read_ _property_ _'state'_ _of_ undefined，下载最新版本 2.17.0 后解决
 
 要想能使用调试工具还需要在项目中下载工具依赖包：npm install --save-dev redux-devtools-extension
 
@@ -1087,10 +1093,7 @@ export const incrementAsync = (number) => {
 ```jsx
 import { composeWithDevTools } from 'redux-devtools-extension'
 
-const store = createStore(
-  counter,
-  composeWithDevTools(applyMiddleware(thunk))
-)
+const store = createStore(counter, composeWithDevTools(applyMiddleware(thunk)))
 ```
 
 ### 8.7 纯函数和高阶函数
@@ -1101,11 +1104,11 @@ const store = createStore(
 
 2.必须遵守以下一些约束
 
- a. 不得改写参数
+a. 不得改写参数
 
- b. 不能调用系统 I/O 的 API
+b. 不能调用系统 I/O 的 API
 
- c. 能调用 Date.now() 或者 Math.random() 等不纯的方法
+c. 能调用 Date.now() 或者 Math.random() 等不纯的方法
 
 3.reducer 函数必须是一个纯函数
 
@@ -1113,16 +1116,16 @@ const store = createStore(
 
 1.理解：一类特别的函数
 
- a. 情况1：参数是函数
+a. 情况 1：参数是函数
 
- b. 情况2：返回是函数
+b. 情况 2：返回是函数
 
 2.常见的高阶函数：
 
- a. 定时器设置函数
+a. 定时器设置函数
 
- b. 数组的 map()/filter()/reduce()/find()/bind()
+b. 数组的 map()/filter()/reduce()/find()/bind()
 
- c. react-redux 中的 connect 函数
+c. react-redux 中的 connect 函数
 
 3.作用：能实现更加动态，更加可扩展的功能

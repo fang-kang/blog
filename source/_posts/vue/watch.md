@@ -3,7 +3,7 @@ title: Vue 里的 computed 和 watch 的区别
 date: 2020-10-10 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/2.png
 tags:
- - vue
+  - vue
 categories:
   - vue
 ---
@@ -22,7 +22,7 @@ categories:
 var vm = new Vue({
   el: '#app',
   data: {
-    message: 'hello'
+    message: 'hello',
   },
   template: `
   <div>
@@ -35,8 +35,8 @@ var vm = new Vue({
     computedMessage: function () {
       // `this` 指向 vm 实例
       return this.message.split('').reverse().join('')
-    }
-  }
+    },
+  },
 })
 ```
 
@@ -51,8 +51,6 @@ var vm = new Vue({
 
 所以，如果数据要通过复杂逻辑来得出结果，那么就推荐使用计算属性
 
-
-
 ## watch
 
 > 一个对象，键是 data 对应的数据，值是对应的回调函数。值也可以是方法名，或者包含选项的对象，当 data 的数据发生变化时，就会发生一个回调，他有两个参数，一个 val （修改后的 data 数据），一个 oldVal（原来的 data 数据）
@@ -65,8 +63,8 @@ new Vue({
   data: {
     n: 0,
     obj: {
-      a: "a"
-    }
+      a: 'a',
+    },
   },
   template: `
     <div>
@@ -77,22 +75,22 @@ new Vue({
   `,
   watch: {
     n() {
-      console.log("n 变了");
+      console.log('n 变了')
     },
-    obj:{
-      handler: function (val, oldVal) { 
-      console.log("obj 变了")
+    obj: {
+      handler: function (val, oldVal) {
+        console.log('obj 变了')
+      },
+      deep: true, // 该属性设定在任何被侦听的对象的 property 改变时都要执行 handler 的回调，不论其被嵌套多深
     },
-      deep: true // 该属性设定在任何被侦听的对象的 property 改变时都要执行 handler 的回调，不论其被嵌套多深
+    'obj.a': {
+      handler: function (val, oldVal) {
+        console.log('obj.a 变了')
+      },
+      immediate: true, // 该属性设定该回调将会在侦听开始之后被立即调用
     },
-    "obj.a":{
-      handler: function (val, oldVal) { 
-      console.log("obj.a 变了")
-    },
-      immediate: true // 该属性设定该回调将会在侦听开始之后被立即调用
-    }
-  }
-}).$mount("#app");
+  },
+}).$mount('#app')
 ```
 
 注意：**不应该使用箭头函数来定义 watcher 函数**，因为箭头函数没有 this，它的 this 会继承它的父级函数，但是它的父级函数是 window，导致箭头函数的 this 指向 window，而不是 Vue 实例
@@ -102,15 +100,17 @@ new Vue({
 
 **vm.$watch()** 的用法和 watch 回调类似
 
-- vm.$watch('data属性名', fn, {deep: .., immediate: ..})
+- vm.$watch('data 属性名', fn, {deep: .., immediate: ..})
 
 ```js
-vm.$watch("n", function(val, newVal){
-      console.log("n 变了");
-},{deep: true, immediate: true})
+vm.$watch(
+  'n',
+  function (val, newVal) {
+    console.log('n 变了')
+  },
+  { deep: true, immediate: true }
+)
 ```
-
-
 
 ## 总结
 

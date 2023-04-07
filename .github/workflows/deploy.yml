@@ -21,9 +21,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           # 选择要使用的 node 版本
-          node-version: '14'
-          
-       # 安装pnpm
+          node-version: '16'
+        # 安装pnpm
       - name: Setup pnpm
         run: npm i -g pnpm
       # 如果缓存没有命中，安装依赖
@@ -31,10 +30,9 @@ jobs:
         run: pnpm install --no-frozen-lockfile
 
       # 执行发布到库
-      
       # 运行构建脚本
       - name: Build Blog
-        run:  pnpm build
+        run: pnpm build
       # 查看 workflow 的文档来获取更多信息
       # @see https://github.com/crazy-max/ghaction-github-pages
       - name: Deploy to GitHub Pages
@@ -42,7 +40,7 @@ jobs:
         with:
           # 部署到 gh-pages 分支
           target_branch: gh-pages
-          # 部署目录为 
+          # 部署目录为
           build_dir: public
         env:
           # @see https://docs.github.com/cn/actions/reference/authentication-in-a-workflow#about-the-github_token-secret

@@ -3,8 +3,8 @@ title: nest.js学习（二）
 date: 2021-01-29 18:20
 index_img: https://fang-kang.gitee.io/blog-img/nest2.png
 tags:
- - node
- - nest
+  - node
+  - nest
 categories:
   - node
 ---
@@ -19,9 +19,9 @@ categories:
 - 系统配置和应用配置
 - 数据库之用户表
 - 注册
-- 使用node-mailer发送邮件
-- 登录和第三方认证github登录
-- session和cookie
+- 使用 node-mailer 发送邮件
+- 登录和第三方认证 github 登录
+- session 和 cookie
 - 找回密码和登出
 
 ## 项目架构规划设计
@@ -34,14 +34,14 @@ categories:
 | ---------------------- | ------------------------------------------------------------ |
 | main.ts                | 入口                                                         |
 | main.hmr.ts            | 热更新入口                                                   |
-| app.service.ts         | APP服务（选择）                                              |
-| app.module.ts          | APP模块（根模块，必须）                                      |
-| app.controller.ts      | APP控制器（选择）                                            |
-| app.controller.spec.ts | APP控制器单元测试用例（选择）                                |
+| app.service.ts         | APP 服务（选择）                                             |
+| app.module.ts          | APP 模块（根模块，必须）                                     |
+| app.controller.ts      | APP 控制器（选择）                                           |
+| app.controller.spec.ts | APP 控制器单元测试用例（选择）                               |
 | config                 | 配置模块                                                     |
 | core                   | 核心模块（申明过滤器、管道、拦截器、守卫、中间件、全局模块） |
 | feature                | 特性模块（主要业务模块）                                     |
-| shared                 | 共享模块（共享mongodb、redis封装服务、通用服务）             |
+| shared                 | 共享模块（共享 mongodb、redis 封装服务、通用服务）           |
 | tools                  | 工具（提供一些小工具函数）                                   |
 
 > 这是我参考我`Angular`项目的结构，写了几个`nest`项目后发现这个很不错。把`mongodb`服务和业务模块分开，还有一个好处就是减少`nest`循环依赖注入深坑，后面会讲怎么解决它。
@@ -51,17 +51,17 @@ categories:
 打开`main.ts`文件
 
 ```ts
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { NestFactory } from '@nestjs/core'
+import { AppModule } from './app.module'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const app = await NestFactory.create(AppModule)
+  await app.listen(3000)
 }
-bootstrap();
+bootstrap()
 ```
 
-`NestFactory` 创建一个app实例，监听`3000`端口。
+`NestFactory` 创建一个 app 实例，监听`3000`端口。
 
 ```ts
 /**
@@ -75,33 +75,33 @@ create(module: any, httpServer: HttpServer, options?: NestApplicationOptions): P
 create(module: any, httpServer: any, options?: NestApplicationOptions): Promise<INestApplication & INestExpressApplication>;
 ```
 
-`create`方法有1-3参数，第一个是入口模块`AppModule`, 第二个是一个`httpServer`,如果要绑定`Express`中间件，需要传递`Express`实例。第三个全局配置：
+`create`方法有 1-3 参数，第一个是入口模块`AppModule`, 第二个是一个`httpServer`,如果要绑定`Express`中间件，需要传递`Express`实例。第三个全局配置：
 
 - logger 打印日志
 - cors 跨域配置
-- bodyParser post和put解析body中间件配置
-- httpsOptions https配置
+- bodyParser post 和 put 解析 body 中间件配置
+- httpsOptions https 配置
 
 `app` 带方法有哪些
 `INestApplication`下
 
 - init 初始化应用程序，直接调用此方法并非强制。（效果不明）
 - use 注册中间件
-- enableCors 启用CORS（跨源资源共享）
+- enableCors 启用 CORS（跨源资源共享）
 - listen 启动应用程序。
 - listenAsync 同步启动应用程序。
-- setGlobalPrefix 注册每个HTTP路由路径的前缀
-- useWebSocketAdapter 安装将在网关内部使用的Ws适配器。使用时覆盖，默认`socket.io`库。
-- connectMicroservice 将微服务连接到NestApplication实例。 将应用程序转换为混合实例。
-- getMicroservices 返回连接到NestApplication的微服务的数组。
-- getHttpServer 返回基础的本地HTTP服务器。
+- setGlobalPrefix 注册每个 HTTP 路由路径的前缀
+- useWebSocketAdapter 安装将在网关内部使用的 Ws 适配器。使用时覆盖，默认`socket.io`库。
+- connectMicroservice 将微服务连接到 NestApplication 实例。 将应用程序转换为混合实例。
+- getMicroservices 返回连接到 NestApplication 的微服务的数组。
+- getHttpServer 返回基础的本地 HTTP 服务器。
 - startAllMicroservices 异步启动所有连接的微服务
 - startAllMicroservicesAsync 同步启动所有连接的微服务
-- useGlobalFilters 将异常过滤器注册为全局过滤器（将在每个HTTP路由处理程序中使用）
-- useGlobalPipes 将管道注册为全局管道（将在每个HTTP路由处理程序中使用）
-- useGlobalInterceptors 将拦截器注册为全局拦截器（将在每个HTTP路由处理器中使用）
-- useGlobalGuards 注册警卫作为全局警卫（将在每个HTTP路由处理程序中使用）
-- close 终止应用程序（包括NestApplication，网关和每个连接的微服务）
+- useGlobalFilters 将异常过滤器注册为全局过滤器（将在每个 HTTP 路由处理程序中使用）
+- useGlobalPipes 将管道注册为全局管道（将在每个 HTTP 路由处理程序中使用）
+- useGlobalInterceptors 将拦截器注册为全局拦截器（将在每个 HTTP 路由处理器中使用）
+- useGlobalGuards 注册警卫作为全局警卫（将在每个 HTTP 路由处理程序中使用）
+- close 终止应用程序（包括 NestApplication，网关和每个连接的微服务）
   `INestExpressApplication`下
 - set 围绕本地`express.set()`方法的包装函数。
 - engine 围绕本地`express.engine()`方法的包装函数。
@@ -115,7 +115,7 @@ create(module: any, httpServer: any, options?: NestApplicationOptions): Promise<
 
 ### 核心依赖
 
-因为目前CNode采用`Egg`编写，里面大量使用与`Egg`集成的`egg-xxx`包，这里我把相关的连对应的依赖都一一来出来。
+因为目前 CNode 采用`Egg`编写，里面大量使用与`Egg`集成的`egg-xxx`包，这里我把相关的连对应的依赖都一一来出来。
 
 #### 模板引擎
 
@@ -148,7 +148,7 @@ Egg-CNode`使用`egg-passport、egg-passport-github、egg-passport-local`做身�
 
 新建模板存放`views`文件夹(root/views)和静态资源存放`public`文件夹(root/public)
 
-**注意**：`nest-cli`默认只处理`src`里面的ts文件，如有其他文件需要自己写脚本处理，`gulp`或者`webpack`都可以，这里就简单一点，直接把`views`和`public`放在`src`平级的根目录里面了。后面会说怎么处理它们设置问题。
+**注意**：`nest-cli`默认只处理`src`里面的 ts 文件，如有其他文件需要自己写脚本处理，`gulp`或者`webpack`都可以，这里就简单一点，直接把`views`和`public`放在`src`平级的根目录里面了。后面会说怎么处理它们设置问题。
 
 ### 模板引擎
 
@@ -189,27 +189,28 @@ async function bootstrap() {
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>我是layout模板</title>
-</head>
-<body>
+  </head>
+  <body>
     <%- body -%>
-</body>
+  </body>
+</html>
 ```
 
 1. 写的`index.html`
 
 ```html
 <% layout('layout') -%>
-<h1>我是首页</h1>  
+<h1>我是首页</h1>
 ```
 
 1. 渲染模板引擎
 
 ```ts
-import { Get, Controller, Render } from '@nestjs/common';
-import { AppService } from './app.service';
+import { Get, Controller, Render } from '@nestjs/common'
+import { AppService } from './app.service'
 
 @Controller()
 export class AppController {
@@ -218,7 +219,7 @@ export class AppController {
   @Get()
   @Render('index')
   root() {
-    return {};
+    return {}
   }
 }
 ```
@@ -234,14 +235,14 @@ export class AppController {
 `ejs-mate`兼容[ejs](https://ejs.bootcss.com/)语法，语法很简单，这里顺便带一下：
 
 - <% '脚本' 标签，用于流程控制，无输出。
-- <%_ 删除其前面的空格符
+- <%\_ 删除其前面的空格符
 - <%= 输出数据到模板（输出是转义 HTML 标签）
 - <%- 输出非转义的数据到模板
 - <%# 注释标签，不执行、不输出内容
 - <%% 输出字符串 '<%'
 - %> 一般结束标签
 - -%> 删除紧随其后的换行符
-- _%> 将结束标签后面的空格符删除
+- \_%> 将结束标签后面的空格符删除
 
 说几个常用的写法：
 
@@ -286,8 +287,10 @@ export class AppController {
 使用：
 
 ```html
-<% block('head').append('<link type="text/css" href="/append.css">') %>
-<% block('head').prepend('<link type="text/css" href="/prepend.css">') %>
+<% block('head').append('<link type="text/css" href="/append.css" />') %> <% block('head').prepend('<link
+  type="text/css"
+  href="/prepend.css"
+/>') %>
 ```
 
 `append`和`prepend`是插入的顺序，`append`总是插槽位置插入在最后，`prepend`总是插槽位置插入在最前。
@@ -298,20 +301,22 @@ export class AppController {
 
 ```html
 <head>
-    ...
-    <link type="text/css" href="/style.css">
-    <%- block('head').toString() %>
+  ...
+  <link type="text/css" href="/style.css" />
+  <%- block('head').toString() %>
 </head>
 ```
 
 `index.html`的结尾写上
 
 ```html
-...
-<% block('head').append('<link type="text/css" href="/append.css">') %>
-<% block('head').prepend('<link type="text/css" href="/prepend.css">') %>
-<% block('head').prepend('<link type="text/css" href="/prepend2.css">') %>
-<% block('head').append('<link type="text/css" href="/append2.css">') %>  
+... <% block('head').append('<link type="text/css" href="/append.css" />') %> <% block('head').prepend('<link
+  type="text/css"
+  href="/prepend.css"
+/>') %> <% block('head').prepend('<link type="text/css" href="/prepend2.css" />') %> <% block('head').append('<link
+  type="text/css"
+  href="/append2.css"
+/>') %>
 ```
 
 访问首页`http://localhost:3000/`看结果。
@@ -322,7 +327,7 @@ export class AppController {
 
 还有一个方法`replace`，没看懂怎么用的，文档里面也没有说明，基本`append`、`prepend`、`toString`就够用了。
 
-总结：`toString`是定义插槽位置，`append`、`prepend`往插槽插入指定的内容。他们主要做什么了，`layout`载入公共的`css`、`js`，如果有的页面有不一样地方，就需要插入当前页面的js了，那么一来这个插槽功能就有用，如果使用`layout`功能插入，就会包含在`layout`位置，无论是语义还是加载都是不合理的。就有了`block`的功能，在另一款模板引擎`Jade`里面也有同样的功能也叫`block`功能。
+总结：`toString`是定义插槽位置，`append`、`prepend`往插槽插入指定的内容。他们主要做什么了，`layout`载入公共的`css`、`js`，如果有的页面有不一样地方，就需要插入当前页面的 js 了，那么一来这个插槽功能就有用，如果使用`layout`功能插入，就会包含在`layout`位置，无论是语义还是加载都是不合理的。就有了`block`的功能，在另一款模板引擎`Jade`里面也有同样的功能也叫`block`功能。
 
 ### 静态资源
 
@@ -334,9 +339,9 @@ export class AppController {
 npm i --save loader loader-connect loader-builder
 ```
 
-这几个模块是加载css和js使用，也是[@JacksonTian](https://github.com/JacksonTian) 朴灵大神的作品。
+这几个模块是加载 css 和 js 使用，也是[@JacksonTian](https://github.com/JacksonTian) 朴灵大神的作品。
 
-main.ts配置
+main.ts 配置
 
 ```ts
 import { join } from 'path';
@@ -376,13 +381,13 @@ async function bootstrap() {
 
 ```html
 ...
-<img src="/public/images/logo.png" alt="logo">
+<img src="/public/images/logo.png" alt="logo" />
 ...
 ```
 
 [![l8p0 psc xxuk6 zyea0nvs](https://user-images.githubusercontent.com/6111778/44764424-2e8eaa80-ab82-11e8-9a94-44979c2265e6.png)](https://user-images.githubusercontent.com/6111778/44764424-2e8eaa80-ab82-11e8-9a94-44979c2265e6.png)
 
-如果有问题，请找原因，路径是否正确，设置是否正确，如果都ok，还是不能访问，可以联系我。
+如果有问题，请找原因，路径是否正确，设置是否正确，如果都 ok，还是不能访问，可以联系我。
 
 关于`loader`使用：
 
@@ -434,7 +439,7 @@ async function bootstrap() {
 }
 ```
 
-loader的写法是：`loader <views_dir> <output_dir>`。`views_dir`是模板引擎目录，`output_dir`是`assets.json`文件输出的目录，`/`表示根目录。
+loader 的写法是：`loader <views_dir> <output_dir>`。`views_dir`是模板引擎目录，`output_dir`是`assets.json`文件输出的目录，`/`表示根目录。
 
 ```bash
 npm run assets
@@ -528,7 +533,7 @@ no such file or directory, open 'E:\github\nest-cnode\E:\public\img\glyphicons-h
 
 [![45 7el q a5ph tf g84r 0](https://user-images.githubusercontent.com/6111778/44764444-45350180-ab82-11e8-9f65-a6b319a11fec.png)](https://user-images.githubusercontent.com/6111778/44764444-45350180-ab82-11e8-9f65-a6b319a11fec.png)
 
-打包成功以后会输出一个`assets.json`在根目录。`assets`指的就是这个json文件，后面我们会讲如果把它们关联起来。
+打包成功以后会输出一个`assets.json`在根目录。`assets`指的就是这个 json 文件，后面我们会讲如果把它们关联起来。
 
 ## 静态模板
 
@@ -542,11 +547,11 @@ no such file or directory, open 'E:\github\nest-cnode\E:\public\img\glyphicons-h
 
 有模板以后，我们需要改造他们:
 
-1. 使用HTML5推荐的`DOCTYPE`申明
+1. 使用 HTML5 推荐的`DOCTYPE`申明
 
 ```html
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN"></html>
 ```
 
 1. 拆分`body`标签之外到`layout.html`
@@ -558,18 +563,16 @@ no such file or directory, open 'E:\github\nest-cnode\E:\public\img\glyphicons-h
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>我是layout模板</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-</head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  </head>
 
-<body>
+  <body>
     <%- body -%>
-</body>
-
+  </body>
 </html>
 ```
 
@@ -580,39 +583,37 @@ no such file or directory, open 'E:\github\nest-cnode\E:\public\img\glyphicons-h
 ```html
 <!DOCTYPE html>
 <html lang="zh-CN">
-
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>CNode：Node.js专业中文社区</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name='description' content='CNode：Node.js专业中文社区'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="description" content="CNode：Node.js专业中文社区" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="keywords" content="nodejs, node, express, connect, socket.io" />
     <!-- see http://smerity.com/articles/2013/where_did_all_the_http_referrers_go.html -->
-    <meta name="referrer" content="always">
+    <meta name="referrer" content="always" />
     <meta name="author" content="EDP@TaoBao" />
     <meta property="wb:webmaster" content="617be6bd946c6b96" />
-    <meta content="_csrf" name="csrf-param">
-    <meta content="vlUgGvkx-SgmuzendL9gAP3DHXVS3834IpC4" name="csrf-token">
+    <meta content="_csrf" name="csrf-param" />
+    <meta content="vlUgGvkx-SgmuzendL9gAP3DHXVS3834IpC4" name="csrf-token" />
     <link title="RSS" type="application/rss+xml" rel="alternate" href="/rss" />
     <link rel="icon" href="//o4j806krb.qnssl.com/public/images/cnode_icon_32.png" type="image/x-icon" />
     <!-- style -->
     <link rel="stylesheet" href="//o4j806krb.qnssl.com/public/stylesheets/index.min.23a5b1ca.min.css" media="all" />
     <%- block('styles').toString() %>
-</head>
+  </head>
 
-<body>
+  <body>
     <%- body -%>
     <!-- scripts -->
     <script src="//o4j806krb.qnssl.com/public/index.min.f7c13f64.min.js"></script>
     <%- block('scripts').toString() %>
-</body>
-
+  </body>
 </html>
 ```
 
-> style放头部，script放底部，并且利用模板引擎做了2个插槽，一个`styles`和`scripts`
+> style 放头部，script 放底部，并且利用模板引擎做了 2 个插槽，一个`styles`和`scripts`
 
 1. 拆分`body`标签之内到`layout.html`
 
@@ -623,15 +624,15 @@ no such file or directory, open 'E:\github\nest-cnode\E:\public\img\glyphicons-h
 ```html
 ...
 <body>
-    <div class='navbar'></div>
-    <div id='main'></div>
-    <div id='backtotop'></div>
-    <div id='footer'></div>
-    <div id='sidebar-mask'></div>
+  <div class="navbar"></div>
+  <div id="main"></div>
+  <div id="backtotop"></div>
+  <div id="footer"></div>
+  <div id="sidebar-mask"></div>
 </body>
 ```
 
-- `backtotop`和`sidebar-mask`是2个和js相关的功能标签，直接保留它们。
+- `backtotop`和`sidebar-mask`是 2 个和 js 相关的功能标签，直接保留它们。
 - class`navbar`对应到`header`标签
 - id`main`对应到`main`标签
 - id`footer`对应到`footer`标签
@@ -643,22 +644,19 @@ no such file or directory, open 'E:\github\nest-cnode\E:\public\img\glyphicons-h
 ```html
 ...
 <body>
-    <header id="navbar">...</header>
-    <main id="main">
-        <%- body -%>
-    </main>
-    <footer id="footer">...</footer>
-    <div id="backtotop">...</div>
-    <div id="sidebar-mask">...</div>
-    ...
+  <header id="navbar">...</header>
+  <main id="main"><%- body -%></main>
+  <footer id="footer">...</footer>
+  <div id="backtotop">...</div>
+  <div id="sidebar-mask">...</div>
+  ...
 </body>
 ```
 
 把剩下`index.html`里面的`styles`和`scripts`使用
 
 ```html
-<% block('styles').append(``) %>
-<% block('scripts').append(``) %>
+<% block('styles').append(``) %> <% block('scripts').append(``) %>
 ```
 
 最好是写成`script`和`style`文件。
@@ -670,19 +668,16 @@ no such file or directory, open 'E:\github\nest-cnode\E:\public\img\glyphicons-h
 当前`index.html`模板
 
 ```html
-...
-<% layout('layout') -%>
-<div id='sidebar'>...</div>
-<div id='content'>...</div>
+... <% layout('layout') -%>
+<div id="sidebar">...</div>
+<div id="content">...</div>
 ...
 ```
 
 替换后的`index.html`模板
 
 ```html
-...
-<% layout('layout') -%>
-<%- partial('./sidebar.html') %>
+... <% layout('layout') -%> <%- partial('./sidebar.html') %>
 <article id="content">...</article>
 ...
 ```
@@ -691,7 +686,7 @@ no such file or directory, open 'E:\github\nest-cnode\E:\public\img\glyphicons-h
 
 ## 系统配置和应用配置
 
-系统配置是系统级别的配置，如数据配置，端口，host，签名，加密keys等
+系统配置是系统级别的配置，如数据配置，端口，host，签名，加密 keys 等
 
 应用配置是应用级别的配置，如网站标题，关键字，描述等
 
@@ -758,7 +753,7 @@ npm install --save-dev @types/joi
 
 `windows`和`mac`不一样
 
-windows设置
+windows 设置
 
 ```json
 "scripts": {
@@ -768,7 +763,7 @@ windows设置
 }
 ```
 
-mac设置
+mac 设置
 
 ```json
 "scripts": {
@@ -778,7 +773,7 @@ mac设置
 }
 ```
 
-你会发现这个很麻烦，有没有什么方便地方了，可以通过`cross-env`来解决问题，它就是解决跨平台设置NODE_ENV的问题，默认情况下，windows不支持NODE_ENV=development的设置方式，加上cross-env就可以跨平台。
+你会发现这个很麻烦，有没有什么方便地方了，可以通过`cross-env`来解决问题，它就是解决跨平台设置 NODE_ENV 的问题，默认情况下，windows 不支持 NODE_ENV=development 的设置方式，加上 cross-env 就可以跨平台。
 
 安装`cross-env`依赖
 
@@ -808,39 +803,36 @@ $ nest g mo config
 - 创建动态模块，动态模块可以创建可定制的模块，动态做依赖注入关系。
 
 ```ts
-import { Module, DynamicModule, Global } from '@nestjs/common';
-import { ConfigService } from './config.service';
-import { ConfigurationToken } from './config.constants';
-import { EnvConfig } from './config.interface';
+import { Module, DynamicModule, Global } from '@nestjs/common'
+import { ConfigService } from './config.service'
+import { ConfigurationToken } from './config.constants'
+import { EnvConfig } from './config.interface'
 
 @Global()
 @Module({})
 export class ConfigModule {
-    static forRoot<T = EnvConfig>(filePath?: string, validator?: (envConfig: T) => T): DynamicModule {
-        return {
-            module: ConfigModule,
-            providers: [
-                {
-                    provide: ConfigService,
-                    useValue: new ConfigService(filePath || `${process.env.NODE_ENV || 'development'}.env`, validator),
-                },
-                {
-                    provide: ConfigToken,
-                    useFactory: () => new ConfigService(filePath || `${process.env.NODE_ENV || 'development'}.env`, validator),
-                },
-            ],
-            exports: [
-                ConfigService,
-                ConfigToken,
-            ],
-        };
+  static forRoot<T = EnvConfig>(filePath?: string, validator?: (envConfig: T) => T): DynamicModule {
+    return {
+      module: ConfigModule,
+      providers: [
+        {
+          provide: ConfigService,
+          useValue: new ConfigService(filePath || `${process.env.NODE_ENV || 'development'}.env`, validator),
+        },
+        {
+          provide: ConfigToken,
+          useFactory: () => new ConfigService(filePath || `${process.env.NODE_ENV || 'development'}.env`, validator),
+        },
+      ],
+      exports: [ConfigService, ConfigToken],
     }
+  }
 }
 ```
 
 `<T = EnvConfig>`是一种什么写法，`T`是一个泛型，`EnvConfig`是一个默认值，如果使用者不传递就是默认类型，作用类似于函数默认值。
 
-默认用2种注册服务的写法，一种是类，一种是工厂。前面基础篇已经提及了，后面讲怎么使用它们。
+默认用 2 种注册服务的写法，一种是类，一种是工厂。前面基础篇已经提及了，后面讲怎么使用它们。
 
 1. 创建`config`服务:
 
@@ -853,100 +845,100 @@ $ nest g s config/config
 首先,让我们写`ConfigService`类。
 
 ```ts
-import * as fs from 'fs';
-import { parse } from 'dotenv';
-import { EnvConfig } from './config.interface';
+import * as fs from 'fs'
+import { parse } from 'dotenv'
+import { EnvConfig } from './config.interface'
 
 export class ConfigService<T = EnvConfig> {
-    // 系统配置
-    private readonly envConfig: T;
+  // 系统配置
+  private readonly envConfig: T
 
-    constructor(filePath: string, validator?: (envConfig: T) => T) {
-        // 解析配置文件
-        const configFile: T = parse(fs.readFileSync(filePath));
-        // 验证配置参数
-        if (typeof validator === 'function') {
-            const envConfig: T = validator(configFile);
-            if (typeof envConfig !== 'object') {
-                throw Error('validator return value is not object');
-            }
-            this.envConfig = envConfig;
-        } else {
-            this.envConfig = configFile;
-        }
+  constructor(filePath: string, validator?: (envConfig: T) => T) {
+    // 解析配置文件
+    const configFile: T = parse(fs.readFileSync(filePath))
+    // 验证配置参数
+    if (typeof validator === 'function') {
+      const envConfig: T = validator(configFile)
+      if (typeof envConfig !== 'object') {
+        throw Error('validator return value is not object')
+      }
+      this.envConfig = envConfig
+    } else {
+      this.envConfig = configFile
     }
+  }
 
-    /**
-     * 获取配置
-     * @param key
-     * @param defaultVal
-     */
-    get(key: string, defaultVal?: any): string {
-        return process.env[key] || this.envConfig[key] || defaultVal;
-    }
+  /**
+   * 获取配置
+   * @param key
+   * @param defaultVal
+   */
+  get(key: string, defaultVal?: any): string {
+    return process.env[key] || this.envConfig[key] || defaultVal
+  }
 
-    /** 获取系统配置 */
-    getKeys(keys: string[]): any {
-        return keys.reduce((obj, key: string) => {
-            obj[key] = this.get(key);
-            return obj;
-        }, {});
-    }
+  /** 获取系统配置 */
+  getKeys(keys: string[]): any {
+    return keys.reduce((obj, key: string) => {
+      obj[key] = this.get(key)
+      return obj
+    }, {})
+  }
 
-    /**
-     * 获取数字
-     * @param key
-     */
-    getNumber(key: string): number {
-        return Number(this.get(key));
-    }
+  /**
+   * 获取数字
+   * @param key
+   */
+  getNumber(key: string): number {
+    return Number(this.get(key))
+  }
 
-    /**
-     * 获取布尔值
-     * @param key
-     */
-    getBoolean(key: string): boolean {
-        return Boolean(this.get(key));
-    }
+  /**
+   * 获取布尔值
+   * @param key
+   */
+  getBoolean(key: string): boolean {
+    return Boolean(this.get(key))
+  }
 
-    /**
-     * 获取字典对象和数组
-     * @param key
-     */
-    getJson(key: string): { [prop: string]: any } | null {
-        try {
-            return JSON.parse(this.get(key));
-        } catch (error) {
-            return null;
-        }
+  /**
+   * 获取字典对象和数组
+   * @param key
+   */
+  getJson(key: string): { [prop: string]: any } | null {
+    try {
+      return JSON.parse(this.get(key))
+    } catch (error) {
+      return null
     }
+  }
 
-    /**
-     * 检查一个key是否存在
-     * @param key
-     */
-    has(key: string): boolean {
-        return this.get(key) !== undefined;
-    }
+  /**
+   * 检查一个key是否存在
+   * @param key
+   */
+  has(key: string): boolean {
+    return this.get(key) !== undefined
+  }
 
-    /** 开发模式 */
-    get isDevelopment(): boolean {
-        return this.get('NODE_ENV') === 'development';
-    }
-    /** 生产模式 */
-    get isProduction(): boolean {
-        return this.get('NODE_ENV') === 'production';
-    }
-    /** 测试模式 */
-    get isTest(): boolean {
-        return this.get('NODE_ENV') === 'test';
-    }
+  /** 开发模式 */
+  get isDevelopment(): boolean {
+    return this.get('NODE_ENV') === 'development'
+  }
+  /** 生产模式 */
+  get isProduction(): boolean {
+    return this.get('NODE_ENV') === 'production'
+  }
+  /** 测试模式 */
+  get isTest(): boolean {
+    return this.get('NODE_ENV') === 'test'
+  }
 }
 ```
 
 解析数据都存在`envConfig`里，封装一些获取并转义`value`的方法。
 
-传递2个参数，一个是`.env`文件路径，一个是验证器，配合`Joi`使用，`nest`官网文档把配置服务和验证字段放在一起，我觉得这样不是很科学。
+传递 2 个参数，一个是`.env`文件路径，一个是验证器，配合`Joi`使用，`nest`官网文档把配置服务和验证字段放在一起，我觉得这样不是很科学。
 我在`.env`加一个配置就需要去修改`ConfigService`类，它本来就是不需要修改的，我就把验证部分提取出来，这样就不用关心验证问题了。`ConfigService`只关心取值问题。
 
 上面模块里面还有一个`ConfigToken`服务，它是做什么的了，它叫做令牌。
@@ -989,13 +981,17 @@ export const InjectConfig = () => Inject(ConfigToken);
 写法：（总共四种：类，属性，方法，方法参数）
 
 ```ts
-declare type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void;
+declare type ClassDecorator = <TFunction extends Function>(target: TFunction) => TFunction | void
 
-declare type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void;
+declare type PropertyDecorator = (target: Object, propertyKey: string | symbol) => void
 
-declare type MethodDecorator = <T>(target: Object, propertyKey: string | symbol, descriptor: TypedPropertyDescriptor<T>) => TypedPropertyDescriptor<T> | void;
+declare type MethodDecorator = <T>(
+  target: Object,
+  propertyKey: string | symbol,
+  descriptor: TypedPropertyDescriptor<T>
+) => TypedPropertyDescriptor<T> | void
 
-declare type ParameterDecorator = (target: Object, propertyKey: string | symbol, parameterIndex: number) => void;
+declare type ParameterDecorator = (target: Object, propertyKey: string | symbol, parameterIndex: number) => void
 ```
 
 执行顺序：
@@ -1007,7 +1003,7 @@ declare type ParameterDecorator = (target: Object, propertyKey: string | symbol,
 
 1. 如何使用`config`
 
-2种方式：
+2 种方式：
 
 ```ts
 // 装饰器依赖注入
@@ -1034,7 +1030,7 @@ await app.listen(config.getNumber('PORT'));
 ```
 
 普通依赖注入就够玩了，这里用装饰器依赖注入有些画蛇添足，只是说明装饰器和注入器注入令牌用法。
-通过app实例取，一般用于系统启动初始化配置，后面还要其他的获取方式，用到在介绍。
+通过 app 实例取，一般用于系统启动初始化配置，后面还要其他的获取方式，用到在介绍。
 
 ### Config（应用配置）
 
@@ -1050,49 +1046,56 @@ OR
 
 ```ts
 export const Config = {
-    // 网站名字、标题
-    name: 'CNode技术社区',
-    // 网站关键词
-    keywords: 'nodejs, node, express, connect, socket.io',
-    // 网站描述
-    description: 'CNode：Node.js专业中文社区',
-    // logo
-    logo: '/public/images/cnodejs_light.svg',
-    // icon
-    icon: '/public/images/cnode_icon_32.png',
-    // 版块
-    tabs: [['all', '全部'], ['good', '精华'], ['share', '分享'], ['ask', '问答'], ['job', '招聘'], ['test', '测试']],
-    // RSS配置
-    rss: {
-        title: this.description,
-        link: '/',
-        language: 'zh-cn',
-        description: this.description,
-        // 最多获取的RSS Item数量
-        max_rss_items: 50,
-    },
-    // 帖子配置
-    topic: {
-        // 列表分页20
-        list_count: 20,
-        // 每天每用户限额计数10
-        perDayPerUserLimitCount: 10,
-    },
-    // 用户配置
-    user: {
-        // 每个 IP 每天可创建用户数
-        create_user_per_ip: 1000,
-    },
-    // 默认搜索方式
-    search: 'baidu', // 'google', 'baidu', 'local'
-};
+  // 网站名字、标题
+  name: 'CNode技术社区',
+  // 网站关键词
+  keywords: 'nodejs, node, express, connect, socket.io',
+  // 网站描述
+  description: 'CNode：Node.js专业中文社区',
+  // logo
+  logo: '/public/images/cnodejs_light.svg',
+  // icon
+  icon: '/public/images/cnode_icon_32.png',
+  // 版块
+  tabs: [
+    ['all', '全部'],
+    ['good', '精华'],
+    ['share', '分享'],
+    ['ask', '问答'],
+    ['job', '招聘'],
+    ['test', '测试'],
+  ],
+  // RSS配置
+  rss: {
+    title: this.description,
+    link: '/',
+    language: 'zh-cn',
+    description: this.description,
+    // 最多获取的RSS Item数量
+    max_rss_items: 50,
+  },
+  // 帖子配置
+  topic: {
+    // 列表分页20
+    list_count: 20,
+    // 每天每用户限额计数10
+    perDayPerUserLimitCount: 10,
+  },
+  // 用户配置
+  user: {
+    // 每个 IP 每天可创建用户数
+    create_user_per_ip: 1000,
+  },
+  // 默认搜索方式
+  search: 'baidu', // 'google', 'baidu', 'local'
+}
 ```
 
 哪里需要直接导入就行了，这个比较简单。
 
 系统配置和应用配置告一段落了，那么接下来需要配置数
 
-### mongoose连接
+### mongoose 连接
 
 关于`mongoDB`安装，创建数据库，连接认证等操作，这里就展开了，这里有篇[文章](https://github.com/jiayisheji/jianshu/blob/master/blog/连接MongoDB.md)
 
@@ -1117,17 +1120,14 @@ $ nest g mo core
 前面我们已经定义好了`ConfigModule`，现在把它添加到`CoreModule`中
 
 ```ts
-import { Module } from '@nestjs/common';
-import { ConfigModule, EnvConfig } from '../config';
-import { ConfigValidate } from './config.validate';
+import { Module } from '@nestjs/common'
+import { ConfigModule, EnvConfig } from '../config'
+import { ConfigValidate } from './config.validate'
 
 @Module({
-    imports: [
-        ConfigModule.forRoot<EnvConfig>(null, ConfigValidate.validateInput),
-    ],
+  imports: [ConfigModule.forRoot<EnvConfig>(null, ConfigValidate.validateInput)],
 })
-export class CoreModule {
-}
+export class CoreModule {}
 ```
 
 `ConfigValidate.validateInput` 是一个验证 `.env` 方法，`nest`和官网文档一样.
@@ -1139,8 +1139,8 @@ export class CoreModule {
 安装依赖：
 
 ```bash
-$ npm install --save @nestjs/mongoose mongoose
-$ npm install --save-dev @types/mongoose
+npm install --save @nestjs/mongoose mongoose
+npm install --save-dev @types/mongoose
 ```
 
 配置模块：[文档](https://docs.nestjs.com/techniques/mongodb)
@@ -1159,7 +1159,7 @@ export class CoreModule {
 }
 ```
 
-`MongooseModule`提供了2个静态方法：
+`MongooseModule`提供了 2 个静态方法：
 
 - forRoot(url, config): 对应的`Mongoose.connect()`方法
 - forRootAsync({
@@ -1170,7 +1170,7 @@ export class CoreModule {
 - forFeature([{ name, schema }]): 对应的`mongoose.model()`方法
 - constructor(@InjectModel('Cat') private readonly catModel: Model) {}：`@InjectModel`获取`mongoose.model`，参数和`forFeature`的`name`一样。
 
-根模块使用: (forRoot和forRootAsync，只能注入一次，所以要在根模块导入)
+根模块使用: (forRoot 和 forRootAsync，只能注入一次，所以要在根模块导入)
 
 这里我们需要借助配置模块里面获取配置，需要用到`forRootAsync`
 
@@ -1197,7 +1197,7 @@ export class CoreModule {
 
 如果要写`MongooseOptions`怎么办
 
-直接在uri后面写，有个必须的配置要写：
+直接在 uri 后面写，有个必须的配置要写：
 
 ```bash
 DeprecationWarning: current URL string parser is deprecated, and will be removed in a future version. To use the new parser, pass option { useNewUrlParser: true } to MongoClient.connect.
@@ -1211,7 +1211,7 @@ DeprecationWarning: current URL string parser is deprecated, and will be removed
 MongoError: Authentication failed.
 ```
 
-请检查uri是否正确，如果启动验证，账号是否验证通过，数据库名是否正确等等。
+请检查 uri 是否正确，如果启动验证，账号是否验证通过，数据库名是否正确等等。
 
 数据库连接成功，我们进行下一步，定义用户表。
 
@@ -1267,7 +1267,7 @@ OR
 编辑器新建文件`index.ts`
 ```
 
-- `interface`是`ts`接口定义ts
+- `interface`是`ts`接口定义 ts
 - `schema`是定义`mongodb`的`schema`
 
 最后完整的`user`文件夹是：
@@ -1287,11 +1287,11 @@ user.interface.ts
 默认生产的模块文件
 
 ```ts
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class UserService {
-    constructor() { }
+  constructor() {}
 }
 ```
 
@@ -1300,13 +1300,13 @@ export class UserService {
 - findAll 获取指定条件全部数据
 - paginator 带分页结构数据
 - findOne 获取一个数据
-- findById 获取指定id数据
+- findById 获取指定 id 数据
 - count 获取指定条件个数
 - create 创建数据
 - delete 删除数据
 - update 更新数据
 
-一个基本表应该有增删改查这样8个快捷操作方法，如果每个表都写一个这样的，就比较多余了。`Typescript`给我们提供一个抽象类，我们可以把这些公共方法写在里面，然后用其他服务来继承。那我们开始写`base.service.ts`:
+一个基本表应该有增删改查这样 8 个快捷操作方法，如果每个表都写一个这样的，就比较多余了。`Typescript`给我们提供一个抽象类，我们可以把这些公共方法写在里面，然后用其他服务来继承。那我们开始写`base.service.ts`:
 
 base.service.ts
 
@@ -1319,235 +1319,256 @@ base.service.ts
  * @template T
  */
 export abstract class BaseService<T extends Document> {
-    constructor(private readonly _model: Model<T>) {}
+  constructor(private readonly _model: Model<T>) {}
 
-    /**
-     * 获取指定条件全部数据
-     * @param {*} conditions
-     * @param {(any | null)} [projection]
-     * @param {({
-     *         sort?: any;
-     *         limit?: number;
-     *         skip?: number;
-     *         populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-     *         [key: string]: any;
-     *     })} [options]
-     * @returns {Promise<T[]>}
-     * @memberof BaseService
-     */
-    findAll(conditions: any, projection?: any | null, options?: {
-        sort?: any;
-        limit?: number;
-        skip?: number;
-        populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-        [key: string]: any;
-    }): Promise<T[]> {
-        const { option, populates } = options;
-        const docsQuery = this._model.find(conditions, projection, option);
-        return this.populates<T[]>(docsQuery, populates);
+  /**
+   * 获取指定条件全部数据
+   * @param {*} conditions
+   * @param {(any | null)} [projection]
+   * @param {({
+   *         sort?: any;
+   *         limit?: number;
+   *         skip?: number;
+   *         populates?: ModelPopulateOptions[] | ModelPopulateOptions;
+   *         [key: string]: any;
+   *     })} [options]
+   * @returns {Promise<T[]>}
+   * @memberof BaseService
+   */
+  findAll(
+    conditions: any,
+    projection?: any | null,
+    options?: {
+      sort?: any
+      limit?: number
+      skip?: number
+      populates?: ModelPopulateOptions[] | ModelPopulateOptions
+      [key: string]: any
     }
+  ): Promise<T[]> {
+    const { option, populates } = options
+    const docsQuery = this._model.find(conditions, projection, option)
+    return this.populates<T[]>(docsQuery, populates)
+  }
 
-    /**
-     * 获取带分页数据
-     * @param {*} conditions
-     * @param {(any | null)} [projection]
-     * @param {({
-     *         sort?: any;
-     *         limit?: number;
-     *         offset?: number;
-     *         page?: number;
-     *         populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-     *         [key: string]: any;
-     *     })} [options]
-     * @returns {Promise<Paginator<T>>}
-     * @memberof BaseService
-     */
-    async paginator(conditions: any, projection?: any | null, options?: {
-        sort?: any;
-        limit?: number;
-        offset?: number;
-        page?: number;
-        populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-        [key: string]: any;
-    }): Promise<Paginator<T>> {
-        const result: Paginator<T> = {
-            data: [],
-            total: 0,
-            limit: options.limit ? options.limit : 10,
-            offset: 0,
-            page: 1,
-            pages: 0,
-        };
-        const { offset, page, option } = options;
-        if (offset !== undefined) {
-            result.offset = options.offset;
-            options.skip = offset;
-        } else if (page !== undefined) {
-            result.page = page;
-            options.skip = (page - 1) * result.limit;
-            result.pages = Math.ceil(result.total / result.limit) || 1;
-        } else {
-            options.skip = 0;
-        }
-        result.data = await this.findAll(conditions, projection, option);
-        result.total = await this.count(conditions);
-        return Promise.resolve(result);
+  /**
+   * 获取带分页数据
+   * @param {*} conditions
+   * @param {(any | null)} [projection]
+   * @param {({
+   *         sort?: any;
+   *         limit?: number;
+   *         offset?: number;
+   *         page?: number;
+   *         populates?: ModelPopulateOptions[] | ModelPopulateOptions;
+   *         [key: string]: any;
+   *     })} [options]
+   * @returns {Promise<Paginator<T>>}
+   * @memberof BaseService
+   */
+  async paginator(
+    conditions: any,
+    projection?: any | null,
+    options?: {
+      sort?: any
+      limit?: number
+      offset?: number
+      page?: number
+      populates?: ModelPopulateOptions[] | ModelPopulateOptions
+      [key: string]: any
     }
+  ): Promise<Paginator<T>> {
+    const result: Paginator<T> = {
+      data: [],
+      total: 0,
+      limit: options.limit ? options.limit : 10,
+      offset: 0,
+      page: 1,
+      pages: 0,
+    }
+    const { offset, page, option } = options
+    if (offset !== undefined) {
+      result.offset = options.offset
+      options.skip = offset
+    } else if (page !== undefined) {
+      result.page = page
+      options.skip = (page - 1) * result.limit
+      result.pages = Math.ceil(result.total / result.limit) || 1
+    } else {
+      options.skip = 0
+    }
+    result.data = await this.findAll(conditions, projection, option)
+    result.total = await this.count(conditions)
+    return Promise.resolve(result)
+  }
 
-    /**
-     * 获取单条数据
-     * @param {*} conditions
-     * @param {*} [projection]
-     * @param {({
-     *         lean?: boolean;
-     *         populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-     *         [key: string]: any;
-     *     })} [options]
-     * @returns {(Promise<T | null>)}
-     * @memberof BaseService
-     */
-    findOne(conditions: any, projection?: any, options?: {
-        lean?: boolean;
-        populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-        [key: string]: any;
-    }): Promise<T | null> {
-        const { option, populates } = options;
-        const docsQuery = this._model.findOne(conditions, projection, option);
-        return this.populates<T>(docsQuery, populates);
+  /**
+   * 获取单条数据
+   * @param {*} conditions
+   * @param {*} [projection]
+   * @param {({
+   *         lean?: boolean;
+   *         populates?: ModelPopulateOptions[] | ModelPopulateOptions;
+   *         [key: string]: any;
+   *     })} [options]
+   * @returns {(Promise<T | null>)}
+   * @memberof BaseService
+   */
+  findOne(
+    conditions: any,
+    projection?: any,
+    options?: {
+      lean?: boolean
+      populates?: ModelPopulateOptions[] | ModelPopulateOptions
+      [key: string]: any
     }
+  ): Promise<T | null> {
+    const { option, populates } = options
+    const docsQuery = this._model.findOne(conditions, projection, option)
+    return this.populates<T>(docsQuery, populates)
+  }
 
-    /**
-     * 根据id获取单条数据
-     * @param {(any | string | number)} id
-     * @param {*} [projection]
-     * @param {({
-     *         lean?: boolean;
-     *         populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-     *         [key: string]: any;
-     *     })} [options]
-     * @returns {(Promise<T | null>)}
-     * @memberof BaseService
-     */
-    findById(id: any | string | number, projection?: any, options?: {
-        lean?: boolean;
-        populates?: ModelPopulateOptions[] | ModelPopulateOptions;
-        [key: string]: any;
-    }): Promise<T | null> {
-        const { option, populates } = options;
-        const docsQuery = this._model.findById(this.toObjectId(id), projection, option);
-        return this.populates<T>(docsQuery, populates);
+  /**
+   * 根据id获取单条数据
+   * @param {(any | string | number)} id
+   * @param {*} [projection]
+   * @param {({
+   *         lean?: boolean;
+   *         populates?: ModelPopulateOptions[] | ModelPopulateOptions;
+   *         [key: string]: any;
+   *     })} [options]
+   * @returns {(Promise<T | null>)}
+   * @memberof BaseService
+   */
+  findById(
+    id: any | string | number,
+    projection?: any,
+    options?: {
+      lean?: boolean
+      populates?: ModelPopulateOptions[] | ModelPopulateOptions
+      [key: string]: any
     }
+  ): Promise<T | null> {
+    const { option, populates } = options
+    const docsQuery = this._model.findById(this.toObjectId(id), projection, option)
+    return this.populates<T>(docsQuery, populates)
+  }
 
-    /**
-     * 获取指定查询条件的数量
-     * @param {*} conditions
-     * @returns {Promise<number>}
-     * @memberof UserService
-     */
-    count(conditions: any): Promise<number> {
-        return this._model.countDocuments(conditions).exec();
-    }
+  /**
+   * 获取指定查询条件的数量
+   * @param {*} conditions
+   * @returns {Promise<number>}
+   * @memberof UserService
+   */
+  count(conditions: any): Promise<number> {
+    return this._model.countDocuments(conditions).exec()
+  }
 
-    /**
-     * 创建一条数据
-     * @param {T} docs
-     * @returns {Promise<T>}
-     * @memberof BaseService
-     */
-    async create(docs: Partial<T>): Promise<T> {
-        return this._model.create(docs);
-    }
+  /**
+   * 创建一条数据
+   * @param {T} docs
+   * @returns {Promise<T>}
+   * @memberof BaseService
+   */
+  async create(docs: Partial<T>): Promise<T> {
+    return this._model.create(docs)
+  }
 
-    /**
-     * 删除指定id数据
-     * @param {string} id
-     * @returns {Promise<T>}
-     * @memberof BaseService
-     */
-    async delete(id: string, options: {
-        /** if multiple docs are found by the conditions, sets the sort order to choose which doc to update */
-        sort?: any;
-        /** sets the document fields to return */
-        select?: any;
-    }): Promise<T | null> {
-        return this._model.findByIdAndRemove(this.toObjectId(id), options).exec();
+  /**
+   * 删除指定id数据
+   * @param {string} id
+   * @returns {Promise<T>}
+   * @memberof BaseService
+   */
+  async delete(
+    id: string,
+    options: {
+      /** if multiple docs are found by the conditions, sets the sort order to choose which doc to update */
+      sort?: any
+      /** sets the document fields to return */
+      select?: any
     }
+  ): Promise<T | null> {
+    return this._model.findByIdAndRemove(this.toObjectId(id), options).exec()
+  }
 
-    /**
-     * 更新指定id数据
-     * @param {string} id
-     * @param {Partial<T>} [item={}]
-     * @returns {Promise<T>}
-     * @memberof BaseService
-     */
-    async update(id: string, update: Partial<T>, options: ModelFindByIdAndUpdateOptions = { new: true }): Promise<T | null> {
-        return this._model.findByIdAndUpdate(this.toObjectId(id), update, options).exec();
-    }
+  /**
+   * 更新指定id数据
+   * @param {string} id
+   * @param {Partial<T>} [item={}]
+   * @returns {Promise<T>}
+   * @memberof BaseService
+   */
+  async update(
+    id: string,
+    update: Partial<T>,
+    options: ModelFindByIdAndUpdateOptions = { new: true }
+  ): Promise<T | null> {
+    return this._model.findByIdAndUpdate(this.toObjectId(id), update, options).exec()
+  }
 
-    /**
-     * 删除所有匹配条件的文档集合
-     * @param {*} [conditions={}]
-     * @returns {Promise<WriteOpResult['result']>}
-     * @memberof BaseService
-     */
-    async clearCollection(conditions = {}): Promise<WriteOpResult['result']> {
-        return this._model.deleteMany(conditions).exec();
-    }
+  /**
+   * 删除所有匹配条件的文档集合
+   * @param {*} [conditions={}]
+   * @returns {Promise<WriteOpResult['result']>}
+   * @memberof BaseService
+   */
+  async clearCollection(conditions = {}): Promise<WriteOpResult['result']> {
+    return this._model.deleteMany(conditions).exec()
+  }
 
-    /**
-     * 转换ObjectId
-     * @private
-     * @param {string} id
-     * @returns {Types.ObjectId}
-     * @memberof BaseService
-     */
-    private toObjectId(id: string): Types.ObjectId {
-        return Types.ObjectId(id);
-    }
+  /**
+   * 转换ObjectId
+   * @private
+   * @param {string} id
+   * @returns {Types.ObjectId}
+   * @memberof BaseService
+   */
+  private toObjectId(id: string): Types.ObjectId {
+    return Types.ObjectId(id)
+  }
 
-    /**
-     * 填充其他模型
-     * @private
-     * @param {*} docsQuery
-     * @param {*} populates
-     * @returns {(Promise<T | T[] | null>)}
-     * @memberof BaseService
-     */
-    private populates<R>(docsQuery, populates): Promise<R | null> {
-        if (populates) {
-            [].concat(populates).forEach((item) => {
-                docsQuery.populate(item);
-            });
-        }
-        return docsQuery.exec();
+  /**
+   * 填充其他模型
+   * @private
+   * @param {*} docsQuery
+   * @param {*} populates
+   * @returns {(Promise<T | T[] | null>)}
+   * @memberof BaseService
+   */
+  private populates<R>(docsQuery, populates): Promise<R | null> {
+    if (populates) {
+      ;[].concat(populates).forEach(item => {
+        docsQuery.populate(item)
+      })
     }
+    return docsQuery.exec()
+  }
 }
 ```
 
 这里说几个上面没有提到的属性和方法：
 
-- _model：当前模型的实例，我们使用它去扩展其他方法，如果上面方法不满足我们需求，我们可以随时自定义
+- \_model：当前模型的实例，我们使用它去扩展其他方法，如果上面方法不满足我们需求，我们可以随时自定义
 - clearCollection：删除所有匹配条件的文档集合
-- toObjectId：字符串 id 转换ObjectId
+- toObjectId：字符串 id 转换 ObjectId
 
 那么我们接下来的`UserService`就简单多了
 
 user.service.ts
 
 ```ts
-import { Injectable } from '@nestjs/common';
-import { BaseService } from '../base.service';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { User } from './user.interface';
+import { Injectable } from '@nestjs/common'
+import { BaseService } from '../base.service'
+import { InjectModel } from '@nestjs/mongoose'
+import { Model } from 'mongoose'
+import { User } from './user.interface'
 
 @Injectable()
 export class UserService extends BaseService<User> {
-    constructor(
-        @InjectModel('User') private readonly userModel: Model<User>,
-    ) {
-        super(userModel);
-    }
+  constructor(@InjectModel('User') private readonly userModel: Model<User>) {
+    super(userModel)
+  }
 }
 ```
 
@@ -1555,7 +1576,7 @@ export class UserService extends BaseService<User> {
 
 我们现在数据库`UserService`就已经完成了，接下来就需要定义`schema`和`interface`。
 
-#### 定义schema
+#### 定义 schema
 
 有了上面服务的经验，现在是不是你会说`schema`有没有公用的，当然可以呀。
 
@@ -1564,32 +1585,32 @@ export class UserService extends BaseService<User> {
 - create_at：创建时间
 - update_at: 更新时间
 
-这2个我们可以用抽出来，可以使用`schema`配置参数里面的`timestamps`属性，可以开启它，它默认`createdAt`和`updatedAt`。我们修改它们字段名，使用它们好处，创建自动赋值，修改时候自动更新。
-**注意**：它们的存的时间和本地时间相差8小时，这个后面说怎么处理。
+这 2 个我们可以用抽出来，可以使用`schema`配置参数里面的`timestamps`属性，可以开启它，它默认`createdAt`和`updatedAt`。我们修改它们字段名，使用它们好处，创建自动赋值，修改时候自动更新。
+**注意**：它们的存的时间和本地时间相差 8 小时，这个后面说怎么处理。
 
 那么我们最终的配置就是：
 
 ```ts
 export const schemaOptions: SchemaOptions = {
-    toJSON: {
-        virtuals: true,
-        getters: true,
-    },
-    timestamps: {
-        createdAt: 'create_at',
-        updatedAt: 'update_at',
-    },
-};
+  toJSON: {
+    virtuals: true,
+    getters: true,
+  },
+  timestamps: {
+    createdAt: 'create_at',
+    updatedAt: 'update_at',
+  },
+}
 ```
 
 `toJSON`是做什么的，我们需要开启显示`virtuals`虚拟数据，`getters`获取数据。
 
-关于schema定义
+关于 schema 定义
 
-在创建表之前我们需要跟大家说一下mongoDB的数据类型，具体数据类型如下：
+在创建表之前我们需要跟大家说一下 mongoDB 的数据类型，具体数据类型如下：
 
 - 字符串 - 这是用于存储数据的最常用的数据类型。`MongoDB`中的字符串必须为`UTF-8`。
-- 整型 - 此类型用于存储数值。 整数可以是32位或64位，具体取决于服务器。
+- 整型 - 此类型用于存储数值。 整数可以是 32 位或 64 位，具体取决于服务器。
 - 布尔类型 - 此类型用于存储布尔值(true / false)值。
 - 双精度浮点数 - 此类型用于存储浮点值。
 - 最小/最大键 - 此类型用于将值与最小和最大`BSON`元素进行比较。
@@ -1597,29 +1618,29 @@ export const schemaOptions: SchemaOptions = {
 - 时间戳 - `ctimestamp`当文档被修改或添加时，可以方便地进行录制。
 - 对象 - 此数据类型用于嵌入式文档。
 - 对象 - 此数据类型用于嵌入式文档。
-- Null - 此类型用于存储Null值。
+- Null - 此类型用于存储 Null 值。
 - 符号 - 该数据类型与字符串相同; 但是，通常保留用于使用特定符号类型的语言。
-- 日期 - 此数据类型用于以UNIX时间格式存储当前日期或时间。您可以通过创建日期对象并将日，月，年的日期进行指定自己需要的日期时间。
-- 对象ID - 此数据类型用于存储文档的ID。
+- 日期 - 此数据类型用于以 UNIX 时间格式存储当前日期或时间。您可以通过创建日期对象并将日，月，年的日期进行指定自己需要的日期时间。
+- 对象 ID - 此数据类型用于存储文档的 ID。
 - 二进制数据 - 此数据类型用于存储二进制数据。
-- 代码 - 此数据类型用于将JavaScript代码存储到文档中。
+- 代码 - 此数据类型用于将 JavaScript 代码存储到文档中。
 - 正则表达式 - 此数据类型用于存储正则表达式。
 
 `mongoose`使用`Schema`所定义的数据模型，再使用`mongoose.model(modelName, schema)`将定义好的`Schema`转换为`Model`。
 在`Mongoose`的设计理念中，`Schema`用来也只用来定义数据结构，具体对数据的增删改查操作都由`Model`来执行
 
 ```ts
-import { Schema } from 'mongoose';
+import { Schema } from 'mongoose'
 export const UserSchema = new Schema({
-    // 定义你的Schema
-});
-UserSchema.index()  // 索引
+  // 定义你的Schema
+})
+UserSchema.index() // 索引
 UserSchema.virtual() // 虚拟值
 UserSchema.pre() // 中间件
-UserSchema.methods.xxx = function(){} // 实例方法
-UserSchema.statics.xxx = function(){} // 静态方法
-UserSchema.query.xxx = function(){} // 查询助手
-UserSchema.query.xxx = function(){} // 查询助手
+UserSchema.methods.xxx = function () {} // 实例方法
+UserSchema.statics.xxx = function () {} // 静态方法
+UserSchema.query.xxx = function () {} // 查询助手
+UserSchema.query.xxx = function () {} // 查询助手
 ```
 
 > **注意**：这里面都要使用普通函数`function(){}`，不能使用`()=>{}`，原因你懂的。
@@ -1686,20 +1707,20 @@ UserSchema.virtual('avatar_url').get(function() {
 
 > **注意**：这里面使用`utility`工具包，需要安装一下，`npm install utility --save`。
 
-#### 定义interface
+#### 定义 interface
 
 因为有些公共的字段，我们在定义`interface`时候也需要抽离出来。使用`base.interface.ts`
 
 base.interface.ts
 
 ```ts
-import { Document, Types } from 'mongoose';
+import { Document, Types } from 'mongoose'
 
 export interface BaseInterface extends Document {
-    _id: Types.ObjectId;  // mongodb id
-    id: Types.ObjectId; // mongodb id
-    create_at: Date; // 创建时间
-    update_at: Date; // 更新时间
+  _id: Types.ObjectId // mongodb id
+  id: Types.ObjectId // mongodb id
+  create_at: Date // 创建时间
+  update_at: Date // 更新时间
 }
 ```
 
@@ -1733,12 +1754,12 @@ export interface User extends BaseInterface {
 默认生产的模块文件
 
 ```ts
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common'
 
 @Module({
-    imports: [],
-    providers: [],
-    exports: [],
+  imports: [],
+  providers: [],
+  exports: [],
 })
 export class UserModule {}
 ```
@@ -1748,21 +1769,19 @@ export class UserModule {}
 user.module.ts
 
 ```ts
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common'
 
 // 引入 nestjs 提供的 mongoose 模块
-import { MongooseModule } from '@nestjs/mongoose';
+import { MongooseModule } from '@nestjs/mongoose'
 
 // 引入自己写的 schema 和 service 在模块里面注册
-import { UserSchema } from './user.schema';
-import { UserService } from './user.service';
+import { UserSchema } from './user.schema'
+import { UserService } from './user.service'
 
 @Module({
-    imports: [
-        MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
-    ],
-    providers: [UserService],
-    exports: [UserService],
+  imports: [MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
+  providers: [UserService],
+  exports: [UserService],
 })
 export class UserModule {}
 ```
@@ -1776,9 +1795,9 @@ export class UserModule {}
 index.ts
 
 ```ts
-export * from './user.module';
-export * from './user.interface';
-export * from './user.service';
+export * from './user.module'
+export * from './user.interface'
+export * from './user.service'
 ```
 
 > **注意**：不是所有的文件都需要导出的，一些关键的文件，其他模块需要使用的，如果`interface`、`service`都是需要导出的。
@@ -1788,47 +1807,47 @@ export * from './user.service';
 xxx.service.ts
 
 ```ts
-import { UserService , User } from './user';
+import { UserService, User } from './user'
 ```
 
 是不是很方便。
 
 ### shared 模块和 mongodb 模块
 
-#### mongodb模块
+#### mongodb 模块
 
 `mongodb`模块是管理所有`mongodb`文件夹里模块导入导出
 
 mongodb.module.ts
 
 ```ts
-import { Module } from '@nestjs/common';
-import { UserModule } from './user';
+import { Module } from '@nestjs/common'
+import { UserModule } from './user'
 
 @Module({
-    imports: [UserModule],
-    exports: [UserModule],
+  imports: [UserModule],
+  exports: [UserModule],
 })
-export class MongodbModule { }
+export class MongodbModule {}
 ```
 
 > 建立索引文件`index.ts`导出`mongodb`文件夹下所有文件夹
 
-#### shared模块
+#### shared 模块
 
 `shared`模块是管理所有`shared`文件夹里模块导入导出
 
 shared.module.ts
 
 ```ts
-import { Module } from '@nestjs/common';
-import { MongodbModule } from './mongodb';
+import { Module } from '@nestjs/common'
+import { MongodbModule } from './mongodb'
 
 @Module({
-    imports: [MongodbModule],
-    exports: [MongodbModule],
+  imports: [MongodbModule],
+  exports: [MongodbModule],
 })
-export class SharedModule { }
+export class SharedModule {}
 ```
 
 > 建立索引文件`index.ts`导出`shared`文件夹下所有文件夹
@@ -1844,8 +1863,8 @@ export class SharedModule { }
 先说一下我们登陆注册逻辑：
 
 1. 我们主要使用`passport、passport-github、passport-local`这三个模块，做身份认证。
-2. 支持本地注册登陆和`github`第三方认证登陆（后面会介绍github认证登陆怎么玩）
-3. 使用`session`和`cookie`，30天内免登陆
+2. 支持本地注册登陆和`github`第三方认证登陆（后面会介绍 github 认证登陆怎么玩）
+3. 使用`session`和`cookie`，30 天内免登陆
 4. 退出后清除`session`和`cookie`
 5. 支持电子邮箱找回密码
 
@@ -1887,7 +1906,7 @@ $ nest g co feature/auth
 
 1. 创建`auth`的`dto`
 
-dto是字段参数验证的验证类，需要配合各种功能，等下会讲解。
+dto 是字段参数验证的验证类，需要配合各种功能，等下会讲解。
 
 最后完整的`auth`文件夹是：
 
@@ -1908,29 +1927,29 @@ dto
 看一个简单的栗子：
 
 ```ts
-const sleep =  (time) => {
-    return new Promise( (resolve)=> {
-        setTimeout( () => {
-            resolve();
-        }, time);
-    })
-};
+const sleep = time => {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve()
+    }, time)
+  })
+}
 
 const start = async () => {
-    // 在这里使用起来就像同步代码那样直观
-    console.log('start');
-    await sleep(3000);
-    console.log('end');
-};
+  // 在这里使用起来就像同步代码那样直观
+  console.log('start')
+  await sleep(3000)
+  console.log('end')
+}
 
 const startFor = async function () {
-    for (var i = 1; i <= 10; i++) {
-        console.log(`当前是第${i}次等待..`);
-        await sleep(1000);
-    }
-};
+  for (var i = 1; i <= 10; i++) {
+    console.log(`当前是第${i}次等待..`)
+    await sleep(1000)
+  }
+}
 
-start();
+start()
 
 // startFor();
 ```
@@ -1943,59 +1962,53 @@ start();
 2. `await` 表示在这里等待`promise`返回结果了，再继续执行。
 3. `await` 等待的虽然是`promise`对象，但不必写`.then(..)`，直接可以得到返回值。
 4. 捕捉错误可以直接用标准的`try catch`语法捕捉错误
-5. 循环多个`await` 可以写在for循环里，不必担心以往需要`闭包`才能解决的问题 (注意不能使用`forEach`,只可以用`for/for-of`)
+5. 循环多个`await` 可以写在 for 循环里，不必担心以往需要`闭包`才能解决的问题 (注意不能使用`forEach`,只可以用`for/for-of`)
 
 > **注意**：`await`必须在`async`函数的上下文中
 
 在开始之前，前面数据操作有基础服务抽象类，这里控制器和服务也可以抽象出来。是可以抽象出来，但是本项目不决定这么来做，但会做一些抽象的辅助工具。
 
-### auth模块
+### auth 模块
 
 auth.module.ts
 
 ```ts
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common'
 // 引入共享模块 访问user数据库
-import { SharedModule } from 'shared';
+import { SharedModule } from 'shared'
 // 引入控制和服务进行在模块注册
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service'
+import { AuthController } from './auth.controller'
 
 @Module({
-    imports: [
-        SharedModule,
-    ],
-    controllers: [AuthController],
-    providers: [AuthService],
+  imports: [SharedModule],
+  controllers: [AuthController],
+  providers: [AuthService],
 })
-export class AuthModule { }
+export class AuthModule {}
 ```
 
 > **注意**： `feature` 模块尽量不要导出服务，避免循环依赖。
 
-### feature模块
+### feature 模块
 
 feature.module.ts
 
 ```ts
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common'
 // 引入Auth模块导入导出
-import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './auth/auth.module'
 
 @Module({
-    imports: [
-        AuthModule,
-    ],
-    exports: [
-        AuthModule,
-    ],
+  imports: [AuthModule],
+  exports: [AuthModule],
 })
-export class FeatureModule { }
+export class FeatureModule {}
 ```
 
 > **注意**： `feature` 模块功能就是导入导出所以的业务模块。
 
-### app模块
+### app 模块
 
 如果是按我顺序用命令行创建的文件，`feature` 模块会自动添加到 `APP` 模块里面，
 如果不是，需要手动把 `feature` 模块引入到 `APP` 模块里面。
@@ -2020,17 +2033,15 @@ export class AppModule { }
 
 > **注意**：`APP` 模块不需要引入 `shared` 模块，`shared` 模式给业务模块引用的，`APP` 模块只需要引入 `CoreModule`, `feature` 模块就可以了。
 
-### auth控制器
+### auth 控制器
 
 默认控制器文件
 
 ```ts
-import { Controller } from '@nestjs/common';
+import { Controller } from '@nestjs/common'
 
 @Controller()
-export class AuthController {
-
-}
+export class AuthController {}
 ```
 
 #### 注册
@@ -2077,8 +2088,8 @@ export class AuthController {
 
 ```json
 {
-    "statusCode": 500,
-    "message": "Internal server error"
+  "statusCode": 500,
+  "message": "Internal server error"
 }
 ```
 
@@ -2097,13 +2108,13 @@ csrf is not defined
 ```
 
 提示我们`csrf`这个变量找不到。`csrf`是什么，
-跨站请求伪造(CSRF或XSRF)是一种恶意利用的网站,未经授权的命令是传播从一个web应用程序的用户信任。
-减轻这种攻击可以使用`csurf`包。这里有篇文章[浅谈cnode社区如何防止csrf攻击](https://cnodejs.org/topic/5533dd6e9138f09b629674fd)
+跨站请求伪造(CSRF 或 XSRF)是一种恶意利用的网站,未经授权的命令是传播从一个 web 应用程序的用户信任。
+减轻这种攻击可以使用`csurf`包。这里有篇文章[浅谈 cnode 社区如何防止 csrf 攻击](https://cnodejs.org/topic/5533dd6e9138f09b629674fd)
 
 安装所需的包:
 
 ```bash
-$ npm i --save csurf
+npm i --save csurf
 ```
 
 在入口文件启动函数里面使用它。
@@ -2116,7 +2127,7 @@ async function bootstrap() {
   // 防止跨站请求伪造
   app.use(csurf({ cookie: true }));
   ...
-}  
+}
 ```
 
 直接这么写肯定有问题，刷新页面控制台报错`Error: misconfigured csrf`
@@ -2140,10 +2151,10 @@ async function bootstrap() {
 
 `session`中间件可以选择[express-session](https://www.npmjs.com/package/express-session)和[cookie-session](https://www.npmjs.com/package/cookie-session)
 
-我们需要安装2个中间件：
+我们需要安装 2 个中间件：
 
 ```bash
-$ npm i --save cookie-parser express-session connect-redis
+npm i --save cookie-parser express-session connect-redis
 ```
 
 在入口文件启动函数里面使用它。
@@ -2171,14 +2182,14 @@ async function bootstrap() {
   // 防止跨站请求伪造
   app.use(csurf({ cookie: true }));
   ...
-}  
+}
 ```
 
 里面有注释，这里就不解释了。
 
 现在刷新还是一样报错`csrf is not defined`。
 
-上面已经ok，现在是没有这个变量，我们去`registerView`方法返回值里面加上
+上面已经 ok，现在是没有这个变量，我们去`registerView`方法返回值里面加上
 
 ```ts
 async registerView() {
@@ -2186,7 +2197,7 @@ async registerView() {
 }
 ```
 
-key是`csrf`，value随便写，返回最后都会被替换的。
+key 是`csrf`，value 随便写，返回最后都会被替换的。
 
 [![4](https://user-images.githubusercontent.com/6111778/50327790-71a6cc00-052b-11e9-84c7-0585c605653a.png)](https://user-images.githubusercontent.com/6111778/50327790-71a6cc00-052b-11e9-84c7-0585c605653a.png)
 
@@ -2204,7 +2215,7 @@ async function bootstrap() {
     next();
   });
   ...
-}  
+}
 ```
 
 在刷新又报了另外一个错误：`ForbiddenError: invalid csrf token`。验证`token`失败。
@@ -2218,20 +2229,20 @@ async function bootstrap() {
 - `req.headers['x-csrf-token']` - the X-CSRF-Token HTTP request header.
 - `req.headers['x-xsrf-token']` - the X-XSRF-Token HTTP request header.
 
-前端向后端提交数据，常用有2种方式，`form`和`ajax`。`ajax`无刷新，这个比较常用，基本是主流操作了。`form`是服务端渲染使用比较多，不需要js处理直接提交，我们项目大部分都是`form`直接提交。
+前端向后端提交数据，常用有 2 种方式，`form`和`ajax`。`ajax`无刷新，这个比较常用，基本是主流操作了。`form`是服务端渲染使用比较多，不需要 js 处理直接提交，我们项目大部分都是`form`直接提交。
 
-一般服务端渲染常用就2种请求，`get`打开一个页面，`post`直接`form`提交。
+一般服务端渲染常用就 2 种请求，`get`打开一个页面，`post`直接`form`提交。
 
 `post`提交都是把数据放在`body`体里面，`Express`，解析`body`需要借助中间件`body-parser`。
 
-`nest`已经自带`body-parser`配置。但是我发现好像有bug，原因不明，给作者提[issues](https://github.com/nestjs/nest/issues/1052)
+`nest`已经自带`body-parser`配置。但是我发现好像有 bug，原因不明，给作者提[issues](https://github.com/nestjs/nest/issues/1052)
 
 作者回复速度很快，需要调用`app.init()`初始化才行。
 
 还有一个重要的东西`layout.html`模板需要加上`csrf`这个变量。
 
 ```html
-<meta content="<%= csrf %>" name="csrf-token">
+<meta content="<%= csrf %>" name="csrf-token" />
 ```
 
 接下来要写表单验证了：
@@ -2246,15 +2257,15 @@ OR
 编辑器新建文件index.ts
 ```
 
-`register.dto.ts`是一个导出的类，typescript类型，可以是`class`，可以`interface`，推荐`class`，因为它不光可以定义类型，还可以初始化数据。
+`register.dto.ts`是一个导出的类，typescript 类型，可以是`class`，可以`interface`，推荐`class`，因为它不光可以定义类型，还可以初始化数据。
 
 ```ts
 export class RegisterDto {
-    readonly loginname: string;
-    readonly email: string;
-    readonly pass: string;
-    readonly re_pass: string;
-    readonly _csrf: string;
+  readonly loginname: string
+  readonly email: string
+  readonly pass: string
+  readonly re_pass: string
+  readonly _csrf: string
 }
 ```
 
@@ -2270,7 +2281,7 @@ async register(@Body() register: RegisterDto) {
 }
 ```
 
-这样是不是很普通，也没有太大用处。如果真的是这样的，我就不会写出来了。如果我提交数据之前需要验证字段合法性怎么办。`nest`也为我们想到了，使用官方提供的`ValidationPipe`，并安装2个必须的依赖：
+这样是不是很普通，也没有太大用处。如果真的是这样的，我就不会写出来了。如果我提交数据之前需要验证字段合法性怎么办。`nest`也为我们想到了，使用官方提供的`ValidationPipe`，并安装 2 个必须的依赖：
 
 ```bash
 npm i --save class-validator class-transformer
@@ -2291,7 +2302,7 @@ async function bootstrap() {
     forbidUnknownValues: true,
   }));
   ...
-}  
+}
 ```
 
 > 配置信息官网都有介绍，说一个重点，`transform`是转换数据，配合`class-transformer`使用。
@@ -2354,40 +2365,40 @@ async function bootstrap() {
 
 这样写不是很友好，我们需要自定义一个装饰器来完成这个功能。
 
-在core新建`decorators`文件夹下建`validator.decorators.ts`文件
+在 core 新建`decorators`文件夹下建`validator.decorators.ts`文件
 
 ```ts
-import { registerDecorator, ValidationOptions, ValidationArguments, Validator } from 'class-validator';
-import { get } from 'lodash';
+import { registerDecorator, ValidationOptions, ValidationArguments, Validator } from 'class-validator'
+import { get } from 'lodash'
 
-const validator = new Validator();
+const validator = new Validator()
 
 export function IsEqualsThan(property: string[] | string, validationOptions?: ValidationOptions) {
-    return (object: object, propertyName: string) => {
-        registerDecorator({
-            name: 'IsEqualsThan',
-            target: object.constructor,
-            propertyName,
-            constraints: [property],
-            options: validationOptions,
-            validator: {
-                validate(value: any, args: ValidationArguments): boolean{
-                    // 拿到要比较的属性名或者路径 参考`lodash#get`方法
-                    const [comparativePropertyName] = args.constraints;
-                    // 拿到要比较的属性值
-                    const comparativeValue = get(args.object, comparativePropertyName);
-                    // 返回false 验证失败
-                    return validator.equals(value, comparativeValue);
-                },
-            },
-        });
-    };
+  return (object: object, propertyName: string) => {
+    registerDecorator({
+      name: 'IsEqualsThan',
+      target: object.constructor,
+      propertyName,
+      constraints: [property],
+      options: validationOptions,
+      validator: {
+        validate(value: any, args: ValidationArguments): boolean {
+          // 拿到要比较的属性名或者路径 参考`lodash#get`方法
+          const [comparativePropertyName] = args.constraints
+          // 拿到要比较的属性值
+          const comparativeValue = get(args.object, comparativePropertyName)
+          // 返回false 验证失败
+          return validator.equals(value, comparativeValue)
+        },
+      },
+    })
+  }
 }
 ```
 
 官方文字里面有栗子：直接拷贝过来就行了，改改就好。我们需要改的就是`name`和`validate`函数里面的内容，
 
-`validate`函数返回true验证成功，false验证失败，返回错误消息。
+`validate`函数返回 true 验证成功，false 验证失败，返回错误消息。
 
 ```ts
 ...
@@ -2401,20 +2412,20 @@ readonly re_pass: string;
 ...
 ```
 
-> **注意**：`IsEqualsThan`第一个参数参考[lodash#get(https://lodash.com/docs/4.17.10#get)方法
+> **注意**：`IsEqualsThan`第一个参数参考[lodash#get(<https://lodash.com/docs/4.17.10#get>)方法
 
-验证规则搞定了，现在又有2个新问题了，
+验证规则搞定了，现在又有 2 个新问题了，
 
-1. 默认返回全部错误格式是数组json，我们需要格式化自定义错误。
+1. 默认返回全部错误格式是数组 json，我们需要格式化自定义错误。
 2. 我们需要把错误信息显示到当前页面，并且有些字段还需要显示在里面，有些字段不需要（比如密码），需要`Render`方法，可以实现数据显示，但是拿不到当前错误控制器的模板地址。这个是比较致命的问题，其他问题都好解决。
 
-解决这个问题，我纠结了很久，想到了2个方法来解决问题。
+解决这个问题，我纠结了很久，想到了 2 个方法来解决问题。
 
 ### 自定义装饰器+配合`ValidationPipe`+`HttpExceptionFilter`实现
 
 借助`class-validator`配置参数的`context`字段。
 
-我们可以在上面写2个字段，一个是`render`，一个是`locals`。
+我们可以在上面写 2 个字段，一个是`render`，一个是`locals`。
 
 在实现`render`功能之前，我们需要借助`typescript`的一个功能`enum`枚举。
 
@@ -2425,8 +2436,8 @@ readonly re_pass: string;
 ```ts
 // js 模拟 enum 写法
 const Enum = {
-    a: 'a',
-    b: 'b'
+  a: 'a',
+  b: 'b',
 }
 
 // 取值
@@ -2435,8 +2446,8 @@ Enum[Enum.a]
 
 // 字符串赋值
 enum Enum {
-    a = 'a',
-    b = 'b'
+  a = 'a',
+  b = 'b',
 }
 
 // 取值
@@ -2445,8 +2456,8 @@ Enum.a
 
 // 索引赋值
 enum Enum {
-    a,
-    b
+  a,
+  b,
 }
 
 // 取值
@@ -2468,11 +2479,11 @@ OR
 
 ```ts
 export enum ViewsPath {
-    Register = 'auth/register',
+  Register = 'auth/register',
 }
 ```
 
-auth.controller.ts换上枚举：
+auth.controller.ts 换上枚举：
 
 ```ts
 ...
@@ -2501,37 +2512,40 @@ if (errors.length > 0) {
 
 ```ts
 class ValidationError {
-    target?: Object; // 目标对象，就是我们定义验证规则那个对象。这里是`RegisterDto`
-    property: string; // 当前字段
-    value?: any;  // 当前的值
-    constraints: {   // 验证规则错误提示，我们定义的装饰 @IsNotEmpty,显示的key是 isNotEmpty，value是定义配置里的`message`，定义多少显示多少。如果想一次只显示一个错误怎么办，后面讲怎么处理
-        [type: string]: string;
-    };
-    children: ValidationError[]; // 嵌套
-    contexts?: {  // 装饰器里面配置定义的`context`内容，key是 isNotEmpty ，value是 context内容
-        [type: string]: any;
-    };
-    toString(shouldDecorate?: boolean, hasParent?: boolean, parentPath?: string): string; // 这玩意就不解释了。
+  target?: Object // 目标对象，就是我们定义验证规则那个对象。这里是`RegisterDto`
+  property: string // 当前字段
+  value?: any // 当前的值
+  constraints: {
+    // 验证规则错误提示，我们定义的装饰 @IsNotEmpty,显示的key是 isNotEmpty，value是定义配置里的`message`，定义多少显示多少。如果想一次只显示一个错误怎么办，后面讲怎么处理
+    [type: string]: string
+  }
+  children: ValidationError[] // 嵌套
+  contexts?: {
+    // 装饰器里面配置定义的`context`内容，key是 isNotEmpty ，value是 context内容
+    [type: string]: any
+  }
+  toString(shouldDecorate?: boolean, hasParent?: boolean, parentPath?: string): string // 这玩意就不解释了。
 }
 ```
 
-最开始我想到是使用`context`来配置3个字段：
+最开始我想到是使用`context`来配置 3 个字段：
 
 ```ts
 // context定义内容
 interface context {
-    render: string;  // 视图模板路径
-    locals: boolean; // 字段是否显示
-    priority: number;  // 验证规则显示优先级
+  render: string // 视图模板路径
+  locals: boolean // 字段是否显示
+  priority: number // 验证规则显示优先级
 }
 
 // Render需要参数
 interface Render {
-    view: string;  // 视图模板路径
-    locals: {   // 模板显示的变量
-        error: string;   // 必须有的错误消息
-        [key: string]: any;
-    };
+  view: string // 视图模板路径
+  locals: {
+    // 模板显示的变量
+    error: string // 必须有的错误消息
+    [key: string]: any
+  }
 }
 ```
 
@@ -2543,9 +2557,9 @@ interface Render {
 
 ```ts
 export interface ValidatorFilterContext {
-    render: string;
-    locals: { [key: string]: boolean };
-    priority: { [key: string]: string[] };
+  render: string
+  locals: { [key: string]: boolean }
+  priority: { [key: string]: string[] }
 }
 ```
 
@@ -2577,10 +2591,10 @@ __validator_filter__: {
 需要改进一下，我就想到类装饰器。
 
 ```ts
-export const VALIDATOR_FILTER = '__validator_filter__';
+export const VALIDATOR_FILTER = '__validator_filter__'
 
 export function ValidatorFilter(context: ValidatorFilterContext): ClassDecorator {
-    return (target: any) => Reflect.defineMetadata(VALIDATOR_FILTER, context, target);
+  return (target: any) => Reflect.defineMetadata(VALIDATOR_FILTER, context, target)
 }
 ```
 
@@ -2588,19 +2602,19 @@ export function ValidatorFilter(context: ValidatorFilterContext): ClassDecorator
 
 `Reflect`翻译叫反射，应该说叫映射靠谱点。为什么了，它基本就是类似此功能。
 
-`defineMetadata`定义元数据，有3个参数：第一个是标识key，第二个是存储的数据（获取就是它），第三个就是一个对象。
+`defineMetadata`定义元数据，有 3 个参数：第一个是标识 key，第二个是存储的数据（获取就是它），第三个就是一个对象。
 
-翻译过来就是在 a 对象里面定一个标识 b 的数据为c。有定义就有获取
+翻译过来就是在 a 对象里面定一个标识 b 的数据为 c。有定义就有获取
 
-`getMetadata`获取元数据，有2个参数：第一个是标识key，第三个就是一个对象。
+`getMetadata`获取元数据，有 2 个参数：第一个是标识 key，第三个就是一个对象。
 
-翻译过来就是在 a 对象里去查一个b 标识，如果有就返回原数据，如果没有就是Undefined。或者是b标识里面去查找a对象。理解差不多。目的是2个都匹配就返回数据。
+翻译过来就是在 a 对象里去查一个 b 标识，如果有就返回原数据，如果没有就是 Undefined。或者是 b 标识里面去查找 a 对象。理解差不多。目的是 2 个都匹配就返回数据。
 
 这玩意简单理解`Reflect`是一个全局对象，`defineMetadata`定一个特定标识的数据，`getMetadata`根据特定标识获取数据。这里`Reflect`用的比较简单就不深入了，`Reflect`是`es6`新特性一部分。
 
 在`Nest`的装饰器大量使用`Reflect`。在`nodejs`使用，需要借助`reflect-metadata`，引入方式`import 'reflect-metadata';`。
 
-处理完了，dot问题，那么我们接下来要处理异常捕获过滤器问题了。
+处理完了，dot 问题，那么我们接下来要处理异常捕获过滤器问题了。
 
 前面也说，`Nest`执行顺序：`客户端请求 ---> 中间件 ---> 守卫 ---> 拦截器之前 ---> 管道 ---> 控制器处理并响应 ---> 拦截器之后 ---> 过滤器`。
 
@@ -2613,62 +2627,62 @@ export function ValidatorFilter(context: ValidatorFilterContext): ClassDecorator
 ```ts
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
-    catch(exception: HttpException, host: ArgumentsHost) {
-        const ctx = host.switchToHttp();
-        const response: Response  = ctx.getResponse();
-        const request: Request = ctx.getRequest();
-        const status = exception.getStatus();
-        // 如果错误码 400
-        if (status === HttpStatus.BAD_REQUEST) {
-            const render = validationErrorMessage(exception.message.message);
-            return response.render(render.view, render.locals);
-        }
+  catch(exception: HttpException, host: ArgumentsHost) {
+    const ctx = host.switchToHttp()
+    const response: Response = ctx.getResponse()
+    const request: Request = ctx.getRequest()
+    const status = exception.getStatus()
+    // 如果错误码 400
+    if (status === HttpStatus.BAD_REQUEST) {
+      const render = validationErrorMessage(exception.message.message)
+      return response.render(render.view, render.locals)
     }
+  }
 }
 ```
 
-`render`接受3个参数，平常只用前个，第一个是模板路径或者模板，第二个提供给模板显示的数据。
+`render`接受 3 个参数，平常只用前个，第一个是模板路径或者模板，第二个提供给模板显示的数据。
 
 这里核心地方在`validationErrorMessage`里：
 
 ```ts
 function validationErrorMessage(messages: ValidationError[]): Render {
-    const message: ValidationError = messages[0];
-    const metadata: ValidatorFilterContext = Reflect.getMetadata(VALIDATOR_FILTER, message.target.constructor);
-    if (!metadata) {
-        throw Error('context is not undefined, use @ValidatorFilter(context)');
+  const message: ValidationError = messages[0]
+  const metadata: ValidatorFilterContext = Reflect.getMetadata(VALIDATOR_FILTER, message.target.constructor)
+  if (!metadata) {
+    throw Error('context is not undefined, use @ValidatorFilter(context)')
+  }
+  // 处理错误消息显示
+  const priorities = metadata.priority[message.property] || []
+  let error = ''
+  const notFound = priorities.some(key => {
+    key = key.replace(/\b(\w)(\w*)/g, ($0, $1, $2) => {
+      return $1.toLowerCase() + $2
+    })
+    if (!!message.constraints[key]) {
+      error = message.constraints[key]
+      return true
     }
-    // 处理错误消息显示
-    const priorities = metadata.priority[message.property] || [];
-    let error = '';
-    const notFound = priorities.some((key) => {
-        key = key.replace(/\b(\w)(\w*)/g, ($0, $1, $2) => {
-            return $1.toLowerCase() + $2;
-        });
-        if (!!message.constraints[key]) {
-            error = message.constraints[key];
-            return true;
-        }
-    });
-    // 没有找到对应错误消息，取第一个
-    if (!notFound) {
-        error = message.constraints[Object.keys(message.constraints)[0]];
+  })
+  // 没有找到对应错误消息，取第一个
+  if (!notFound) {
+    error = message.constraints[Object.keys(message.constraints)[0]]
+  }
+  // 处理错误以后显示数据
+  const locals = Object.keys(metadata.locals).reduce((obj, key) => {
+    if (metadata.locals[key]) {
+      obj[key] = message.target[key]
     }
-    // 处理错误以后显示数据
-    const locals = Object.keys(metadata.locals).reduce((obj, key) => {
-        if (metadata.locals[key]) {
-            obj[key] = message.target[key];
-        }
-        return obj;
-    }, {});
+    return obj
+  }, {})
 
-    return {
-        view: metadata.render,
-        locals: {
-            error,
-            ...locals,
-        },
-    };
+  return {
+    view: metadata.render,
+    locals: {
+      error,
+      ...locals,
+    },
+  }
 }
 ```
 
@@ -2686,76 +2700,76 @@ function validationErrorMessage(messages: ValidationError[]): Render {
 `ViewValidationPipe`实现：
 
 ```ts
-import { Injectable, Optional, ArgumentMetadata, PipeTransform } from '@nestjs/common';
+import { Injectable, Optional, ArgumentMetadata, PipeTransform } from '@nestjs/common'
 
-import * as classTransformer from 'class-transformer';
-import * as classValidator from 'class-validator';
-import { ValidatorOptions } from '@nestjs/common/interfaces/external/validator-options.interface';
+import * as classTransformer from 'class-transformer'
+import * as classValidator from 'class-validator'
+import { ValidatorOptions } from '@nestjs/common/interfaces/external/validator-options.interface'
 
-import { isNil } from 'lodash';
-import { ValidationError } from 'class-validator';
-import { VALIDATOR_FILTER } from '../constants/validator-filter.constants';
-import { ValidatorFilterContext } from '../decorators';
+import { isNil } from 'lodash'
+import { ValidationError } from 'class-validator'
+import { VALIDATOR_FILTER } from '../constants/validator-filter.constants'
+import { ValidatorFilterContext } from '../decorators'
 
 export interface ValidationPipeOptions extends ValidatorOptions {
-    transform?: boolean;
-    disableErrorMessages?: boolean;
+  transform?: boolean
+  disableErrorMessages?: boolean
 }
 
 @Injectable()
 export class ViewValidationPipe implements PipeTransform<any> {
-    protected isTransformEnabled: boolean;
-    protected isDetailedOutputDisabled: boolean;
-    protected validatorOptions: ValidatorOptions;
+  protected isTransformEnabled: boolean
+  protected isDetailedOutputDisabled: boolean
+  protected validatorOptions: ValidatorOptions
 
-    constructor(@Optional() options?: ValidationPipeOptions) {
-        options = Object.assign({
-            transform: true,
-            whitelist: true,
-            forbidNonWhitelisted: true,
-            skipMissingProperties: false,
-            forbidUnknownValues: true,
-        }, options || {});
-        const { transform, disableErrorMessages, ...validatorOptions } = options;
-        this.isTransformEnabled = !!transform;
-        this.validatorOptions = validatorOptions;
-        this.isDetailedOutputDisabled = disableErrorMessages;
-    }
+  constructor(@Optional() options?: ValidationPipeOptions) {
+    options = Object.assign(
+      {
+        transform: true,
+        whitelist: true,
+        forbidNonWhitelisted: true,
+        skipMissingProperties: false,
+        forbidUnknownValues: true,
+      },
+      options || {}
+    )
+    const { transform, disableErrorMessages, ...validatorOptions } = options
+    this.isTransformEnabled = !!transform
+    this.validatorOptions = validatorOptions
+    this.isDetailedOutputDisabled = disableErrorMessages
+  }
 
-    public async transform(value, metadata: ArgumentMetadata) {
-        const { metatype } = metadata;
-        if (!metatype || !this.toValidate(metadata)) {
-            return value;
-        }
-        const entity = classTransformer.plainToClass(
-            metatype,
-            this.toEmptyIfNil(value),
-        );
-        const errors = await classValidator.validate(entity, this.validatorOptions);
-        // 重点实现 start
-        if (errors.length > 0) {
-            return validationErrorMessage(errors).locals;
-        }
-        // 重点实现 end
-        return this.isTransformEnabled
-            ? entity
-            : Object.keys(this.validatorOptions).length > 0
-                ? classTransformer.classToPlain(entity)
-                : value;
+  public async transform(value, metadata: ArgumentMetadata) {
+    const { metatype } = metadata
+    if (!metatype || !this.toValidate(metadata)) {
+      return value
     }
+    const entity = classTransformer.plainToClass(metatype, this.toEmptyIfNil(value))
+    const errors = await classValidator.validate(entity, this.validatorOptions)
+    // 重点实现 start
+    if (errors.length > 0) {
+      return validationErrorMessage(errors).locals
+    }
+    // 重点实现 end
+    return this.isTransformEnabled
+      ? entity
+      : Object.keys(this.validatorOptions).length > 0
+      ? classTransformer.classToPlain(entity)
+      : value
+  }
 
-    private toValidate(metadata: ArgumentMetadata): boolean {
-        const { metatype, type } = metadata;
-        if (type === 'custom') {
-            return false;
-        }
-        const types = [String, Boolean, Number, Array, Object];
-        return !types.some(t => metatype === t) && !isNil(metatype);
+  private toValidate(metadata: ArgumentMetadata): boolean {
+    const { metatype, type } = metadata
+    if (type === 'custom') {
+      return false
     }
+    const types = [String, Boolean, Number, Array, Object]
+    return !types.some(t => metatype === t) && !isNil(metatype)
+  }
 
-    toEmptyIfNil<T = any, R = any>(value: T): R | {} {
-        return isNil(value) ? {} : value;
-    }
+  toEmptyIfNil<T = any, R = any>(value: T): R | {} {
+    return isNil(value) ? {} : value
+  }
 }
 ```
 
@@ -2850,17 +2864,17 @@ async register(register: RegisterDto) {
 - jwt
 - cqrs
 
-既然不会写我们可以copy一个来仿写，实现我们要功能就ok了，卷起袖子就是干。
+既然不会写我们可以 copy 一个来仿写，实现我们要功能就 ok 了，卷起袖子就是干。
 
 通过观察上面几个模块他们文件结构都是这样的：
 
 ```ts
-index.ts  // 导出快捷文件
-mailer-options.interface.ts  // 定义配置接口
-mailer.constants.ts  // 定义常量
-mailer.providers.ts  // 定义供应商
-mailer.module.ts     // 定义导出模块
-mailer.decorators.ts  // 定义装饰器
+index.ts // 导出快捷文件
+mailer - options.interface.ts // 定义配置接口
+mailer.constants.ts // 定义常量
+mailer.providers.ts // 定义供应商
+mailer.module.ts // 定义导出模块
+mailer.decorators.ts // 定义装饰器
 ```
 
 我们也来新建一个这样的结构，`core/mailer`建文件就不说了。
@@ -2870,56 +2884,48 @@ mailer.decorators.ts  // 定义装饰器
 - 动态可配置模块，而且还是全局模块，只需要导入一次即可。
 - 同步配置可以是直接填写，异步配置可以是依赖其他模块
 
-这是我们要实现的2个重要功能，作者写的模块基本是这个套路，有些东西我们不会写，可以先模仿。
+这是我们要实现的 2 个重要功能，作者写的模块基本是这个套路，有些东西我们不会写，可以先模仿。
 
 ```ts
-import { DynamicModule, Module, Provider, Global } from '@nestjs/common';
-import { MailerModuleAsyncOptions, MailerOptionsFactory } from './mailer-options.interface';
-import { MailerService } from './mailer.service';
-import { MAILER_MODULE_OPTIONS } from './mailer.constants';
-import { createMailerClient } from './mailer.provider';
+import { DynamicModule, Module, Provider, Global } from '@nestjs/common'
+import { MailerModuleAsyncOptions, MailerOptionsFactory } from './mailer-options.interface'
+import { MailerService } from './mailer.service'
+import { MAILER_MODULE_OPTIONS } from './mailer.constants'
+import { createMailerClient } from './mailer.provider'
 
 @Module({})
 export class MailerModule {
-    /**
-     * 同步引导邮箱模块
-     * @param options 邮箱模块的选项
-     */
-    static forRoot<T>(options: T): DynamicModule {
-        return {
-            module: MailerModule,
-            providers: [
-                { provide: MAILER_MODULE_OPTIONS, useValue: options },
-                createMailerClient<T>(),
-                MailerService,
-            ],
-            exports: [MailerService],
-        };
+  /**
+   * 同步引导邮箱模块
+   * @param options 邮箱模块的选项
+   */
+  static forRoot<T>(options: T): DynamicModule {
+    return {
+      module: MailerModule,
+      providers: [{ provide: MAILER_MODULE_OPTIONS, useValue: options }, createMailerClient<T>(), MailerService],
+      exports: [MailerService],
     }
+  }
 
-    /**
-     * 异步引导邮箱模块
-     * @param options 邮箱模块的选项
-     */
-    static forRootAsync<T>(options: MailerModuleAsyncOptions<T>): DynamicModule {
-        return {
-            module: MailerModule,
-            imports: options.imports || [],
-            providers: [
-                ...this.createAsyncProviders(options),
-                createMailerClient<T>(),
-                MailerService,
-            ],
-            exports: [MailerService],
-        };
+  /**
+   * 异步引导邮箱模块
+   * @param options 邮箱模块的选项
+   */
+  static forRootAsync<T>(options: MailerModuleAsyncOptions<T>): DynamicModule {
+    return {
+      module: MailerModule,
+      imports: options.imports || [],
+      providers: [...this.createAsyncProviders(options), createMailerClient<T>(), MailerService],
+      exports: [MailerService],
     }
+  }
 }
 ```
 
 - `forRoot`配置同步模块
 - `forRootAsync`配置异步模块
 
-我们先说和`node-mailer`相关的，`node-mailer`主要分2块：
+我们先说和`node-mailer`相关的，`node-mailer`主要分 2 块：
 
 - 创建`node-mailer`实例，`node-mailer`新版解决很多问题，自动去识别不同邮件配置，这对我们来说是一个非常好的消息，不用去做各种适配配置了，只需要按官网的相关配置即可。
 - 使用`node-mailer`实例，`set`设置配置和`use`注册插件，`sendMail`发送邮件
@@ -2927,16 +2933,16 @@ export class MailerModule {
 创建在`createMailerClient`方法里面完成
 
 ```ts
-import { MAILER_MODULE_OPTIONS, MAILER_TOKEN } from './mailer.constants';
-import { createTransport } from 'nodemailer';
+import { MAILER_MODULE_OPTIONS, MAILER_TOKEN } from './mailer.constants'
+import { createTransport } from 'nodemailer'
 
 export const createMailerClient = <T>() => ({
-    provide: MAILER_TOKEN,
-    useFactory: (options: T) => {
-        return createTransport(options);
-    },
-    inject: [MAILER_MODULE_OPTIONS],
-});
+  provide: MAILER_TOKEN,
+  useFactory: (options: T) => {
+    return createTransport(options)
+  },
+  inject: [MAILER_MODULE_OPTIONS],
+})
 ```
 
 这个方法是一个工厂方法，在介绍这个方法之前，先要回顾一下，`nest`依赖注入自定义服务：
@@ -2947,7 +2953,7 @@ export const createMailerClient = <T>() => ({
 const connectionProvider = {
   provide: 'Connection',
   useValue: connection,
-};
+}
 ```
 
 值服务：这个一般作为配置，定义全局常量使用，单纯`key-value`形式
@@ -2957,9 +2963,7 @@ const connectionProvider = {
 ```ts
 const configServiceProvider = {
   provide: ConfigService,
-  useClass: process.env.NODE_ENV === 'development'
-    ? DevelopmentConfigService
-    : ProductionConfigService,
+  useClass: process.env.NODE_ENV === 'development' ? DevelopmentConfigService : ProductionConfigService,
 }
 ```
 
@@ -2971,11 +2975,11 @@ const configServiceProvider = {
 const connectionFactory = {
   provide: 'Connection',
   useFactory: (optionsProvider: OptionsProvider) => {
-    const options = optionsProvider.get();
-    return new DatabaseConnection(options);
+    const options = optionsProvider.get()
+    return new DatabaseConnection(options)
   },
   inject: [OptionsProvider],
-};
+}
 ```
 
 工厂服务：这个比较高级，一般需要依赖其他服务，来创建当前服务的时候，操作使用。定制服务经常用到。
@@ -3053,87 +3057,86 @@ const connectionFactory = {
 
 ```ts
 export interface MailerModuleAsyncOptions<T> extends Pick<ModuleMetadata, 'imports'> {
-    /**
-     * 模块的名称
-     */
-    name?: string;
-    /**
-     * 应该用于提供MailerOptions的类
-     */
-    useClass?: Type<T>;
-    /**
-     * 工厂应该用来提供MailerOptions
-     */
-    useFactory?: (...args: any[]) => Promise<T> | T;
-    /**
-     * 应该注入的提供者
-     */
-    inject?: any[];
+  /**
+   * 模块的名称
+   */
+  name?: string
+  /**
+   * 应该用于提供MailerOptions的类
+   */
+  useClass?: Type<T>
+  /**
+   * 工厂应该用来提供MailerOptions
+   */
+  useFactory?: (...args: any[]) => Promise<T> | T
+  /**
+   * 应该注入的提供者
+   */
+  inject?: any[]
 }
 ```
 
-这里面支持2种写法，一种是自定义类，然后使用`useClass`, 一种是自定义工厂，然后使用`useFactory`。
+这里面支持 2 种写法，一种是自定义类，然后使用`useClass`, 一种是自定义工厂，然后使用`useFactory`。
 
 使用在`MailerService`服务里面完成并且把它导出给其他模块使用
 
 ```ts
-import { Inject, Injectable, Logger } from '@nestjs/common';
-import { MAILER_TOKEN } from './mailer.constants';
-import * as Mail from 'nodemailer/lib/mailer';
-import { Options as MailMessageOptions } from 'nodemailer/lib/mailer';
+import { Inject, Injectable, Logger } from '@nestjs/common'
+import { MAILER_TOKEN } from './mailer.constants'
+import * as Mail from 'nodemailer/lib/mailer'
+import { Options as MailMessageOptions } from 'nodemailer/lib/mailer'
 
-import { from, Observable } from 'rxjs';
-import { tap, retryWhen, scan, delay } from 'rxjs/operators';
+import { from, Observable } from 'rxjs'
+import { tap, retryWhen, scan, delay } from 'rxjs/operators'
 
-const logger = new Logger('MailerModule');
+const logger = new Logger('MailerModule')
 
 @Injectable()
 export class MailerService {
-    constructor(
-        @Inject(MAILER_TOKEN) private readonly mailer: Mail,
-    ) { }
-    // 注册插件
-    use(name: string, pluginFunc: (...args) => any): ThisType<MailerService> {
-        this.mailer.use(name, pluginFunc);
-        return this;
-    }
+  constructor(@Inject(MAILER_TOKEN) private readonly mailer: Mail) {}
+  // 注册插件
+  use(name: string, pluginFunc: (...args) => any): ThisType<MailerService> {
+    this.mailer.use(name, pluginFunc)
+    return this
+  }
 
-    // 设置配置
-    set(key: string, handler: (...args) => any): ThisType<MailerService> {
-        this.mailer.set(key, handler);
-        return this;
-    }
+  // 设置配置
+  set(key: string, handler: (...args) => any): ThisType<MailerService> {
+    this.mailer.set(key, handler)
+    return this
+  }
 
-    // 发送邮件配置
-    async send(mailMessage: MailMessageOptions): Promise<any> {
-        return await from(this.mailer.sendMail(mailMessage))
-            .pipe(handleRetry(), tap(() => {
-                logger.log('send mail success');
-                this.mailer.close();
-            }))
-            .toPromise();
-    }
+  // 发送邮件配置
+  async send(mailMessage: MailMessageOptions): Promise<any> {
+    return await from(this.mailer.sendMail(mailMessage))
+      .pipe(
+        handleRetry(),
+        tap(() => {
+          logger.log('send mail success')
+          this.mailer.close()
+        })
+      )
+      .toPromise()
+  }
 }
 
-export function handleRetry(
-    retryAttempts = 5,
-    retryDelay = 3000,
-): <T>(source: Observable<T>) => Observable<T> {
-    return <T>(source: Observable<T>) => source.pipe(
-        retryWhen(e =>
-            e.pipe(
-                scan((errorCount, error) => {
-                    logger.error(`Unable to connect to the database. Retrying (${errorCount + 1})...`);
-                    if (errorCount + 1 >= retryAttempts) {
-                        logger.error('send mail finally error', JSON.stringify(error));
-                        throw error;
-                    }
-                    return errorCount + 1;
-                }, 0),
-                delay(retryDelay),
-            ),
-        ),
-    );
+export function handleRetry(retryAttempts = 5, retryDelay = 3000): <T>(source: Observable<T>) => Observable<T> {
+  return <T>(source: Observable<T>) =>
+    source.pipe(
+      retryWhen(e =>
+        e.pipe(
+          scan((errorCount, error) => {
+            logger.error(`Unable to connect to the database. Retrying (${errorCount + 1})...`)
+            if (errorCount + 1 >= retryAttempts) {
+              logger.error('send mail finally error', JSON.stringify(error))
+              throw error
+            }
+            return errorCount + 1
+          }, 0),
+          delay(retryDelay)
+        )
+      )
+    )
 }
 ```
 
@@ -3141,12 +3144,12 @@ export function handleRetry(
 
 `send`方法使用`rxjs`写法，`this.mailer.sendMail(mailMessage)`返回是一个`Promise`，`Promise`有一些缺陷，`rxjs`可以去弥补一下这些缺陷。
 
-比如这里使用是rxjs作用就是，`handleRetry()`去判断发送有没有错误，如果有错误，就去重试，默认重试5次，如果还错误就直接抛出异常。`tap()`类似一个`console`，不会去改变数据流。
-有2个参数，第一个是无错误的处理函数，第二个是有错误的处理函数。如果发送成功我们需要关闭连接。`toPromise`就更简单了，看名字也知道，把`rxjs`转成`Promise`。
+比如这里使用是 rxjs 作用就是，`handleRetry()`去判断发送有没有错误，如果有错误，就去重试，默认重试 5 次，如果还错误就直接抛出异常。`tap()`类似一个`console`，不会去改变数据流。
+有 2 个参数，第一个是无错误的处理函数，第二个是有错误的处理函数。如果发送成功我们需要关闭连接。`toPromise`就更简单了，看名字也知道，把`rxjs`转成`Promise`。
 
 介绍完这个这个模块，那么接下来要说一下怎么使用它们：
 
-模块注册：我们需要在核心模块里面`imports`，因为邮件需要一些配置信息，比如邮件地址，端口号，发送邮件的用户和授权码，如果不知道邮箱配置可[参考nodemailer官网](https://nodemailer.com/about/)。
+模块注册：我们需要在核心模块里面`imports`，因为邮件需要一些配置信息，比如邮件地址，端口号，发送邮件的用户和授权码，如果不知道邮箱配置可[参考 nodemailer 官网](https://nodemailer.com/about/)。
 
 ```ts
 MailerModule.forRootAsync<SMTPTransportOptions>({
@@ -3171,7 +3174,7 @@ MailerModule.forRootAsync<SMTPTransportOptions>({
 
 先使用注入依赖`ConfigService`，拿到配置服务，根据配置服务获取对应的配置。进行邮箱配置即可。
 
-在页面怎么使用它们，因为本项目比较简单，只有2个地方需要使用邮箱，注册成功和找回密码时候，单独写一个`mail.services`服务去处理它们，并且模板里面内容除了用户名，token等特定的数据是动态的，其他都是写死的。
+在页面怎么使用它们，因为本项目比较简单，只有 2 个地方需要使用邮箱，注册成功和找回密码时候，单独写一个`mail.services`服务去处理它们，并且模板里面内容除了用户名，token 等特定的数据是动态的，其他都是写死的。
 
 mail.services
 
@@ -3208,7 +3211,7 @@ sendActiveMail(to: string, token: string, username: string){
 
 我们在注册成功时候直接去调用它就好了。
 
-**注意**：我在本地测试，使用163邮箱作为发送者，用qq注册，就会被拦截，出现在垃圾邮箱里面。
+**注意**：我在本地测试，使用 163 邮箱作为发送者，用 qq 注册，就会被拦截，出现在垃圾邮箱里面。
 
 ### 验证注册邮箱
 
@@ -3230,30 +3233,30 @@ sendActiveMail(to: string, token: string, username: string){
 
 ```ts
 @ValidatorFilter({
-    render: ViewsPath.Notify,
-    locals: {
-        name: true,
-        key: true,
-    },
-    priority: {
-        name: ['IsNotEmpty'],
-        key: ['IsNotEmpty'],
-    },
+  render: ViewsPath.Notify,
+  locals: {
+    name: true,
+    key: true,
+  },
+  priority: {
+    name: ['IsNotEmpty'],
+    key: ['IsNotEmpty'],
+  },
 })
 export class AccountDto {
-    @IsNotEmpty({
-        message: 'name不能为空',
-    })
-    @Transform(value => value.toLowerCase(), { toClassOnly: true })
-    readonly name: string;
-    @IsNotEmpty({
-        message: 'key不能为空',
-    })
-    readonly key: string;
+  @IsNotEmpty({
+    message: 'name不能为空',
+  })
+  @Transform(value => value.toLowerCase(), { toClassOnly: true })
+  readonly name: string
+  @IsNotEmpty({
+    message: 'key不能为空',
+  })
+  readonly key: string
 }
 ```
 
-这个很简单理解：需要2个参数，一个name，一个key，name是用户名，key是注册时候我们创建的标识，邮箱，密码，自定义盐混合一起加密。
+这个很简单理解：需要 2 个参数，一个 name，一个 key，name 是用户名，key 是注册时候我们创建的标识，邮箱，密码，自定义盐混合一起加密。
 
 通用消息模板：
 
@@ -3351,11 +3354,11 @@ async activeAccount({ name, key }: AccountDto) {
 
 ### 登录凭证
 
-目前来说比较常用有2种一种是`session+cookie`，一种是`JSON Web Tokens`。
+目前来说比较常用有 2 种一种是`session+cookie`，一种是`JSON Web Tokens`。
 
 #### session+cookie
 
-session+cookie是比较常见前后端一起那种。它是流程大概是这样的：
+session+cookie 是比较常见前后端一起那种。它是流程大概是这样的：
 
 1. 前端发起 http 请求时有携带 cookie
 2. 后端拿到此 cookie 对比服务器 session，有登陆则放过此请求，无登录，redirect 到登录页面
@@ -3366,26 +3369,26 @@ session+cookie是比较常见前后端一起那种。它是流程大概是这样
 
 #### JSON Web Tokens
 
-JSON Web Tokens是比较常见前后分离那种。它是流程大概是这样的：
+JSON Web Tokens 是比较常见前后分离那种。它是流程大概是这样的：
 
 1. 登录时候,客户端通过用户名与密码请求登录
 2. 服务端收到请求区验证用户名与密码
-3. 验证通过,服务端会签发一个Token,再把这个Token发给客户端.
-4. 客户端收到Token,存储到本地,如Cookie,SessionStorage,LocalStorage.
-5. 客户端每次像服务器请求API接口时候,都要带上Token.
-6. 服务端收到请求,验证Token,如果通过就返回数据,否则提示报错信息.
+3. 验证通过,服务端会签发一个 Token,再把这个 Token 发给客户端.
+4. 客户端收到 Token,存储到本地,如 Cookie,SessionStorage,LocalStorage.
+5. 客户端每次像服务器请求 API 接口时候,都要带上 Token.
+6. 服务端收到请求,验证 Token,如果通过就返回数据,否则提示报错信息.
 
 注意：前端是无设防的，不可以信任； 全部的校验都由后端完成
 
 我们这里是前后端一体的，当然选择`session+cookie`。这里有篇文章介绍还行，[传送门](http://wiki.jikexueyuan.com/project/node-lessons/cookie-session.html)。
 
-我们这里登录需要实现2个，一个是本地登录，一个是第三方github登录。
+我们这里登录需要实现 2 个，一个是本地登录，一个是第三方 github 登录。
 
 ### 本地登录
 
 `nestjs`已经帮我们封装好了`@nestjs/passport`，我们前面已经说了需要下载相关包。本地登录使用`passport-local`完成。
 
-新写个模板，需要去定义一个枚举ViewsPath 登录地址
+新写个模板，需要去定义一个枚举 ViewsPath 登录地址
 
 ```ts
 @Controller()
@@ -3436,16 +3439,16 @@ export class AuthController {
     }
 ```
 
-这里使用守卫，`AuthGuard`首页是`@nestjs/passport`。verifyLogin是登录以后操作。为什么封装一个方法，等下github登录成功也是一样的操作。`login`方法是`passport`的方法，`user`就是我们拿到的用户信息。
+这里使用守卫，`AuthGuard`首页是`@nestjs/passport`。verifyLogin 是登录以后操作。为什么封装一个方法，等下 github 登录成功也是一样的操作。`login`方法是`passport`的方法，`user`就是我们拿到的用户信息。
 
 **注意**：这里的`passport-local`是网上的栗子实现有差别，网上栗子都可以配置，重定向的功能，
 
 这是[passport](http://www.passportjs.org/docs/authenticate/)文档里面的栗子。
 
 ```ts
-app.post('/login', 
-  passport.authenticate('local', 
-   { 
+app.post('/login',
+  passport.authenticate('local',
+   {
        successRedirect: '/',
       failureRedirect: '/login',
    }),t
@@ -3456,83 +3459,80 @@ app.post('/login',
 
 这个坑我也捣鼓很久，无论成功还是失败重定向都需要手动去处理它。成功就是上面我那个`login`。
 
-我们需要新增一个`passport`文件夹，里面放passport相关的业务。
+我们需要新增一个`passport`文件夹，里面放 passport 相关的业务。
 
 新建一个`local.strategy.ts`，处理`passport-local`
 
 ```ts
-import { Injectable } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
-import { Strategy } from 'passport-local';
-import { AuthService } from '../auth.service';
+import { Injectable } from '@nestjs/common'
+import { PassportStrategy } from '@nestjs/passport'
+import { Strategy } from 'passport-local'
+import { AuthService } from '../auth.service'
 
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
-    constructor(private readonly authService: AuthService) {
-        super({
-            usernameField: 'name',
-            passwordField: 'pass',
-            passReqToCallback: false,
-        });
-    }
+  constructor(private readonly authService: AuthService) {
+    super({
+      usernameField: 'name',
+      passwordField: 'pass',
+      passReqToCallback: false,
+    })
+  }
 
-    // tslint:disable-next-line:ban-types
-    async validate(username: string, password: string, done: Function) {
-        await this.authService.local(username, password)
-            .then(user => done(null, user))
-            .catch(err => done(err, false));
-    }
+  // tslint:disable-next-line:ban-types
+  async validate(username: string, password: string, done: Function) {
+    await this.authService
+      .local(username, password)
+      .then(user => done(null, user))
+      .catch(err => done(err, false))
+  }
 }
 ```
 
-这里就比较简单，就这么几行代码，自定义一个本地策略，去继承`@nestjs/passport`一个父类，super需要传递是`new LocalStrategy('配置对象')`，`validate`是一个抽象方法，我们必须要去实现的，因为`@nestjs/passport`也不知道我们是怎么样查询用户是否存在，这个验证方法暴露给我们的去实现。`done`就相当于是`callback`，标准nodejs回调函数参数，第一个是表示错误，第二个是用户信息。
+这里就比较简单，就这么几行代码，自定义一个本地策略，去继承`@nestjs/passport`一个父类，super 需要传递是`new LocalStrategy('配置对象')`，`validate`是一个抽象方法，我们必须要去实现的，因为`@nestjs/passport`也不知道我们是怎么样查询用户是否存在，这个验证方法暴露给我们的去实现。`done`就相当于是`callback`，标准 nodejs 回调函数参数，第一个是表示错误，第二个是用户信息。
 
 放到`AuthModule`里面去做服务申明。
 
 ```ts
 @Module({
   imports: [SharedModule],
-  providers: [
-    AuthService,
-    AuthSerializer,
-    LocalStrategy,
-  ],
+  providers: [AuthService, AuthSerializer, LocalStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}
 ```
 
-AuthSerializer也是和`passport`相关的，它里面需要实现2个方法`serializeUser`,`deserializeUser`。
+AuthSerializer 也是和`passport`相关的，它里面需要实现 2 个方法`serializeUser`,`deserializeUser`。
 
 - serializeUser：将用户信息序列化后存进 session 里面，一般需要精简，只保存个别字段
 - deserializeUser：反序列化后把用户信息从 session 中取出来，反查数据库拿到完整信息
 
 ```ts
-import { PassportSerializer } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { PassportSerializer } from '@nestjs/passport'
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class AuthSerializer extends PassportSerializer {
-    /**
-     * 序列化用户
-     * @param user
-     * @param done
-     */
-    serializeUser(user: any, done: (error: null, user: any) => any) {
-        done(null, user);
-    }
+  /**
+   * 序列化用户
+   * @param user
+   * @param done
+   */
+  serializeUser(user: any, done: (error: null, user: any) => any) {
+    done(null, user)
+  }
 
-    /**
-     * 反序列化用户
-     * @param payload
-     * @param done
-     */
-    async deserializeUser(payload: any, done: (error: null, payload: any) => any) {
-        done(null, payload);
-    }
-    constructor() {
-        super();
-    }
+  /**
+   * 反序列化用户
+   * @param payload
+   * @param done
+   */
+  async deserializeUser(payload: any, done: (error: null, payload: any) => any) {
+    done(null, payload)
+  }
+  constructor() {
+    super()
+  }
 }
 ```
 
@@ -3616,11 +3616,11 @@ handleRequest(err, user, info): TUser {
 ```
 
 只要有错误，就回去走错误，这个错误就被`ExceptionFilter`捕获，我们有自定义的`HttpExceptionFilter`，等下就来讲它。
-只有没有错误，成功才会返回user，这时候去走，`serializeUser`, `deserializeUser`, `passportLocal`最后重定向到首页。
+只有没有错误，成功才会返回 user，这时候去走，`serializeUser`, `deserializeUser`, `passportLocal`最后重定向到首页。
 
 **注意**：抛出异常一定要用`throw`，不用使用`return`。用`return`就直接走`serializeUser`，然后报错了。
 
-错误处理，因为这个身份认证只要出错返回都是401，那么我们需要去捕获处理一下，
+错误处理，因为这个身份认证只要出错返回都是 401，那么我们需要去捕获处理一下，
 
 ```ts
 ...
@@ -3633,9 +3633,9 @@ handleRequest(err, user, info): TUser {
 
 默认`handleRequest`返回是一个空的，`exception.message.message`是`undefined`，这是`passport`返回，只要用户名或者密码没有填，都会返回这个错误信息，对应我们来捕获错误也是一脸懵逼，我看`cndoe`是直接返回`信息不全。`，这里就一样简单粗暴处理了。
 
-> 说多了都是眼泪，这个地方卡了我很久。这篇文章卡壳，它需要付50%责任，因为网上没有关于`@nestjs/passport`的`passport-local`的栗子。大多数都是`jwt`栗子，比较折腾，试过各种方法方式。
+> 说多了都是眼泪，这个地方卡了我很久。这篇文章卡壳，它需要付 50%责任，因为网上没有关于`@nestjs/passport`的`passport-local`的栗子。大多数都是`jwt`栗子，比较折腾，试过各种方法方式。
 
-### github登录
+### github 登录
 
 这个玩意就本地登录简单多了。先说下流程：
 
@@ -3650,7 +3650,7 @@ handleRequest(err, user, info): TUser {
 
 接下来我们就去实现一下：
 
-先github申请一个认证，应用登记。
+先 github 申请一个认证，应用登记。
 
 一个应用要求 OAuth 授权，必须先到对方网站登记，让对方知道是谁在请求。
 
@@ -3669,25 +3669,25 @@ handleRequest(err, user, info): TUser {
 ```ts
 @Injectable()
 export class GithubStrategy extends PassportStrategy(Strategy) {
-    constructor(private readonly config: ConfigService) {
-        super({
-            clientID: config.get('GITHUB_CLIENT_ID'),
-            clientSecret: config.get('GITHUB_CLIENT_SECRET'),
-            callbackURL: `${config.get('HOST')}:${config.get('PORT')}/github/callback`,
-        });
-    }
+  constructor(private readonly config: ConfigService) {
+    super({
+      clientID: config.get('GITHUB_CLIENT_ID'),
+      clientSecret: config.get('GITHUB_CLIENT_SECRET'),
+      callbackURL: `${config.get('HOST')}:${config.get('PORT')}/github/callback`,
+    })
+  }
 
-    // tslint:disable-next-line:ban-types
-    async validate(accessToken, refreshToken, profile: GitHubProfile, done: Function) {
-        profile.accessToken = accessToken;
-        done(null, profile);
-    }
+  // tslint:disable-next-line:ban-types
+  async validate(accessToken, refreshToken, profile: GitHubProfile, done: Function) {
+    profile.accessToken = accessToken
+    done(null, profile)
+  }
 }
 ```
 
-需要配置`clientID`, `clientSecret`, `callbackURL`, 这3个东西，我们上面图里面都有。把它申明到模块里面去。
+需要配置`clientID`, `clientSecret`, `callbackURL`, 这 3 个东西，我们上面图里面都有。把它申明到模块里面去。
 
-github2个必备的路由：
+github2 个必备的路由：
 
 ```ts
     /** github登录提交 */
@@ -3705,9 +3705,9 @@ github2个必备的路由：
     }
 ```
 
-我们需要github登录时候就去请求`/github`路由，使用守卫，告诉守卫使用`github`策略。这个方法随便写，返回都会重定向到[github.com](https://github.com/)，填完登录信息，就会自动跳转到`githubCallback`方法里面，`req.user`返回就是github给我们提供的所有信息。我们需要去和我们用户系统做关联。
+我们需要 github 登录时候就去请求`/github`路由，使用守卫，告诉守卫使用`github`策略。这个方法随便写，返回都会重定向到[github.com](https://github.com/)，填完登录信息，就会自动跳转到`githubCallback`方法里面，`req.user`返回就是 github 给我们提供的所有信息。我们需要去和我们用户系统做关联。
 
-服务github方法：
+服务 github 方法：
 
 ```ts
 async github(profile: GitHubProfile) {
@@ -3757,29 +3757,29 @@ async github(profile: GitHubProfile) {
     }
 ```
 
-**注意**：`profile`返回信息可能是个`undefined`，因为认证可能会失败，需要去处理一下，不然后面代码全挂了。O(∩_∩)O哈哈~。
+**注意**：`profile`返回信息可能是个`undefined`，因为认证可能会失败，需要去处理一下，不然后面代码全挂了。O(∩_∩)O 哈哈~。
 
 登录功能基本完成了，需要判断用户登录。
 
 我们需要写一个中间件，`current_user.middleware.ts`
 
 ```ts
-import { Injectable, NestMiddleware, MiddlewareFunction } from '@nestjs/common';
+import { Injectable, NestMiddleware, MiddlewareFunction } from '@nestjs/common'
 
 @Injectable()
 export class CurrentUserMiddleware implements NestMiddleware {
-    constructor() { }
-    resolve(...args: any[]): MiddlewareFunction {
-        return (req, res, next) => {
-            res.locals.current_user = null;
-            const { user } = req;
-            if (!user) {
-                return next();
-            }
-            res.locals.current_user = user;
-            next();
-        };
+  constructor() {}
+  resolve(...args: any[]): MiddlewareFunction {
+    return (req, res, next) => {
+      res.locals.current_user = null
+      const { user } = req
+      if (!user) {
+        return next()
+      }
+      res.locals.current_user = user
+      next()
     }
+  }
 }
 ```
 
@@ -3787,16 +3787,14 @@ export class CurrentUserMiddleware implements NestMiddleware {
 
 **注意**：`nestjs`中间件和`express`中间件有区别：
 
-express定义的中间件，如果全局可以直接通过`express.use(中间件)`去申明使用。
+express 定义的中间件，如果全局可以直接通过`express.use(中间件)`去申明使用。
 
-nestjs定义的中间件不能这么玩，需要在模块里面去申明使用。
+nestjs 定义的中间件不能这么玩，需要在模块里面去申明使用。
 
 ```ts
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(CurrentUserMiddleware)
-      .forRoutes({ path: '*', method: RequestMethod.ALL });
+    consumer.apply(CurrentUserMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL })
   }
 }
 ```
@@ -3826,18 +3824,18 @@ export class AppModule {
 ```ts
 @Controller()
 export class AuthController {
-    /** 登出 */
-    @All('/logout')
-    async logout(@Req() req: TRequest, @Res() res: TResponse) {
-        // 销毁 session
-        req.session.destroy();
-        // 清除 cookie
-        res.clearCookie(this.config.get('AUTH_COOKIE_NAME'), { path: '/' });
-        // 调用 passport 的 logout方法
-        req.logout();
-        // 重定向到首页
-        res.redirect('/');
-    }
+  /** 登出 */
+  @All('/logout')
+  async logout(@Req() req: TRequest, @Res() res: TResponse) {
+    // 销毁 session
+    req.session.destroy()
+    // 清除 cookie
+    res.clearCookie(this.config.get('AUTH_COOKIE_NAME'), { path: '/' })
+    // 调用 passport 的 logout方法
+    req.logout()
+    // 重定向到首页
+    res.redirect('/')
+  }
 }
 ```
 
@@ -3850,4 +3848,3 @@ export class AuthController {
 > 中篇就到此为止了，最后感谢大家暴力吹更，让我坚持不懈的把它写完。后面就比较容易了。[Typeorm](https://github.com/typeorm/typeorm)比较火，等我把全部业面写完了，会更新`typeorm`版操作`MongoDB`。回馈大家不离不弃的关注，再次感谢大家阅读。
 
 [本文来自 https://github.com/jiayisheji/blog/issues/19](https://github.com/jiayisheji/blog/issues/18)
-

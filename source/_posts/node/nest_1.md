@@ -3,12 +3,11 @@ title: nest.js学习（一）
 date: 2021-01-28 22:20
 index_img: https://fang-kang.gitee.io/blog-img/nest.png
 tags:
- - node
- - nest
+  - node
+  - nest
 categories:
   - node
 ---
-
 
 ## 什么是 Nest
 
@@ -26,7 +25,7 @@ categories:
 
 ## Nest 核心概念
 
-Nest的核心概念是提供一种体系结构，它帮助开发人员实现层的最大分离，并在应用程序中增加抽象。
+Nest 的核心概念是提供一种体系结构，它帮助开发人员实现层的最大分离，并在应用程序中增加抽象。
 
 ### 架构概览
 
@@ -62,7 +61,7 @@ Nest的核心概念是提供一种体系结构，它帮助开发人员实现层�
 AppModule 根模块
 
 - CoreModule 核心模块（注册中间件，过滤器，管道，守卫，拦截器，装饰器等）
-- SharedModule 共享模块（注册服务，mongodb，redis等）
+- SharedModule 共享模块（注册服务，mongodb，redis 等）
 - ConfigModule 配置模块（系统配置）
 - FeatureModule 特性模块（业务模块，如用户模块，产品模块等）
 
@@ -83,15 +82,15 @@ AppModule 根模块
 ```ts
 @Controller('user')
 export class UserController {
-    @Get()
-    findAll() {
-        return [];
-    }
+  @Get()
+  findAll() {
+    return []
+  }
 
-    @Get('/admin')
-    admin() {
-        return {};
-    }
+  @Get('/admin')
+  admin() {
+    return {}
+  }
 }
 //  findAll访问就是  xxx/user
 //  admin访问就是    xxx/user/admin
@@ -99,7 +98,7 @@ export class UserController {
 
 控制器是一个比较核心功能，所有的业务都是围绕它来开展。`Nest`也提供很多相关的装饰器，接下来一一介绍他们，这里只是简单说明，后面实战会介绍他们的使用。
 
-请求对象表示HTTP请求，并具有请求查询字符串、参数、HTTP标头等属性，但在大多数情况下，不需要手动获取它们。我们可以使用专用的`decorator`，例如`@Body()`或`@Query()`，它们是开箱即用的。下面是`decorator`与普通`Express`对象的比较。
+请求对象表示 HTTP 请求，并具有请求查询字符串、参数、HTTP 标头等属性，但在大多数情况下，不需要手动获取它们。我们可以使用专用的`decorator`，例如`@Body()`或`@Query()`，它们是开箱即用的。下面是`decorator`与普通`Express`对象的比较。
 
 先说方法参数装饰器：
 
@@ -130,16 +129,16 @@ export class UserController {
 | `@Header()`   | 对应`Express`的`res.header`方法                           |
 | `@HttpCode()` | 对应`Express`的`res.status`方法，可以配合`HttpStatus`枚举 |
 
-以上基本都是控制器装饰器，一些常用的HTTP请求参数需要使用对应的方法装饰器和参数来配合使用。
+以上基本都是控制器装饰器，一些常用的 HTTP 请求参数需要使用对应的方法装饰器和参数来配合使用。
 
-关于返回响应数据，`Nest`也提供2种解决方案：
+关于返回响应数据，`Nest`也提供 2 种解决方案：
 
 1. 直接返回一个`JavaScript`对象或数组时，它将被自动解析为`JSON`。当我们返回一个字符串时，`Nest`只发送一个字符串，而不尝试解析它。默认情况下，响应的状态代码总是`200`,
    但`POST`请求除外，它使用`201`。可以使用`@HttpCode(HttpStatus.xxxx)`装饰器可以很容易地改变这种行为。
 2. 我们可以使用库特定的响应对象，我们这里可以使用[@res](https://github.com/res)()修饰符在函数签名中注入该对象，
    `res.status(HttpStatus.CREATED).send()`或者`res.status(HttpStatus.OK).json([])`等`Express`的`res`方法。
 
-**注意**：禁止同时使用这两种方法，如果2个都使用，那么会出现这个路由不工作的情况。如果你在使用时候发现路由不响应，请检查有没有出现混用的情况，如果是正常情况下，推荐第一种方式返回。
+**注意**：禁止同时使用这两种方法，如果 2 个都使用，那么会出现这个路由不工作的情况。如果你在使用时候发现路由不响应，请检查有没有出现混用的情况，如果是正常情况下，推荐第一种方式返回。
 
 > 控制器必须注册到该模块元数据的`controllers`里才能正常工作。
 
@@ -177,26 +176,26 @@ export class UserController {
 
 ```ts
 // 用户服务
-import { Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common'
 
 interface User {}
 
 @Injectable()
 export class UserService {
-  private readonly user: User[] = [];
+  private readonly user: User[] = []
 
   create(cat: User) {
-    this.user.push(User);
+    this.user.push(User)
   }
 
   findAll(): User[] {
-    return this.user;
+    return this.user
   }
 }
 
 // 用户控制器
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { UserService } from './user.service';
+import { Controller, Get, Post, Body } from '@nestjs/common'
+import { UserService } from './user.service'
 
 @Controller('user')
 export class UserController {
@@ -204,12 +203,12 @@ export class UserController {
 
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    this.userService.create(createUserDto);
+    this.userService.create(createUserDto)
   }
 
   @Get()
   async findAll(): Promise<User[]> {
-    return this.userService.findAll();
+    return this.userService.findAll()
   }
 }
 ```
@@ -217,7 +216,7 @@ export class UserController {
 自定义服务
 
 我们不光可以使用`@Injectable()`来定义服务，还可以使用其他三种方式：`value`、`class`、`factory`。
-这个和Angular一样，默认`@Injectable()`来定义服务就是`class`。
+这个和 Angular 一样，默认`@Injectable()`来定义服务就是`class`。
 
 使用`value`：
 
@@ -281,16 +280,16 @@ const customObject = {};
 })
 ```
 
-要用选择的自定义字符串`key`，您必须告诉Nest，需要用到`@Inject()`装饰器，就像这样:
+要用选择的自定义字符串`key`，您必须告诉 Nest，需要用到`@Inject()`装饰器，就像这样:
 
 ```ts
-import { Component, Inject } from 'nest.js';
+import { Component, Inject } from 'nest.js'
 
 @Component()
 class SampleComponent {
-    constructor(@Inject('isProductionMode') private isProductionMode: boolean) {
-        console.log(isProductionMode); // false
-    }
+  constructor(@Inject('isProductionMode') private isProductionMode: boolean) {
+    console.log(isProductionMode) // false
+  }
 }
 ```
 
@@ -316,15 +315,15 @@ class SampleComponent {
 
 ```ts
 // 实现一个带有`@Injectable()`装饰器的类打印中间件
-import { Injectable, NestMiddleware, MiddlewareFunction } from '@nestjs/common';
+import { Injectable, NestMiddleware, MiddlewareFunction } from '@nestjs/common'
 
 @Injectable()
 export class LoggerMiddleware implements NestMiddleware {
   resolve(...args: any[]): MiddlewareFunction {
     return (req, res, next) => {
-      console.log('Request...');
-      next();
-    };
+      console.log('Request...')
+      next()
+    }
   }
 }
 ```
@@ -338,13 +337,13 @@ async function bootstrap() {
   // 创建Nest.js实例
   const app = await NestFactory.create(AppModule, application, {
     bodyParser: true,
-  });
+  })
   // 注册中间件
-  app.use(LoggerMiddleware());
+  app.use(LoggerMiddleware())
   // 监听3000端口
-  await app.listen(3000);
+  await app.listen(3000)
 }
-bootstrap();
+bootstrap()
 ```
 
 1. 中间件可以模块里局部注册
@@ -355,11 +354,8 @@ export class CnodeModule implements NestModule {
     consumer
       .apply(LoggerMiddleware)
       .with('ApplicationModule')
-      .exclude(
-        { path: 'user', method: RequestMethod.GET },
-        { path: 'user', method: RequestMethod.POST },
-      )
-      .forRoutes(UserController);
+      .exclude({ path: 'user', method: RequestMethod.GET }, { path: 'user', method: RequestMethod.POST })
+      .forRoutes(UserController)
   }
 }
 
@@ -367,9 +363,7 @@ export class CnodeModule implements NestModule {
 
 export class CnodeModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(LoggerMiddleware)
-      .forRoutes('*');
+    consumer.apply(LoggerMiddleware).forRoutes('*')
   }
 }
 
@@ -401,7 +395,7 @@ async create(@Body() createCatDto: CreateCatDto) {
 }
 ```
 
-HttpException 接受2个参数：
+HttpException 接受 2 个参数：
 
 - 消息内容，可以是字符串错误消息或者对象`{status: 状态码，error：错误消息}`
 - 状态码
@@ -411,7 +405,7 @@ HttpException 接受2个参数：
 ```ts
 export class ForbiddenException extends HttpException {
   constructor() {
-    super('Forbidden', HttpStatus.FORBIDDEN);
+    super('Forbidden', HttpStatus.FORBIDDEN)
   }
 }
 ```
@@ -427,7 +421,7 @@ async create(@Body() createCatDto: CreateCatDto) {
 
 是不是，方便很多了。
 
-`Nest`给我们提供很多这样快捷常用的HTTP状态错误：
+`Nest`给我们提供很多这样快捷常用的 HTTP 状态错误：
 
 - BadRequestException 400
 - UnauthorizedException 401
@@ -449,24 +443,22 @@ async create(@Body() createCatDto: CreateCatDto) {
 异常处理程序基础很好,但有时你可能想要完全控制异常层,例如,添加一些日志记录或使用一个不同的`JSON`模式基于一些选择的因素。前面说了，`Nest`给我们内置返回响应模板，这个不能接受的，我们要自定义怎么办了，`Nest`给我们扩展空间。
 
 ```ts
-import { ExceptionFilter, Catch, ArgumentsHost } from '@nestjs/common';
-import { HttpException } from '@nestjs/common';
+import { ExceptionFilter, Catch, ArgumentsHost } from '@nestjs/common'
+import { HttpException } from '@nestjs/common'
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
   catch(exception: HttpException, host: ArgumentsHost) {
-    const ctx = host.switchToHttp();
-    const response = ctx.getResponse();
-    const request = ctx.getRequest();
-    const status = exception.getStatus();
+    const ctx = host.switchToHttp()
+    const response = ctx.getResponse()
+    const request = ctx.getRequest()
+    const status = exception.getStatus()
 
-    response
-      .status(status)
-      .json({
-        statusCode: status,
-        timestamp: new Date().toISOString(),
-        path: request.url,
-      });
+    response.status(status).json({
+      statusCode: status,
+      timestamp: new Date().toISOString(),
+      path: request.url,
+    })
   }
 }
 ```
@@ -496,11 +488,11 @@ export class CatsController {}
 
 ```ts
 async function bootstrap() {
-  const app = await NestFactory.create(ApplicationModule);
-  app.useGlobalFilters(new HttpExceptionFilter());
-  await app.listen(3000);
+  const app = await NestFactory.create(ApplicationModule)
+  app.useGlobalFilters(new HttpExceptionFilter())
+  await app.listen(3000)
 }
-bootstrap();
+bootstrap()
 ```
 
 ### 管道 Pipe
@@ -510,12 +502,12 @@ bootstrap();
 定义一个简单管道：
 
 ```ts
-import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common';
+import { PipeTransform, Injectable, ArgumentMetadata } from '@nestjs/common'
 
 @Injectable()
 export class ValidationPipe implements PipeTransform {
   transform(value: any, metadata: ArgumentMetadata) {
-    return value;
+    return value
   }
 }
 ```
@@ -524,7 +516,7 @@ export class ValidationPipe implements PipeTransform {
 
 `Nest`处理请求数据验证，在数据不正确时可以抛出异常，使用过滤器来捕获。
 
-`Nest`为我们内置了2个通用的管道，一个数据验证`ValidationPipe`，一个数据转换`ParseIntPipe`。
+`Nest`为我们内置了 2 个通用的管道，一个数据验证`ValidationPipe`，一个数据转换`ParseIntPipe`。
 
 使用`ValidationPipe`需要配合`class-validator class-transformer`，如果你不安装它们 ，你使用`ValidationPipe`会报错的。
 
@@ -532,19 +524,19 @@ export class ValidationPipe implements PipeTransform {
 
 怎么使用，有四种方式
 
-1. 直接`@Body()`装饰器里面使用，只作用当前body这个参数
+1. 直接`@Body()`装饰器里面使用，只作用当前 body 这个参数
 
 ```ts
 // 用户控制器
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { UserService } from './user.service';
+import { Controller, Get, Post, Body } from '@nestjs/common'
+import { UserService } from './user.service'
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @Post()
   async create(@Body(ValidationPipe | new ValidationPipe()) createUserDto: CreateUserDto) {
-    this.userService.create(createUserDto);
+    this.userService.create(createUserDto)
   }
 }
 ```
@@ -553,8 +545,8 @@ export class UserController {
 
 ```ts
 // 用户控制器
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { UserService } from './user.service';
+import { Controller, Get, Post, Body } from '@nestjs/common'
+import { UserService } from './user.service'
 
 @Controller('user')
 export class UserController {
@@ -562,7 +554,7 @@ export class UserController {
   @Post()
   @UsePipes(ValidationPipe | new ValidationPipe())
   async create(@Body() createUserDto: CreateUserDto) {
-    this.userService.create(createUserDto);
+    this.userService.create(createUserDto)
   }
 }
 ```
@@ -571,8 +563,8 @@ export class UserController {
 
 ```ts
 // 用户控制器
-import { Controller, Get, Post, Body } from '@nestjs/common';
-import { UserService } from './user.service';
+import { Controller, Get, Post, Body } from '@nestjs/common'
+import { UserService } from './user.service'
 
 @Controller('user')
 @UsePipes(ValidationPipe | new ValidationPipe())
@@ -580,7 +572,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
   @Post()
   async create(@Body() createUserDto: CreateUserDto) {
-    this.userService.create(createUserDto);
+    this.userService.create(createUserDto)
   }
 }
 ```
@@ -589,11 +581,11 @@ export class UserController {
 
 ```ts
 async function bootstrap() {
-  const app = await NestFactory.create(ApplicationModule);
-  app.useGlobalPipes(new ValidationPipe());
-  await app.listen(3000);
+  const app = await NestFactory.create(ApplicationModule)
+  app.useGlobalPipes(new ValidationPipe())
+  await app.listen(3000)
 }
-bootstrap();
+bootstrap()
 ```
 
 那么`createUserDto`怎么玩了，后面实战教程会讲解，这里不展开。
@@ -605,7 +597,7 @@ async findOne(@Param('id', ParseIntPipe | new ParseIntPipe()) id) {
 }
 ```
 
-`ParseIntPipe`使用也很简单，就是把一个字符串转换成数字。也是比较常用的，特别是你的id是字符串数字的时候，用`get`，`put`，`patch`，`delete`等请求，有id时候特别好用了。
+`ParseIntPipe`使用也很简单，就是把一个字符串转换成数字。也是比较常用的，特别是你的 id 是字符串数字的时候，用`get`，`put`，`patch`，`delete`等请求，有 id 时候特别好用了。
 还可以做分页处理，后面实战中用到，具体在讲解。
 
 ### 守卫 Guard
@@ -615,21 +607,19 @@ async findOne(@Param('id', ParseIntPipe | new ParseIntPipe()) id) {
 定义一个简单管道：
 
 ```ts
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common'
+import { Observable } from 'rxjs'
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  canActivate(
-    context: ExecutionContext,
-  ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.switchToHttp().getRequest();
-    return validateRequest(request);
+  canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+    const request = context.switchToHttp().getRequest()
+    return validateRequest(request)
   }
 }
 ```
 
-守卫是用`@Injectable()`装饰器注释的类。应该实现`CanActivate`接口，具体代码在`canActivate`方法实现，返回一个布尔值，true就表示有权限，false抛出异常403错误。这个写法和`Angular`很像。
+守卫是用`@Injectable()`装饰器注释的类。应该实现`CanActivate`接口，具体代码在`canActivate`方法实现，返回一个布尔值，true 就表示有权限，false 抛出异常 403 错误。这个写法和`Angular`很像。
 
 怎么使用，有两种方式
 
@@ -644,34 +634,29 @@ export class CatsController {}
 1. 在全局注册使用内置实例方法`useGlobalGuards`，作用整个项目。
 
 ```ts
-const app = await NestFactory.create(ApplicationModule);
-app.useGlobalGuards(new RolesGuard());
+const app = await NestFactory.create(ApplicationModule)
+app.useGlobalGuards(new RolesGuard())
 ```
 
 如果你不做权限管理相关的身份验证操作，基本用不上这个功能。不过还是很有用抽象功能。我们这个实战项目也会用到这个功能。
 
 ### 拦截器 Interceptor
 
-拦截器是一个比较特殊强大功能，类似于AOP面向切面编程，前端编程中也尝尝使用这样的技术，比如各种http请求库都提供类似功能。有名的框架`Angular`框架HTTP模块。有名的库有老牌的`jquery`和新潮的`axios`等。
+拦截器是一个比较特殊强大功能，类似于 AOP 面向切面编程，前端编程中也尝尝使用这样的技术，比如各种 http 请求库都提供类似功能。有名的框架`Angular`框架 HTTP 模块。有名的库有老牌的`jquery`和新潮的`axios`等。
 
 定义一个简单拦截器：
 
 ```ts
-import { Injectable, NestInterceptor, ExecutionContext } from '@nestjs/common';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { Injectable, NestInterceptor, ExecutionContext } from '@nestjs/common'
+import { Observable } from 'rxjs'
+import { tap } from 'rxjs/operators'
 
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
-  intercept(
-    context: ExecutionContext,
-    call$: Observable<any>,
-  ): Observable<any> {
-    console.log('Before...');
-    const now = Date.now();
-    return call$.pipe(
-      tap(() => console.log(`After... ${Date.now() - now}ms`)),
-    );
+  intercept(context: ExecutionContext, call$: Observable<any>): Observable<any> {
+    console.log('Before...')
+    const now = Date.now()
+    return call$.pipe(tap(() => console.log(`After... ${Date.now() - now}ms`)))
   }
 }
 ```
@@ -711,8 +696,8 @@ export class CatsController {}
 1. 在全局注册使用内置实例方法`useGlobalInterceptors`，作用整个项目。
 
 ```ts
-const app = await NestFactory.create(ApplicationModule);
-app.useGlobalInterceptors(new LoggingInterceptor());
+const app = await NestFactory.create(ApplicationModule)
+app.useGlobalInterceptors(new LoggingInterceptor())
 ```
 
 拦截器可以做很多功能，比如缓存处理，响应数据转换，异常捕获转换，响应超时跑错，打印请求响应日志。我们这个实战项目也会用到这个功能。
@@ -721,7 +706,7 @@ app.useGlobalInterceptors(new LoggingInterceptor());
 
 模块是按业务逻辑划分基本单元，包含控制器和服务。控制器是处理请求和响应数据的部件，服务处理实际业务逻辑的部件。
 
-中间件是路由处理Handler前的数据处理层，只能在模块或者全局注册，可以做日志处理中间件、用户认证中间件等处理，中间件和express的中间件一样，所以可以访问整个request、response的上下文，模块作用域可以依赖注入服务。全局注册只能是一个纯函数或者一个高阶函数。
+中间件是路由处理 Handler 前的数据处理层，只能在模块或者全局注册，可以做日志处理中间件、用户认证中间件等处理，中间件和 express 的中间件一样，所以可以访问整个 request、response 的上下文，模块作用域可以依赖注入服务。全局注册只能是一个纯函数或者一个高阶函数。
 
 管道是数据流处理，在中间件后路由处理前做数据处理，可以控制器中的类、方法、方法参数、全局注册使用，只能是一个纯函数。可以做数据验证，数据转换等数据处理。
 
@@ -736,7 +721,7 @@ app.useGlobalInterceptors(new LoggingInterceptor());
 全局管道、守卫、过滤器和拦截器和任何模块松散耦合。他们不能依赖注入任何服务，因为他们不属于任何模块。
 可以使用控制器作用域、方法作用域或辅助作用域仅由管道支持，其他除了中间件是模块作用域，都是控制器作用域和方法作用域。
 
-> **重点**：在示例给出了它们的写法，注意全局管道、守卫、过滤器和拦截器，只能new，全局中间件是纯函数，全局管道、守卫、过滤器和拦截器，中间件都不能依赖注入。中间件模块注册也不能用new，可以依赖注入。管道、守卫、过滤器和拦截器局部注册可以使用new和类名，除了管道以为其他都可以依赖注入。拦截器和守卫可以写成高阶方法来传参，达到定制目的。
+> **重点**：在示例给出了它们的写法，注意全局管道、守卫、过滤器和拦截器，只能 new，全局中间件是纯函数，全局管道、守卫、过滤器和拦截器，中间件都不能依赖注入。中间件模块注册也不能用 new，可以依赖注入。管道、守卫、过滤器和拦截器局部注册可以使用 new 和类名，除了管道以为其他都可以依赖注入。拦截器和守卫可以写成高阶方法来传参，达到定制目的。
 
 管道、过滤器、拦截器守卫都有各自的具体职责。拦截器和守卫与模块结合在一起，而管道和过滤器则运行在模块区域之外。管道任务是根据特定条件验证类型、对象结构或映射数据。过滤器任务是捕获各种错误返回给客户端。管道不是从数据库中选择或调用任何服务的适当位置。另一方面来说，拦截器不应该验证对象模式或修饰数据。如果需要重写，则必须由数据库调用服务引起。守卫决定了哪些路由可以访问，它接管你的验证责任。
 
@@ -746,7 +731,7 @@ app.useGlobalInterceptors(new LoggingInterceptor());
 客户端请求 ---> 中间件 ---> 守卫 ---> 拦截器之前 ---> 管道 ---> 控制器处理并响应 ---> 拦截器之后 ---> 过滤器
 ```
 
-我们来看2张图，
+我们来看 2 张图，
 
 请求返回响应结果：
 
@@ -764,11 +749,11 @@ app.useGlobalInterceptors(new LoggingInterceptor());
 
 推荐`nvm`来管理`nodejs`版本，根据自己电脑下载对应版本吧。
 
-1. 准备环境: [Nodejs](https://nodejs.org/en/) v8+ (目前版本v10+, 必须8以上，对es2015支持率很高)
+1. 准备环境: [Nodejs](https://nodejs.org/en/) v8+ (目前版本 v10+, 必须 8 以上，对 es2015 支持率很高)
 
-2. 准备数据库：[mongodb](https://www.mongodb.com/) v3+ (目前版本v4+)
+2. 准备数据库：[mongodb](https://www.mongodb.com/) v3+ (目前版本 v4+)
 
-3. 准备数据库：[redis](https://redis.io/) v3+ (目前版本v3+)
+3. 准备数据库：[redis](https://redis.io/) v3+ (目前版本 v3+)
 
 4. 准备编辑器: [vs code](https://code.visualstudio.com/) 最新版即可(本机 windows v1.26)
 
@@ -779,28 +764,28 @@ app.useGlobalInterceptors(new LoggingInterceptor());
    推荐插件：(其他插件自己随意)
 
    - Debugger for Chrome -- 调试
-   - ejs -- ejs文件高亮
+   - ejs -- ejs 文件高亮
    - Beautify -- 代码格式化
-   - DotENV -- .env文件高亮
-   - Jest -- nest默认测试框架支持
-   - TSLint -- ts语法检查
-   - TypeScript Hero -- ts提示
+   - DotENV -- .env 文件高亮
+   - Jest -- nest 默认测试框架支持
+   - TSLint -- ts 语法检查
+   - TypeScript Hero -- ts 提示
    - vscode-icons -- icons
 
 6. 推荐几个好用的工具：
 
-   - Postmen -- API测试神器
-   - Robomongo -- mongodb图形化工具
-   - Redis Desktop Manager -- Redis图形化工具
-   - Cmder -- Windows命令行神器
+   - Postmen -- API 测试神器
+   - Robomongo -- mongodb 图形化工具
+   - Redis Desktop Manager -- Redis 图形化工具
+   - Cmder -- Windows 命令行神器
 
-### Nest相关资源
+### Nest 相关资源
 
 1. 官网：[https://nestjs.com](https://nestjs.com/)
 2. 文档：[https://docs.nestjs.com](https://docs.nestjs.com/)
 3. 中文文档：[https://docs.nestjs.cn](https://docs.nestjs.cn/)
 4. Github：<https://github.com/nestjs/nest>
-5. 版本：目前稳定版v5.1.0
+5. 版本：目前稳定版 v5.1.0
 6. CLI：<https://github.com/nestjs/nest-cli>
 
 ### nest-cli
@@ -839,7 +824,7 @@ $ nest n my-awesome-app
 - provider (简写: pr) 供应商
 - service (简写: s) 服务
 
-创建一个users服务文件
+创建一个 users 服务文件
 
 ```bash
 $ nest generate service users
@@ -849,12 +834,12 @@ $ nest g s users
 
 > **注意**：
 
-1. `必须`在项目`根目录`下创建，（默认创建在src/）。（不能在当前文件夹里面创建，不然会自动生成xxx/src/xxx。吐槽：这个没有Angular-cli智能）
+1. `必须`在项目`根目录`下创建，（默认创建在 src/）。（不能在当前文件夹里面创建，不然会自动生成 xxx/src/xxx。吐槽：这个没有 Angular-cli 智能）
 2. 需要`优先`新建模块，不然创建的非模块以外的服务，控制器等就会自动注入更新到上级的模块里面
 
 ##### info(简写：i) 打印版本信息
 
-打印当前系统，使用nest核心模块版本，供你去官方提交[issues](https://github.com/nestjs/nest/issues)
+打印当前系统，使用 nest 核心模块版本，供你去官方提交[issues](https://github.com/nestjs/nest/issues)
 
 ```bash
 | \ | |           | |    |_  |/  ___|/  __ \| |   |_   _|
@@ -878,26 +863,26 @@ core version          : 5.1.0
 
 > 最后，整体功能和`Angular-cli`类似，比较简单实用功能。构建项目，生成文件，打印版本信息。
 
-### nest内置功能
+### nest 内置功能
 
 目前`Nest.js`支持 `express` 和 `fastify`, 对 `fastify` 不熟，本文选择`express`。
 
 #### 核心模块
 
-- @nestjs/common 提供很多装饰器，log服务等
+- @nestjs/common 提供很多装饰器，log 服务等
 - @nestjs/core 核心模块处理底层框架兼容
 - @nestjs/microservices 微服务支持
 - @nestjs/testing 测试套件
-- @nestjs/websockets websocket支持
+- @nestjs/websockets websocket 支持
 
 #### 可选模块
 
 - @nestjs/typeorm 还没玩过
 - @nestjs/graphql 还没玩过
 - @nestjs/cqrs 还没玩过
-- @nestjs/passport 身份验证（v5版支持，不向下兼容）
+- @nestjs/passport 身份验证（v5 版支持，不向下兼容）
 - @nestjs/swagger swagger UI API
-- @nestjs/mongoose mongoose模块
+- @nestjs/mongoose mongoose 模块
 
 > **注意**: 其他中间件模块，只要支持`express`和都可以使用。
 
@@ -934,21 +919,21 @@ npm run test:e2e  // E2E测试
 
 1. 项目文件介绍
 
-| 文件              | 说明                                     |
-| ----------------- | ---------------------------------------- |
-| node_modules      | npm包                                    |
-| src               | 源码                                     |
-| logs              | 日志                                     |
-| test              | E2E测试                                  |
-| views             | 模板                                     |
-| public            | 静态资源                                 |
-| nodemon.json      | nodemon配置（npm run start:dev启动）     |
-| package.json      | npm包管理                                |
-| README.md         | 说明文件                                 |
-| tsconfig.json     | Typescript配置文件（Typescript必备）     |
-| tslint.json       | Typescript风格检查文件（Typescript必备） |
-| webpack.config.js | 热更新（npm run start:hmr启动）          |
-| .env              | 配置文件                                 |
+| 文件              | 说明                                       |
+| ----------------- | ------------------------------------------ |
+| node_modules      | npm 包                                     |
+| src               | 源码                                       |
+| logs              | 日志                                       |
+| test              | E2E 测试                                   |
+| views             | 模板                                       |
+| public            | 静态资源                                   |
+| nodemon.json      | nodemon 配置（npm run start:dev 启动）     |
+| package.json      | npm 包管理                                 |
+| README.md         | 说明文件                                   |
+| tsconfig.json     | Typescript 配置文件（Typescript 必备）     |
+| tslint.json       | Typescript 风格检查文件（Typescript 必备） |
+| webpack.config.js | 热更新（npm run start:hmr 启动）           |
+| .env              | 配置文件                                   |
 
 > 开发代码都在`src`里，生成代码在`dist` (打包自动编译)，`typescript`打包只会编译`ts`到`dist` 下，静态文件`public`和模板`views`不会移动，所以需要放到根目录下。
 

@@ -3,14 +3,14 @@ title: webpack 基础知识整理
 date: 2020-07-24 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/3.jpg
 tags:
- - webpack       
-categories: 
- - webpack
+  - webpack
+categories:
+  - webpack
 ---
 
-## webpack简介
+## webpack 简介
 
-webpack是一个 **模块打包工具**，支持所有的打包语法，比如 `ES Module`、`CommonJS`、`CMD`、`AMD`。初期的webpack是用来模块打包js的，发展到现在，已经可以打包很多种文件类型，比如 `css`、`img` 。
+webpack 是一个 **模块打包工具**，支持所有的打包语法，比如 `ES Module`、`CommonJS`、`CMD`、`AMD`。初期的 webpack 是用来模块打包 js 的，发展到现在，已经可以打包很多种文件类型，比如 `css`、`img` 。
 
 优化打包速度最有效的方法就是保持 `nodejs` 和 `webpack` 为最新版本。
 
@@ -28,11 +28,11 @@ npm install webpack webpack-cli --save-dev
 yarn add webpack webpack-cli --dev
 ```
 
-这个时候执行 `webpack -v` 是查不到版本号的，因为 `nodejs` 默认是去全局找 `webpack`，这个时候是找不到的，nodejs还提供了 `npx webpack -v` 这个方法。
+这个时候执行 `webpack -v` 是查不到版本号的，因为 `nodejs` 默认是去全局找 `webpack`，这个时候是找不到的，nodejs 还提供了 `npx webpack -v` 这个方法。
 
 ## 运行
 
-如果不生成配置文件，webpack会按照默认配置去打包，如果我们想自定义配置文件可以在项目根目录添加 `webpack.config.js` 来自定义配置信息，配置文件的名字也可以自定义：
+如果不生成配置文件，webpack 会按照默认配置去打包，如果我们想自定义配置文件可以在项目根目录添加 `webpack.config.js` 来自定义配置信息，配置文件的名字也可以自定义：
 
 ```bash
 # 默认配置或者默认配置文件
@@ -53,8 +53,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    path: path.resolve(__dirname, 'dist'),
+  },
 }
 ```
 
@@ -70,7 +70,7 @@ entry: {
 
 ## loader
 
-`webpack` 可以使用 `loader` 来预处理文件。这允许你打包除 `JavaScript` 之外的任何静态资源，js的打包是webpack内置的。你可以使用 `Node.js` 来很简单地编写自己的 `loader`。
+`webpack` 可以使用 `loader` 来预处理文件。这允许你打包除 `JavaScript` 之外的任何静态资源，js 的打包是 webpack 内置的。你可以使用 `Node.js` 来很简单地编写自己的 `loader`。
 
 ```js
 const path = require('path')
@@ -80,18 +80,18 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
         test: /\.jpg$/,
         use: {
-          loader: 'file-loader'
-        }
-      }
-    ]
-  }
+          loader: 'file-loader',
+        },
+      },
+    ],
+  },
 }
 ```
 
@@ -107,7 +107,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -121,12 +121,12 @@ module.exports = {
             // 设置输出文件夹
             outputPath: 'images/',
             // 指定目标文件的自定义公共路径
-            publicPath: 'assets/'
-          }
-        }
-      }
-    ]
-  }
+            publicPath: 'assets/',
+          },
+        },
+      },
+    ],
+  },
 }
 ```
 
@@ -142,7 +142,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -154,20 +154,20 @@ module.exports = {
             // 设置输出文件名
             name: '[name]_[hash].[ext]',
             // 设置需要转换base64的文件大小（太大的文件转换后需要更大的请求压力）
-            limit: 2048
-          }
-        }
-      }
-    ]
-  }
+            limit: 2048,
+          },
+        },
+      },
+    ],
+  },
 }
 ```
 
-### css相关
+### css 相关
 
 #### style-loader 和 css-loader
 
-- css-loader：加入 a.css 中引入了 b.css 和 c.css，css-loader 会将其合并成一个css文件
+- css-loader：加入 a.css 中引入了 b.css 和 c.css，css-loader 会将其合并成一个 css 文件
 - style-loader：将合并后的 css 文件挂载到 head 标签内
 
 ```js
@@ -178,16 +178,16 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader']
-      }
-    ]
-  }
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
 }
 ```
 
@@ -203,21 +203,21 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ['style-loader', 'css-loader', 'sass-loader']
-      }
-    ]
-  }
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+    ],
+  },
 }
 ```
 
 ::: warning
-loader的加载顺序是从右到左、从下到上，所以处理 scss 文件时，将 sass-loader放在最后。
+loader 的加载顺序是从右到左、从下到上，所以处理 scss 文件时，将 sass-loader 放在最后。
 :::
 
 #### postcss-loader
@@ -234,21 +234,16 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
         test: /\.scss$/i,
-        use: [
-          'style-loader', 
-          'css-loader', 
-          'sass-loader',
-          'postcss-loader'
-        ]
-      }
-    ]
-  }
+        use: ['style-loader', 'css-loader', 'sass-loader', 'postcss-loader'],
+      },
+    ],
+  },
 }
 ```
 
@@ -257,9 +252,7 @@ module.exports = {
 // 首先安装 autoprefixer
 
 module.exports = {
-  plugins: [
-    require('autoprefixer')
-  ]
+  plugins: [require('autoprefixer')],
 }
 ```
 
@@ -273,32 +266,32 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
         test: /\.scss$/i,
         use: [
-          'style-loader', 
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
-              importLoaders: 2
-            }
-          }, 
+              importLoaders: 2,
+            },
+          },
           'sass-loader',
-          'postcss-loader'
-        ]
-      }
-    ]
-  }
+          'postcss-loader',
+        ],
+      },
+    ],
+  },
 }
 ```
 
-#### css模块化
+#### css 模块化
 
-在 `index.js` 通过import `'./index.css'` 引入样式会全局有效，如果想在某个模块有效，如何去做呢？
+在 `index.js` 通过 import `'./index.css'` 引入样式会全局有效，如果想在某个模块有效，如何去做呢？
 
 ```js
 // 模块A
@@ -320,27 +313,27 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
       {
         test: /\.scss$/i,
         use: [
-          'style-loader', 
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
               importLoaders: 2,
-              modules: true
-            }
-          }, 
+              modules: true,
+            },
+          },
           'sass-loader',
-          'postcss-loader'
-        ]
-      }
-    ]
-  }
+          'postcss-loader',
+        ],
+      },
+    ],
+  },
 }
 ```
 
@@ -356,7 +349,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
@@ -365,18 +358,18 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            outputPath: 'fonts/'
-          }
-        }  
-      }
-    ]
-  }
+            outputPath: 'fonts/',
+          },
+        },
+      },
+    ],
+  },
 }
 ```
 
 ## plugin
 
-可以在webpack运行到某个时刻的时候，做一些事情。
+可以在 webpack 运行到某个时刻的时候，做一些事情。
 
 ### html-webpack-plugin
 
@@ -391,9 +384,9 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [new HtmlWebpackPlugin()]
+  plugins: [new HtmlWebpackPlugin()],
 }
 ```
 
@@ -408,11 +401,13 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: 'src/index.html'
-  })]
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'src/index.html',
+    }),
+  ],
 }
 ```
 
@@ -430,14 +425,14 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html'
+      template: 'src/index.html',
     }),
-    new CleanWebpackPlugin()
-  ]
+    new CleanWebpackPlugin(),
+  ],
 }
 ```
 
@@ -451,12 +446,12 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
   entry: {
     main: './src/index.js',
-    sub: './src/index.js'
+    sub: './src/index.js',
   },
   output: {
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    path: path.resolve(__dirname, 'dist'),
+  },
 }
 ```
 
@@ -470,13 +465,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin')
 module.exports = {
   entry: {
     main: './src/index.js',
-    sub: './src/index.js'
+    sub: './src/index.js',
   },
   output: {
     publicPath: 'http://cdn.com.cn',
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    path: path.resolve(__dirname, 'dist'),
+  },
 }
 ```
 
@@ -489,7 +484,7 @@ sourceMap 通过配置中的 devtool 去配置，参数的含义大概有以下�
 | devtool                 | 作用                                                                              |
 | ----------------------- | --------------------------------------------------------------------------------- |
 | source-map              | 生成 map 文件，错误精确到行和列                                                   |
-| inline-source-map       | inline，不生成 map 文件，以 base64 形式嵌入js中，错误精确到行和列                 |
+| inline-source-map       | inline，不生成 map 文件，以 base64 形式嵌入 js 中，错误精确到行和列               |
 | cheap-source-map        | cheap，错误只精确到行，且只针对业务代码，不包括第三方模块                         |
 | cheap-module-source-map | cheap-module，错误只精确到行，且只针对业务代码，包括第三方模块                    |
 | eval-source-map         | eval，不生成 map 文件，在 js 中以 eval 方法的形式出现，但是复杂项目的提示是不全的 |
@@ -516,7 +511,7 @@ sourceMap 通过配置中的 devtool 去配置，参数的含义大概有以下�
 
 ### webpack-dev-server
 
-上面的html的打开的方式还是需要通过 `file` 协议打开一个本地文件，在浏览器地址是这样的：`file:///Users/reco/workSpace/git/personal/work/test.html`。这样的话发送 `AJAX` 请求就有问题了，因为发送请求需要 `http` 或者 `https` 协议，这时需要的是在本地启动一个服务，我们可以借助 `webpack-dev-server` （打包时将打包的文件放在内存中，提高打包速度）。
+上面的 html 的打开的方式还是需要通过 `file` 协议打开一个本地文件，在浏览器地址是这样的：`file:///Users/reco/workSpace/git/personal/work/test.html`。这样的话发送 `AJAX` 请求就有问题了，因为发送请求需要 `http` 或者 `https` 协议，这时需要的是在本地启动一个服务，我们可以借助 `webpack-dev-server` （打包时将打包的文件放在内存中，提高打包速度）。
 
 ```bash
 yarn add webpack-dev-server --dev
@@ -538,12 +533,12 @@ const path = require('path')
 module.exports = {
   entry: {
     main: './src/index.js',
-    sub: './src/index.js'
+    sub: './src/index.js',
   },
   output: {
     publicPath: 'http://cdn.com.cn',
     filename: '[name].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
   },
   // 默认端口 8080
   devServer: {
@@ -555,9 +550,9 @@ module.exports = {
     port: 3000,
     // 跨域代理
     proxy: {
-      '/api': 'http://localhost:3000'
-    }
-  }
+      '/api': 'http://localhost:3000',
+    },
+  },
 }
 ```
 
@@ -583,9 +578,11 @@ const complier = webpack(config)
 const app = express()
 
 // publicPath 不设置的话默认 '/'
-app.use(webpackDevMiddleware(complier, {
-  publicPath: config.output.publicPath
-}))
+app.use(
+  webpackDevMiddleware(complier, {
+    publicPath: config.output.publicPath,
+  })
+)
 
 app.listen(3000, () => {
   console.log('server is running!')
@@ -594,18 +591,18 @@ app.listen(3000, () => {
 
 > **缺点：**需要自己手动刷新
 
-上面这种方式就是在node中使用webpack，这是除了在命令行中的使用 `webpack` 的另一种方式。
+上面这种方式就是在 node 中使用 webpack，这是除了在命令行中的使用 `webpack` 的另一种方式。
 
 **开启 Hot Module Replacement**
 
 解决下面的问题：
 
-   1. 修改页面某个颜色，页面会刷新，导致动态添加的 dom 会消失；
-   2. 一个页面同时引入两个模块的js，修改某个模块的js，页面会刷新，导致灵感一个模块的js也会初始化。
+1.  修改页面某个颜色，页面会刷新，导致动态添加的 dom 会消失；
+2.  一个页面同时引入两个模块的 js，修改某个模块的 js，页面会刷新，导致灵感一个模块的 js 也会初始化。
 
 存在的问题：
 
-   1. 在多页面应用里，html更改时并不会刷新，需手动，所以这种情况下，可以去掉更更新功能。
+1.  在多页面应用里，html 更改时并不会刷新，需手动，所以这种情况下，可以去掉更更新功能。
 
 ```js
 const path = require('path')
@@ -616,12 +613,10 @@ module.exports = {
     // 1. 开启 HMR
     hot: true,
     // 只有在开启 HMR 的时候才会监听变动并刷新
-    hotOnly: true
+    hotOnly: true,
   },
   // 2. 插件
-  plugins: [
-    new webpack.HotModuleReplacementPlugin()
-  ]
+  plugins: [new webpack.HotModuleReplacementPlugin()],
 }
 ```
 
@@ -664,11 +659,11 @@ npm install --save-dev babel-loader @babel/core
 ```js
 module: {
   rules: [
-    { 
-      test: /\.js$/, 
-      exclude: /node_modules/, 
-      loader: "babel-loader" 
-    }
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+    },
   ]
 }
 ```
@@ -686,14 +681,14 @@ npm install @babel/preset-env --save-dev
 ```js
 module: {
   rules: [
-    { 
-      test: /\.js$/, 
-      exclude: /node_modules/, 
-      loader: "babel-loader",
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
       options: {
-        "presets": ["@babel/preset-env"]
-      }
-    }
+        presets: ['@babel/preset-env'],
+      },
+    },
   ]
 }
 ```
@@ -708,10 +703,10 @@ npm install --save @babel/polyfill
 
 ```js
 // 在入口文件
-require("@babel/polyfill");
+require('@babel/polyfill')
 
 // or
-import "@babel/polyfill";
+import '@babel/polyfill'
 ```
 
 这个时候会默认全部转换，这样会增加很多兼容性代码，如果我们想按需引入：
@@ -719,16 +714,21 @@ import "@babel/polyfill";
 ```js
 module: {
   rules: [
-    { 
-      test: /\.js$/, 
-      exclude: /node_modules/, 
-      loader: "babel-loader",
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
       options: {
-        "presets": [["@babel/preset-env", {
-          useBuiltIns: 'usage'
-        }]]
-      }
-    }
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              useBuiltIns: 'usage',
+            },
+          ],
+        ],
+      },
+    },
   ]
 }
 ```
@@ -738,7 +738,7 @@ module: {
 ```js
 // 在入口配置
 module.exports = {
-  entry: ["@babel-polyfill", "./app/js"]
+  entry: ['@babel-polyfill', './app/js'],
 }
 ```
 
@@ -770,25 +770,25 @@ npm install --save @babel/runtime
 ```js
 module: {
   rules: [
-    { 
-      test: /\.js$/, 
-      exclude: /node_modules/, 
-      loader: "babel-loader",
+    {
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
       options: {
-        "plugins": [
+        plugins: [
           [
-            "@babel/plugin-transform-runtime",
+            '@babel/plugin-transform-runtime',
             {
-              "absoluteRuntime": false,
-              "corejs": 2,
-              "helpers": true,
-              "regenerator": true,
-              "useESModules": false
-            }
-          ]
-        ]
-      }
-    }
+              absoluteRuntime: false,
+              corejs: 2,
+              helpers: true,
+              regenerator: true,
+              useESModules: false,
+            },
+          ],
+        ],
+      },
+    },
   ]
 }
 ```
@@ -805,13 +805,18 @@ npm install --save @babel/runtime-corejs2
 
 ```json
 {
-  "presets": [["@babel/preset-env", {
-    useBuiltIns: 'usage'
-  }]]
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage"
+      }
+    ]
+  ]
 }
 ```
 
-## React打包
+## React 打包
 
 ```bash
 npm install --save-dev @babel/preset-react
@@ -820,9 +825,12 @@ npm install --save-dev @babel/preset-react
 ```json
 {
   "presets": [
-    ["@babel/preset-env", {
-      useBuiltIns: 'usage'
-    }],
+    [
+      "@babel/preset-env",
+      {
+        "useBuiltIns": "usage"
+      }
+    ],
     [
       "@babel/preset-react",
       {
@@ -864,7 +872,7 @@ module.exports = {
 }
 ```
 
-如果引入的一些 `css` 或依赖不需要 `Tree Shaking`，那将 `sideEffects` 设置为 `["./a.css", "@babel/polyfill"]`，如果没有需要配置的，直接设置为  `false` 即可。
+如果引入的一些 `css` 或依赖不需要 `Tree Shaking`，那将 `sideEffects` 设置为 `["./a.css", "@babel/polyfill"]`，如果没有需要配置的，直接设置为 `false` 即可。
 
 ### production
 
@@ -877,49 +885,49 @@ module.exports = {
 1. 将开发环境和线上环境的公共配置提取到 `/build/webpack.base.js` 中
 2. 分别在开发环境和线上环境的配置中合并公共配置，配置合并需要使用 `webpack-merge`
 
-    ```js
-    // /build/webpack.dev.js
-    const merge = require('webpack-merge')
-    const baseConfig = require('./webpack.base.js')
+   ```js
+   // /build/webpack.dev.js
+   const merge = require('webpack-merge')
+   const baseConfig = require('./webpack.base.js')
 
-    const devConfig = {
-      mode: 'development'
-    }
+   const devConfig = {
+     mode: 'development',
+   }
 
-    module.exports = merge(baseConfig, devConfig)
-    ```
+   module.exports = merge(baseConfig, devConfig)
+   ```
 
 3. 修改 `package.json`
 
-    ```json
-    {
-      "script": {
-        "dev": "webpack-dev-server --config ./build/webpack.dev.js",
-        "build": "webpack --config ./build/webpack.prod.js"
-      }
-    }
-    ```
+   ```json
+   {
+     "script": {
+       "dev": "webpack-dev-server --config ./build/webpack.dev.js",
+       "build": "webpack --config ./build/webpack.prod.js"
+     }
+   }
+   ```
 
 4. 这个时候较之前打包输出和清空的目录就应该修改一下了
 
-    ```js
-    module.exports = {
-      output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, '../dist')
-      },
-      plugins: [
-        new HtmlWebpackPlugin({
-          template: 'src/index.html'
-        }),
-        new CleanWebpackPlugin(["dist"], {
-          root: path.resolve(__dirname, "../")
-        })
-      ]
-    }
-    ```
+   ```js
+   module.exports = {
+     output: {
+       filename: 'bundle.js',
+       path: path.resolve(__dirname, '../dist'),
+     },
+     plugins: [
+       new HtmlWebpackPlugin({
+         template: 'src/index.html',
+       }),
+       new CleanWebpackPlugin(['dist'], {
+         root: path.resolve(__dirname, '../'),
+       }),
+     ],
+   }
+   ```
 
-    **更新**：上面 `CleanWebpackPlugin` 的语法是 `1.0` 版本的。`2.0` 它所清空的文件夹默认就是打包输出目录，无需再单独指定。
+   **更新**：上面 `CleanWebpackPlugin` 的语法是 `1.0` 版本的。`2.0` 它所清空的文件夹默认就是打包输出目录，无需再单独指定。
 
 ## Code Splitting
 
@@ -929,7 +937,7 @@ module.exports = {
 
 本来代码拆分和 `webpack` 是没关系的，只不过是一种优化手段，比如将公共代码单独打包到一个文件内，业务代码打包到另一个文件内，从而提升加载体验。这里可以运用多入口文件的方式分开打包。
 
-### webpack实现
+### webpack 实现
 
 `webpack4.0` 实现代码分割，分两种情况：
 
@@ -948,7 +956,7 @@ module.exports = {
 2. 异步代码不需要做任何操作，异步代码比如下面这种情况：
 
 ```js
-function createElement () {
+function createElement() {
   import('lodash').then(({ default: _ }) => {
     const element = document.createElement('div')
     div.innerHTML = _.join(['a', 'b'], '-')
@@ -961,7 +969,7 @@ createElement().then(element => {
 })
 ```
 
-> 这个写法会报错，因为动态来获取依赖的这种方式是试验性语法，目前还不支持，需要借助插件：`babel-plugin-dynamic-import-webpack`  
+> 这个写法会报错，因为动态来获取依赖的这种方式是试验性语法，目前还不支持，需要借助插件：`babel-plugin-dynamic-import-webpack`
 
 ---
 
@@ -1011,7 +1019,7 @@ module.exports = {
           }
         }
       }
-    }  
+    }
   }
 }
 ```
@@ -1020,7 +1028,7 @@ module.exports = {
 
 ### Lazy Loading
 
-`webpack` 可以识别 `ECMAScript` 的import返回的promise，并进行分割，实现懒加载，但是必须依赖 `babel-polyfill` 或者 `promise-polyfill`。
+`webpack` 可以识别 `ECMAScript` 的 import 返回的 promise，并进行分割，实现懒加载，但是必须依赖 `babel-polyfill` 或者 `promise-polyfill`。
 
 ```js
 function createElement () {
@@ -1057,7 +1065,7 @@ document.addEventListener('click', () => {
 
 ### Chunk
 
-像上面的 `Lazy Loading` 所拆分打包的每一个文件都是一个 `Chunk`，而前面的配置参数`minChunks: 2` 的意思就是：当有2个以上的 · 使用到某个依赖时，才会对其进行拆分成一个 `Chunk`。
+像上面的 `Lazy Loading` 所拆分打包的每一个文件都是一个 `Chunk`，而前面的配置参数`minChunks: 2` 的意思就是：当有 2 个以上的 · 使用到某个依赖时，才会对其进行拆分成一个 `Chunk`。
 
 ```js
 const path = require('path')
@@ -1067,8 +1075,8 @@ module.exports = {
     publicPath: 'http://cdn.com.cn',
     filename: '[name].js',
     chunkFilename: '[name].chunk.js', // 打包之后的入口文件之外的js的会在这里过滤一下名字
-    path: path.resolve(__dirname, 'dist')
-  }
+    path: path.resolve(__dirname, 'dist'),
+  },
 }
 ```
 
@@ -1093,7 +1101,7 @@ document.addEventListener('click', () => {
 // 现在我们可以这么写
 
 // 将生成代码的代码放到另一个文件中去，比如叫 click.js
-function createElement () {
+function createElement() {
   const element = document.createElement('div')
   element.innerHTML = 123
   documnet.body.append(element)
@@ -1101,9 +1109,8 @@ function createElement () {
 
 export default createElement
 
-
 document.addEventListener('click', () => {
-  import('./click.js').then(({default: func}) => {
+  import('./click.js').then(({ default: func }) => {
     func()
   })
 })
@@ -1125,7 +1132,7 @@ document.addEventListener('click', () => {
 // 现在我们可以这么写
 
 // 将生成代码的代码放到另一个文件中去，比如叫 click.js
-function createElement () {
+function createElement() {
   const element = document.createElement('div')
   element.innerHTML = 123
   documnet.body.append(element)
@@ -1133,10 +1140,9 @@ function createElement () {
 
 export default createElement
 
-
 document.addEventListener('click', () => {
   // 通过魔法注释来开启 webpackPrefetch
-  import(/* webpackPrefetch: true */'./click.js').then(({default: func}) => {
+  import(/* webpackPrefetch: true */ './click.js').then(({ default: func }) => {
     func()
   })
 })
@@ -1150,7 +1156,7 @@ document.addEventListener('click', () => {
 // 现在我们可以这么写
 
 // 将生成代码的代码放到另一个文件中去，比如叫 click.js
-function createElement () {
+function createElement() {
   const element = document.createElement('div')
   element.innerHTML = 123
   documnet.body.append(element)
@@ -1158,10 +1164,9 @@ function createElement () {
 
 export default createElement
 
-
 document.addEventListener('click', () => {
   // 通过魔法注释来开启 webpackPreload
-  import(/* webpackPreload: true */'./click.js').then(({default: func}) => {
+  import(/* webpackPreload: true */ './click.js').then(({ default: func }) => {
     func()
   })
 })
@@ -1171,9 +1176,9 @@ document.addEventListener('click', () => {
 
 目前考虑前端的性能优化，不能总是考虑缓存，而是主要考虑代码的使用率。
 
-## CSS代码分割
+## CSS 代码分割
 
-### CSS分割
+### CSS 分割
 
 不做处理的情况下，`webpack` 会将 `css` 打包到 `js` 中去，如果需要生成单独的 `css` 文件，可以使用 `MiniCssExtractPlugin`。
 
@@ -1189,7 +1194,7 @@ npm install --save-dev mini-css-extract-plugin
 3. 如果设置了 `Tree Shaking`，需要将 `"sideEffects": false` 改为 `"sideEffects": ["*.css"]`。
 
 ```js
-const MiniCssExtractPlugin = require('mini-css-extract-plugin'); 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 module.exports = {
   plugins: [
@@ -1219,8 +1224,8 @@ module.exports = {
     ],
   },
   optimization: {
-    usedExports: ture
-  }
+    usedExports: ture,
+  },
 }
 ```
 
@@ -1235,13 +1240,13 @@ module.exports = {
 `optimize-css-assets-webpack-plugin`
 
 ```js
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
   optimization: {
     minimizer: [new OptimizeCSSAssetsPlugin({})],
-  }
-};
+  },
+}
 ```
 
 ### 合并 CSS
@@ -1249,16 +1254,16 @@ module.exports = {
 将多个入口文件的 `css` 单独放到每个文件中，需要设置 `optimization.splitChunks.cacheGroups` 为对应的多个分组。
 
 ```js
-const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require('path')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 function recursiveIssuer(m) {
   if (m.issuer) {
-    return recursiveIssuer(m.issuer);
+    return recursiveIssuer(m.issuer)
   } else if (m.name) {
-    return m.name;
+    return m.name
   } else {
-    return false;
+    return false
   }
 }
 
@@ -1272,15 +1277,13 @@ module.exports = {
       cacheGroups: {
         fooStyles: {
           name: 'foo',
-          test: (m, c, entry = 'foo') =>
-            m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+          test: (m, c, entry = 'foo') => m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
           chunks: 'all',
           enforce: true,
         },
         barStyles: {
           name: 'bar',
-          test: (m, c, entry = 'bar') =>
-            m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
+          test: (m, c, entry = 'bar') => m.constructor.name === 'CssModule' && recursiveIssuer(m) === entry,
           chunks: 'all',
           enforce: true,
         },
@@ -1300,12 +1303,12 @@ module.exports = {
       },
     ],
   },
-};
+}
 ```
 
 ## 浏览器缓存
 
-`contenthash` 如果内容没有变化，hash值不会变；如果内容变化，hash就会变。这样项目重新打包上线后，项目就不会全部重新加载了。
+`contenthash` 如果内容没有变化，hash 值不会变；如果内容变化，hash 就会变。这样项目重新打包上线后，项目就不会全部重新加载了。
 
 ```js
 const path = require('path')
@@ -1315,8 +1318,8 @@ module.exports = {
     publicPath: 'http://cdn.com.cn',
     filename: '[name].[contenthash].js',
     chunkFilename: '[name].[contenthash].chunk.js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    path: path.resolve(__dirname, 'dist'),
+  },
 }
 ```
 
@@ -1326,9 +1329,9 @@ module.exports = {
 module.exports = {
   optimization: {
     runtimeChunk: {
-      name: 'runtime'
-    }
-  }
+      name: 'runtime',
+    },
+  },
 }
 ```
 
@@ -1342,41 +1345,41 @@ module.exports = {
 
 2. `webpack.ProvidePlugin` 还有另外一个功能：如果我们想要将 `$.each` 功能直接这样使用 `$each`，我们在下面这么来配置。
 
-    ```js
-    import webpack from 'webpack'
+   ```js
+   import webpack from 'webpack'
 
-    module.exports = {
-      plugins: [
-        new webpack.ProvidePlugin({
-          $: 'jquery',
-          $each: ['jquery', 'each']
-        })
-      ]
-    }
-    ```
+   module.exports = {
+     plugins: [
+       new webpack.ProvidePlugin({
+         $: 'jquery',
+         $each: ['jquery', 'each'],
+       }),
+     ],
+   }
+   ```
 
 3. 每个模块的 `this` 都是指向当前模块的，如果想让每个模块都指向 `window`，我们需要借助 `imports-loader`：
 
-    ```js
-    module.exports = {
-      module: {
-        rules: [
-          {
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: [
-              {
-                loader: 'babel-loader'
-              },
-              {
-                loader: 'imports-loader?this=?window'
-              }
-            ]
-          }
-        ]
-      }
-    }
-    ```
+   ```js
+   module.exports = {
+     module: {
+       rules: [
+         {
+           test: /\.js$/,
+           exclude: /node_modules/,
+           use: [
+             {
+               loader: 'babel-loader',
+             },
+             {
+               loader: 'imports-loader?this=?window',
+             },
+           ],
+         },
+       ],
+     },
+   }
+   ```
 
 ## 环境变量
 
@@ -1391,7 +1394,7 @@ const commonConfig = {
   // ...
 }
 
-module.exports = (env) => {
+module.exports = env => {
   if (env && env.production) {
     return merge(commonConfig, prodConfig)
   } else {
@@ -1405,7 +1408,7 @@ module.exports = (env) => {
   "scripts": {
     "dev-build": "webpack --config ./build/webpack.common.js",
     "dev": "webpack-dev-server --config ./build/webpack.common.js",
-    "build": "webpack --env.production --config ./build/webpack.common.js",
+    "build": "webpack --env.production --config ./build/webpack.common.js"
   }
 }
 ```
@@ -1414,7 +1417,7 @@ module.exports = (env) => {
 
 区别：
 
-1. develop 模式下的sourceMap 是非常全的；
+1. develop 模式下的 sourceMap 是非常全的；
 2. develop 模式下的代码不需要压缩；
 
 ## 函数库打包
@@ -1431,12 +1434,12 @@ module.exports = {
     filename: 'library.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'library', // 通过 script 标签引入，全局注入 library 这个变量
-    libraryTarget: 'umd' // 模块引入方式 ES Module 和 CommonJS
-  }
-} 
+    libraryTarget: 'umd', // 模块引入方式 ES Module 和 CommonJS
+  },
+}
 ```
 
-`library` 和 `libraryTarget` 两个是配合使用的，`library` 的意思就是指定暴露的全局变量的名字，但是这个全局变量挂在到哪里呢？这就由 `libraryTarget` 来指定了。`umd` 的意思是允许它与CommonJS，AMD和全局变量一起使用，除了它还有 `this/window/global/amd` 等值可以设置。
+`library` 和 `libraryTarget` 两个是配合使用的，`library` 的意思就是指定暴露的全局变量的名字，但是这个全局变量挂在到哪里呢？这就由 `libraryTarget` 来指定了。`umd` 的意思是允许它与 CommonJS，AMD 和全局变量一起使用，除了它还有 `this/window/global/amd` 等值可以设置。
 
 ### 略过不需要的依赖
 
@@ -1449,9 +1452,9 @@ module.exports = {
   output: {
     filename: 'library.js',
     path: path.resolve(__dirname, 'dist'),
-    externals: ["lodash"] // 打包时当遇到 lodash 这个依赖就自动忽略
-  }
-} 
+    externals: ['lodash'], // 打包时当遇到 lodash 这个依赖就自动忽略
+  },
+}
 ```
 
 比如我的这个函数库依赖 `jquery`，但是用户也可能引用了 `jquery`，这样就会多打包一份，所以为了减少代码量，这时就可以通过 `externals` 来忽略 `jquery`（`externals` 支持 `Arrary/Object`）。
@@ -1470,9 +1473,9 @@ module.exports = {
   plugins: [
     new WorkboxPlugin.GenerateSW({
       clientsClaim: true,
-      skipWaiting: true
-    })
-  ]
+      skipWaiting: true,
+    }),
+  ],
 }
 ```
 
@@ -1483,11 +1486,14 @@ module.exports = {
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/service-work.js').then(registeration => {
-      console.log(`service-work registered`)
-    }).catch(err => {
-      console.log(`service-work register error`)
-    })
+    navigator.serviceWorker
+      .register('/service-work.js')
+      .then(registeration => {
+        console.log(`service-work registered`)
+      })
+      .catch(err => {
+        console.log(`service-work register error`)
+      })
   })
 }
 ```
@@ -1508,14 +1514,14 @@ module.exports = {
       {
         test: /\.tsx?$/,
         use: 'ts-loader',
-        exclude: /node_modules/
-      }
-    ]
+        exclude: /node_modules/,
+      },
+    ],
   },
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    path: path.resolve(__dirname, 'dist'),
+  },
 }
 ```
 
@@ -1527,12 +1533,12 @@ module.exports = {
     "outDir": "./dist", // 打包到那个文件夹内
     "module": "es6", // 使用es6的模块化方式
     "target": "es5", // 打包成 es5 语法
-    "allowJs": true  // 允许在ts文件里在引入一些js模块
+    "allowJs": true // 允许在ts文件里在引入一些js模块
   }
 }
 ```
 
-如果我们引入了 `jquery` 这个模块，要想在使用 `jquery` 语法时让typescript有效，还需要引入 `@types/jquery` 这个依赖（这是 2.0 的做法，1.0 稍有区别），不然会报错：`TS2688: Cannot find type definition file for 'unist'.`。
+如果我们引入了 `jquery` 这个模块，要想在使用 `jquery` 语法时让 typescript 有效，还需要引入 `@types/jquery` 这个依赖（这是 2.0 的做法，1.0 稍有区别），不然会报错：`TS2688: Cannot find type definition file for 'unist'.`。
 
 ## WebpackDevServer 请求转发
 
@@ -1548,16 +1554,18 @@ module.exports = {
       '/react/api': {
         target: 'https://www.xxx.com',
         secure: false, // 可以对 https 生效
-        pathRewrite: { // 改变接口路由
-          'header.json': 'demo.json'
+        pathRewrite: {
+          // 改变接口路由
+          'header.json': 'demo.json',
         },
         changeOrigin: true, // 有些接口为了防止爬虫是不允许改变 origin 的，这里设置为 true 就可以了
-        headers: { // 改变请求头
-          host: 'www.xxx.com'
-        }
-      }
-    }
-  }
+        headers: {
+          // 改变请求头
+          host: 'www.xxx.com',
+        },
+      },
+    },
+  },
 }
 ```
 
@@ -1565,14 +1573,14 @@ module.exports = {
 
 ```js
 // webpack.config.js
-module.exports = { 
+module.exports = {
   devServer: {
-    historyApiFallback: true
-  }
+    historyApiFallback: true,
+  },
 }
 ```
 
-如果一个项目里在写单页面应用时，某个路由我们没有配置某个路由 A，访问时会显示 `can't get A`，这是我们可以配置 `historyApiFallback: true` 来将没有配置的页面直接转向 `index.html`，详细用法见 webpack官网。
+如果一个项目里在写单页面应用时，某个路由我们没有配置某个路由 A，访问时会显示 `can't get A`，这是我们可以配置 `historyApiFallback: true` 来将没有配置的页面直接转向 `index.html`，详细用法见 webpack 官网。
 
 ## ESLint
 
@@ -1583,24 +1591,24 @@ npm install eslint eslint-loader --save-dev
 
 # 初始化 eslint 规范，生成 .eslintrc.js 文件
 # Aribnb 是一种很变态的规范
-npx eslint init 
+npx eslint init
 ```
 
 ```js
 // webpack.config.js
-module.exports = { 
+module.exports = {
   module: {
     rules: [
       {
         test: /\.js$/,
         exclude: /node-modules/,
-        use: ['babel-loader', 'eslint-loader'] // 先进行代码检验，再编译
-      }
-    ]
+        use: ['babel-loader', 'eslint-loader'], // 先进行代码检验，再编译
+      },
+    ],
   },
   devServer: {
-    overlay: true // 如果过程出现错误，会通过蒙层来提示错误
-  }
+    overlay: true, // 如果过程出现错误，会通过蒙层来提示错误
+  },
 }
 ```
 
@@ -1608,7 +1616,7 @@ module.exports = {
 
 ```js
 // webpack.config.js
-module.exports = { 
+module.exports = {
   module: {
     rules: [
       {
@@ -1619,33 +1627,33 @@ module.exports = {
             loader: 'eslint-loader',
             options: {
               fix: true, // 如果有小的错误，可以直接修复
-              cache: true // 优化打包速度
+              cache: true, // 优化打包速度
             },
-            enforce: 'pre' // 虽然在 babel-loader 前面，但是可以提前执行(实际测试这个参数放在这里有问题，这里的loader就按照它本该有的循序去排列它，不要使用这个参数去控制了)
-          }, 
-          'babel-loader'
-        ] // 先进行代码检验，再编译
-      }
-    ]
+            enforce: 'pre', // 虽然在 babel-loader 前面，但是可以提前执行(实际测试这个参数放在这里有问题，这里的loader就按照它本该有的循序去排列它，不要使用这个参数去控制了)
+          },
+          'babel-loader',
+        ], // 先进行代码检验，再编译
+      },
+    ],
   },
   devServer: {
-    overlay: true // 如果过程出现错误，会通过蒙层来提示错误
-  }
+    overlay: true, // 如果过程出现错误，会通过蒙层来提示错误
+  },
 }
 ```
 
 ```js
 // .eslintrc.js
 module.exports = {
-  "extends": "airbnb",
-  "parser": "babel-eslint",
-  "rules": {
-    "react/prefer-stateless-function": 0,
-    "react/jsx-filename-extension": 0
+  extends: 'airbnb',
+  parser: 'babel-eslint',
+  rules: {
+    'react/prefer-stateless-function': 0,
+    'react/jsx-filename-extension': 0,
   },
   globals: {
-    document: false // 解决全局变量出错
-  }
+    document: false, // 解决全局变量出错
+  },
 }
 ```
 
@@ -1667,42 +1675,42 @@ git 钩子 eslint src
 1. 跟上技术的迭代，保持最新（Node/Npm/Yarn）
 2. 在尽快少的模块上使用 `loader`，比如通过 `include` 和 `exclude` 来指定打包监听范围
 
-    ```js
-    module.exports = {
-      module: {
-        rules: [
-          {
-            test: /\.js$/,
-            include: path.resolve(__dirname, '../src'),
-            exclude: /node_modules/,
-            use: [
-              {
-                loader: 'babel-loader'
-              }
-            ]
-          }
-        ]
-      }
-    }
-    ```
+   ```js
+   module.exports = {
+     module: {
+       rules: [
+         {
+           test: /\.js$/,
+           include: path.resolve(__dirname, '../src'),
+           exclude: /node_modules/,
+           use: [
+             {
+               loader: 'babel-loader',
+             },
+           ],
+         },
+       ],
+     },
+   }
+   ```
 
 3. 尽量精简 `plugin`，并且确保其可靠性
 4. 合理配置 extensions
 
-    ```js
-    module.exports = {
-      resolve: {
-        // 配置太多多引发多次查找，注意精简
-        extensions: ['.js', '.jsx', '.css'],
-        // 引用如果引用文件时只写到上级目录，会默认引用 index 文件，这样如果没有 index 回去找 child 文件，也不要配置特别多，尽量不使用
-        mainFiles: ['index', 'child']
-        // 配置别名，缩短引用名称
-        alias: {
-          "@component": path.resolve(__dirname, '../src/component')
-        }
-      }  
-    }
-    ```
+   ```js
+   module.exports = {
+     resolve: {
+       // 配置太多多引发多次查找，注意精简
+       extensions: ['.js', '.jsx', '.css'],
+       // 引用如果引用文件时只写到上级目录，会默认引用 index 文件，这样如果没有 index 回去找 child 文件，也不要配置特别多，尽量不使用
+       mainFiles: ['index', 'child']
+       // 配置别名，缩短引用名称
+       alias: {
+         "@component": path.resolve(__dirname, '../src/component')
+       }
+     }
+   }
+   ```
 
 ## Loader 原理
 
@@ -1726,12 +1734,12 @@ module.exports = {
         test: /\.js$/,
         use: [
           {
-            loader: path.resolve(__dirname, '/loaders/replaceLoader.js')
-          }
-        ]
-      }
-    ]
-  }
+            loader: path.resolve(__dirname, '/loaders/replaceLoader.js'),
+          },
+        ],
+      },
+    ],
+  },
 }
 ```
 
@@ -1761,13 +1769,13 @@ module.exports = {
           {
             loader: path.resolve(__dirname, '/loaders/replaceLoader.js'),
             options: {
-              name: 'luan'
-            }
-          }
-        ]
-      }
-    ]
-  }
+              name: 'luan',
+            },
+          },
+        ],
+      },
+    ],
+  },
 }
 ```
 
@@ -1803,7 +1811,7 @@ module.exports = function (source) {
 // 使用
 module.exports = {
   resolveLoader: {
-    modules: ['node_modules', './loaders']
+    modules: ['node_modules', './loaders'],
   },
   module: {
     rules: [
@@ -1811,18 +1819,18 @@ module.exports = {
         test: /\.js$/,
         use: [
           {
-            loader: 'replaceLoader2'
+            loader: 'replaceLoader2',
           },
           {
             loader: path.resolve(__dirname, '/loaders/replaceLoader.js'),
             options: {
-              name: 'luan'
-            }
-          }
-        ]
-      }
-    ]
-  }
+              name: 'luan',
+            },
+          },
+        ],
+      },
+    ],
+  },
 }
 ```
 
@@ -1863,30 +1871,30 @@ module.exports = function (source) {
 // /plugins/copyright-webpack-plugin.js
 
 class CopyrightWebpackPlugin {
-  constructor (options) {
+  constructor(options) {
     console.log(options) // { name: 'reco' }
   }
 
   // compiler 是 webapck 的一个实例，存放着配置等所有的东西
-  apply (compiler) {
+  apply(compiler) {
     /**
      * hooks       是钩子
      * emit        将打包好的文件放到输出目录之前（异步钩子）
      * compilation 和本次打包相关的东西
-    */
+     */
     compiler.hooks.emit.tapAsync('CopyrightWebpackPlugin', (compilation, cb) => {
       // 增加一个 txt 文件
       compilation.assets['copyright.txt'] = {
         /**
          * source 文本内容
          * size   文本字节大小
-        */
+         */
         source: function () {
           return 'copyright by reco_luan'
         },
         size: function () {
           return 22
-        }
+        },
       }
 
       // 必须回调
@@ -1894,7 +1902,7 @@ class CopyrightWebpackPlugin {
     })
 
     // compile 同步钩子，不需要callback
-    compiler.hooks.compile.tap('CopyrightWebpackPlugin', (compilation) => {
+    compiler.hooks.compile.tap('CopyrightWebpackPlugin', compilation => {
       console.log('同步钩子')
     })
   }
@@ -1911,9 +1919,9 @@ const CopyrightWebpackPlugin = require('/plugins/copyright-webpack-plugin.js')
 module.exports = {
   plugins: [
     new CopyrightWebpackPlugin({
-      name: 'reco'
-    })
-  ]
+      name: 'reco',
+    }),
+  ],
 }
 ```
 
@@ -1934,10 +1942,10 @@ module.exports = {
 
 ```js
 class CopyrightWebpackPlugin {
-  apply (compiler) {
-    compiler.hooks.compile.tap('CopyrightWebpackPlugin', (compilation) => {
+  apply(compiler) {
+    compiler.hooks.compile.tap('CopyrightWebpackPlugin', compilation => {
       // 打断点
-      debugger;
+      debugger
       console.log('同步钩子')
     })
   }
@@ -1959,21 +1967,21 @@ const babel = require('@babel/core')
 const parser = require('@babel/parser') // 分析抽象语法树
 const traverse = require('@babel/traverse').default
 
-
 // ************ 入口文件分析 **************
-const moduleAnalyser = (filename) => {
+const moduleAnalyser = filename => {
   // 读取文件
   const content = fs.readFileSync(filename, 'utf-8')
 
   //分析抽象语法树
   const ast = parser.parse(content, {
-    sourceType: 'module'
+    sourceType: 'module',
   })
 
   // 分析依赖
   let dependencies = {}
-  traverse(ast, { // 第一个语法是抽象语法树
-    ImportDeclaration ({ node }) {
+  traverse(ast, {
+    // 第一个语法是抽象语法树
+    ImportDeclaration({ node }) {
       // 获取依赖的相对路径
       const value = node.source.value
       const dirname = path.dirname(filename)
@@ -1981,24 +1989,24 @@ const moduleAnalyser = (filename) => {
 
       // key: 将相对路径 value: 绝对路径
       dependencies[value] = newFile
-    }
+    },
   })
 
   // 将 ES6 语法转译为 浏览器可以执行的语法
   const { code } = babel.transformFromAst(ast, null, {
     // 需要安装 @babel/preset-env
-    presets: ["@babel/preset-env"]
+    presets: ['@babel/preset-env'],
   })
 
   /**
    * filename     // 入口文件
    * dependencies // 依赖关系
    * code         // 打包后的代码
-  */
+   */
   return {
     filename,
     dependencies,
-    code
+    code,
   }
 }
 
@@ -2017,19 +2025,20 @@ const parser = require('@babel/parser') // 分析抽象语法树
 const traverse = require('@babel/traverse').default
 
 // ************ 入口文件分析 **************
-const moduleAnalyser = (filename) => {
+const moduleAnalyser = filename => {
   // 读取文件
   const content = fs.readFileSync(filename, 'utf-8')
 
   //分析抽象语法树
   const ast = parser.parse(content, {
-    sourceType: 'module'
+    sourceType: 'module',
   })
 
   // 分析依赖
   let dependencies = {}
-  traverse(ast, { // 第一个语法是抽象语法树
-    ImportDeclaration ({ node }) {
+  traverse(ast, {
+    // 第一个语法是抽象语法树
+    ImportDeclaration({ node }) {
       // 获取依赖的相对路径
       const value = node.source.value
       const dirname = path.dirname(filename)
@@ -2037,24 +2046,24 @@ const moduleAnalyser = (filename) => {
 
       // key: 将相对路径 value: 绝对路径
       dependencies[value] = newFile
-    }
+    },
   })
 
   // 将 ES6 语法转译为 浏览器可以执行的语法
   const { code } = babel.transformFromAst(ast, null, {
     // 需要安装 @babel/preset-env
-    presets: ["@babel/preset-env"]
+    presets: ['@babel/preset-env'],
   })
 
   /**
    * filename     // 入口文件
    * dependencies // 依赖关系
    * code         // 打包后的代码
-  */
+   */
   return {
     filename,
     dependencies,
-    code
+    code,
   }
 }
 
@@ -2062,10 +2071,10 @@ const moduleAnalyser = (filename) => {
 // console.log(moduleInfo)
 
 // ************ 依赖图谱 **************
-const makeDependenciesGraph = (entry) => {
+const makeDependenciesGraph = entry => {
   // 首先在依赖图谱中插入入口文件的分析
   const entryModule = moduleAnalyser(entry)
-  const graphArray = [ entryModule ]
+  const graphArray = [entryModule]
 
   /**
    * 循环入口文件的依赖并将其添加到 graphArray 中，因为 graphArray 是动态的，
@@ -2086,7 +2095,7 @@ const makeDependenciesGraph = (entry) => {
   graphArray.forEach(item => {
     graph[item.filename] = {
       dependencies: item.dependencies,
-      code: item.code
+      code: item.code,
     }
   })
   return graph
@@ -2106,19 +2115,20 @@ const parser = require('@babel/parser') // 分析抽象语法树
 const traverse = require('@babel/traverse').default
 
 // ************ 入口文件分析 **************
-const moduleAnalyser = (filename) => {
+const moduleAnalyser = filename => {
   // 读取文件
   const content = fs.readFileSync(filename, 'utf-8')
 
   //分析抽象语法树
   const ast = parser.parse(content, {
-    sourceType: 'module'
+    sourceType: 'module',
   })
 
   // 分析依赖
   let dependencies = {}
-  traverse(ast, { // 第一个语法是抽象语法树
-    ImportDeclaration ({ node }) {
+  traverse(ast, {
+    // 第一个语法是抽象语法树
+    ImportDeclaration({ node }) {
       // 获取依赖的相对路径
       const value = node.source.value
       const dirname = path.dirname(filename)
@@ -2126,24 +2136,24 @@ const moduleAnalyser = (filename) => {
 
       // key: 将相对路径 value: 绝对路径
       dependencies[value] = newFile
-    }
+    },
   })
 
   // 将 ES6 语法转译为 浏览器可以执行的语法
   const { code } = babel.transformFromAst(ast, null, {
     // 需要安装 @babel/preset-env
-    presets: ["@babel/preset-env"]
+    presets: ['@babel/preset-env'],
   })
 
   /**
    * filename     // 入口文件
    * dependencies // 依赖关系
    * code         // 打包后的代码
-  */
+   */
   return {
     filename,
     dependencies,
-    code
+    code,
   }
 }
 
@@ -2151,10 +2161,10 @@ const moduleAnalyser = (filename) => {
 // console.log(moduleInfo)
 
 // ************ 依赖图谱 *****************
-const makeDependenciesGraph = (entry) => {
+const makeDependenciesGraph = entry => {
   // 首先在依赖图谱中插入入口文件的分析
   const entryModule = moduleAnalyser(entry)
-  const graphArray = [ entryModule ]
+  const graphArray = [entryModule]
 
   /**
    * 循环入口文件的依赖并将其添加到 graphArray 中，因为 graphArray 是动态的，
@@ -2175,7 +2185,7 @@ const makeDependenciesGraph = (entry) => {
   graphArray.forEach(item => {
     graph[item.filename] = {
       dependencies: item.dependencies,
-      code: item.code
+      code: item.code,
     }
   })
   return graph
@@ -2185,7 +2195,7 @@ const makeDependenciesGraph = (entry) => {
 // console.log(graphInfo)
 
 // ************ 生成代码 *****************
-const generateCode = (entry) => {
+const generateCode = entry => {
   // 依赖树是一个对象，需要解析成字符串
   const graph = JSON.stringify(makeDependenciesGraph(entry))
 
@@ -2218,8 +2228,6 @@ const generateCode = (entry) => {
 
 const code = generateCode('./src/index.js')
 console.log(code)
-
-
 ```
 
 ## 深入学习
@@ -2236,7 +2244,7 @@ console.log(code)
 
 ```js
 module.exports = {
-  performance: false
+  performance: false,
 }
 ```
 

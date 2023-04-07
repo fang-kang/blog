@@ -68,11 +68,11 @@ categories:
 const vm = new Vue({
   // 配置对象 options
   // 配置选项(option)
-  el: "#test", // element: 指定用vue来管理页面中的哪个标签区域
+  el: '#test', // element: 指定用vue来管理页面中的哪个标签区域
   data: {
-    msg: "atguigu",
+    msg: 'atguigu',
   },
-});
+})
 </script>
 ```
 
@@ -180,9 +180,9 @@ MVVM 本质上是 MVC （Model-View- Controller）的改进版。即模型-视�
 
 ```js
 // 两种更新方式
-this.persons[index] = newP;
+this.persons[index] = newP
 // 这样只更新persons中的某一个数据，vue根本就不知道，视图不会更新
-this.persons.splice(index, 1, newP);
+this.persons.splice(index, 1, newP)
 // splice方法被 Vue 将进行了包裹，所以也将会触发视图更新。
 ```
 
@@ -199,7 +199,7 @@ this.persons.splice(index, 1, newP);
   2.替换 item：相比之下，也有非变更方法，例如 `filter()`、`concat()` 和 `slice()`。它们不会变更原始数组，而**总是返回一个新数组**。当使用非变更方法时，可以用新数组替换旧数组。
 
 ```js
-let fpersons = persons.filter((p) => p.name.includes(searchName));
+let fpersons = persons.filter(p => p.name.includes(searchName))
 ```
 
 **列表的高级处理：**
@@ -211,12 +211,12 @@ let fpersons = persons.filter((p) => p.name.includes(searchName));
 fpersons.sort(function (p1, p2) {
   if (orderType === 1) {
     // 降序
-    return p2.age - p1.age;
+    return p2.age - p1.age
   } else {
     // 升序
-    return p1.age - p2.age;
+    return p1.age - p2.age
   }
-});
+})
 ```
 
 ### 八、事件处理
@@ -392,9 +392,9 @@ binding：包含指令相关数据的容器对象
 1. 注册全局指令 ：
 
 ```js
-Vue.directive("my-directive", function (el, binding) {
-  el.innerHTML = binding.value.toupperCase();
-});
+Vue.directive('my-directive', function (el, binding) {
+  el.innerHTML = binding.value.toupperCase()
+})
 ```
 
 2. 注册局部指令 ：
@@ -429,15 +429,15 @@ directives: {
 
 ```js
 //改变数据
-vm.message = "changed";
+vm.message = 'changed'
 
 //想要立即使用更新后的DOM。这样不行，因为设置message后DOM还没有更新
-console.log(vm.$el.textContent); // 并不会得到'changed'
+console.log(vm.$el.textContent) // 并不会得到'changed'
 
 //这样可以，nextTick里面的代码会在DOM更新后执行
 Vue.nextTick(function () {
-  console.log(vm.$el.textContent); //可以得到'changed'
-});
+  console.log(vm.$el.textContent) //可以得到'changed'
+})
 ```
 
 ## vue 组件化编码
@@ -506,7 +506,7 @@ mounted () { this.$refs.header.$on('delete_todo', this.deleteTodo) }
 
 ```js
 // 触发事件(只能在父组件中接收)
-this.$emit("delete_todo", data);
+this.$emit('delete_todo', data)
 ```
 
 注意
@@ -527,7 +527,7 @@ PubSub.subscribe('msg', function(msg, data){
 发布消息
 
 ```js
-PubSub.publish("msg", data);
+PubSub.publish('msg', data)
 ```
 
 注意
@@ -594,24 +594,24 @@ PubSub.publish("msg", data);
 ```js
 // 发送 ajax 请求
 this.$axios
-  .get("/index")
-  .then((response) => {
-    console.log(response.data); // 得到返回结果数据
+  .get('/index')
+  .then(response => {
+    console.log(response.data) // 得到返回结果数据
   })
-  .catch((error) => {
-    console.log(error.message);
-  });
+  .catch(error => {
+    console.log(error.message)
+  })
 let data = {
   pagenum: 1,
-};
+}
 this.$axios
-  .post("/users/signin", data)
-  .then((res) => {
-    console.log(res.data);
+  .post('/users/signin', data)
+  .then(res => {
+    console.log(res.data)
   })
-  .catch((err) => {
-    console.log(err.message);
-  });
+  .catch(err => {
+    console.log(err.message)
+  })
 ```
 
 ### render 配置
@@ -621,18 +621,18 @@ this.$axios
 ```js
 // 原始写法
 new Vue({
-  el: "#app",
+  el: '#app',
   components: {
     // 将App.vue映射成标签
     APP,
   },
-  template: "<App/>", // 将App标签转化成模板
-});
+  template: '<App/>', // 将App标签转化成模板
+})
 // 更简洁的写法
 new Vue({
-  el: "#app",
-  render: (h) => h(App),
-});
+  el: '#app',
+  render: h => h(App),
+})
 ```
 
 render 是一个渲染函数，h => h(App) 是一个箭头函数，其参数 h 是一个函数，这个函数执行接收一个参数 App 组件。
@@ -643,12 +643,12 @@ h(App) 执行后返回的结果就是 render 的值。
 
 ```js
 new Vue({
-  el: "#app",
+  el: '#app',
   render: function (createElement) {
     // h就是createElement，用来创建元素标签
-    return createElement(App); // <App/>
+    return createElement(App) // <App/>
   },
-});
+})
 // 其中App标签被插入到el中
 ```
 
@@ -661,23 +661,23 @@ new Vue({
 1.注册路由器（在 main.js）
 
 ```js
-import Vue from "vue";
-import router from "./router";
+import Vue from 'vue'
+import router from './router'
 // 创建vue 配置路由器
 new Vue({
-  el: "#app",
+  el: '#app',
   router,
-  render: (h) => h(app),
-});
+  render: h => h(app),
+})
 ```
 
 2.路由器配置：（在 router 目录下 index.js）
 
 ```js
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 ```
 
 3.路由配置：
@@ -685,43 +685,43 @@ Vue.use(VueRouter);
 ```js
 const routes = [
   {
-    path: "/home",
+    path: '/home',
     component: home,
     // 嵌套路由
     children: [
       {
-        path: "news",
+        path: 'news',
         component: News,
       },
       {
-        path: "message",
+        path: 'message',
         component: Message,
       },
     ],
   },
   {
     // 一般路由
-    path: "about",
+    path: 'about',
     component: About,
   },
   {
     // 自动跳转路由
-    path: "/",
-    redirect: "/about",
+    path: '/',
+    redirect: '/about',
   },
-];
+]
 ```
 
 3.VueRouter()：用于创建路由器的构建函数
 
 ```js
 const router = new VueRouter({
-  mode: "history", // 模式
+  mode: 'history', // 模式
   base: process.env.BASE_URL,
   routes,
-});
+})
 
-export default router;
+export default router
 ```
 
 4.使用路由组件标签
@@ -743,10 +743,10 @@ export default router;
 ```js
 children: [
   {
-    path: "mdetail/:id",
+    path: 'mdetail/:id',
     component: MessageDetail,
   },
-];
+]
 ```
 
 2. 路由路径
@@ -796,12 +796,12 @@ hash 模式的工作原理是 hashchange 事件，可以在 window 监听 hash �
 
 <script>
 window.onhashchange = function (event) {
-  console.log(event); // HashChangeEvent {..., newURL: "...test.html#red", oldURL: "...test.html", ...}
-  console.log(location); // location {..., hash: "#red", ...}
-  let hash = location.hash.slice(1); // red
-  document.body.style.color = hash;
-  document.getElementById("test").style.backgroundColor = hash;
-};
+  console.log(event) // HashChangeEvent {..., newURL: "...test.html#red", oldURL: "...test.html", ...}
+  console.log(location) // location {..., hash: "#red", ...}
+  let hash = location.hash.slice(1) // red
+  document.body.style.color = hash
+  document.getElementById('test').style.backgroundColor = hash
+}
 </script>
 ```
 
@@ -842,12 +842,12 @@ HashHistory 的方法
 2）不仅可以读取历史记录栈，还可以对**浏览器历史记录栈进行修改。**
 
 ```js
-window.history.pushState(stateObject, title, URL);
-window.history.replaceState(stateObject, title, URL);
-history.go(-2); //后退两次
-history.go(2); //前进两次
-history.back(); //后退
-hsitory.forward(); //前进
+window.history.pushState(stateObject, title, URL)
+window.history.replaceState(stateObject, title, URL)
+history.go(-2) //后退两次
+history.go(2) //前进两次
+history.back() //后退
+hsitory.forward() //前进
 ```
 
 #### 区别
@@ -899,7 +899,7 @@ vuex 管理的状态对象。它应该是唯一的：
 ```js
 const state = {
   xxx: initValue,
-};
+}
 ```
 
 #### getters
@@ -931,9 +931,9 @@ const getters = {
 ```js
 const actions = {
   zzz({ commit, state }, data1) {
-    commit("yyy", { data1 }); // 传递数据必须用大括号包裹住
+    commit('yyy', { data1 }) // 传递数据必须用大括号包裹住
   },
-};
+}
 ```
 
 #### mutations
@@ -950,7 +950,7 @@ const mutations = {
     // 传递数据必须用大括号包裹住
     // 更新 state 的某个属性
   },
-};
+}
 ```
 
 #### modules
@@ -962,21 +962,21 @@ const mutations = {
 index.js 固定写法：
 
 ```js
-import Vue from "vue";
-import Vuex from "vuex";
-import state from "./state";
-import mutations from "./mutations";
-import actions from "./actions";
-import getters from "./getters";
+import Vue from 'vue'
+import Vuex from 'vuex'
+import state from './state'
+import mutations from './mutations'
+import actions from './actions'
+import getters from './getters'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.store({
   state,
   mutations,
   actions,
   getters,
-});
+})
 ```
 
 ##### 组件中
@@ -1001,11 +1001,11 @@ export default{
 在 main.js 中
 
 ```js
-import store from "./store";
+import store from './store'
 
 new Vue({
   store,
-});
+})
 ```
 
 ##### store 对象
@@ -1129,13 +1129,13 @@ vue 数据代理：data 对象的所有属性的操作(读/写)由 vm 对象来�
 ```js
 function Dep() {
   // 标识属性
-  this.id = uid++; // 每个dep都有一个唯一的id
+  this.id = uid++ // 每个dep都有一个唯一的id
   // 相关的所有watcher的数组
-  this.subs = []; //包含n个对应watcher的数组(subscribes的简写)
+  this.subs = [] //包含n个对应watcher的数组(subscribes的简写)
 }
 
 {
-  (this.id = uid++), (this.subs = []);
+  ;(this.id = uid++), (this.subs = [])
 }
 ```
 
@@ -1163,11 +1163,11 @@ function Dep() {
 
 ```js
 function Watcher(vm, exp, cb) {
-  this.vm = vm; // vm 对象
-  this.exp = exp; // 对应指令的表达式
-  this.cb = cb; // 当表达式所对应的数据发生改变的回调函数
-  this.value = this.get(); // 表达式当前的值
-  this.depIds = {};
+  this.vm = vm // vm 对象
+  this.exp = exp // 对应指令的表达式
+  this.cb = cb // 当表达式所对应的数据发生改变的回调函数
+  this.value = this.get() // 表达式当前的值
+  this.depIds = {}
   // 表达式中各级属性所对应的dep对象的集合对象
   // 属性名为dep的id, 属性值为dep
 }

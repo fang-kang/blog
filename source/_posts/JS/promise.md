@@ -3,7 +3,7 @@ title: 回调函数-Promise
 date: 2020-11-24 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/7.jpg
 tags:
- - Js
+  - Js
 categories:
   - Js
 ---
@@ -16,11 +16,12 @@ categories:
 2. 函数对象：将函数作为对象使用时，称为函数对象
 
 ```js
-function Fn() { // Fn只能称为函数
+function Fn() {
+  // Fn只能称为函数
 }
 const fn = new Fn() // Fn只有new过的才可以称为构造函数
 //fn称为实例对象
-console.log(Fn.prototype)// Fn作为对象使用时，才可以称为函数对象
+console.log(Fn.prototype) // Fn作为对象使用时，才可以称为函数对象
 Fn.bind({}) //Fn作为函数对象使用
 $('#test') // $作为函数使用
 $.get('/test') // $作为函数对象使用
@@ -34,12 +35,13 @@ $.get('/test') // $作为函数对象使用
 
 定义：立即执行，完全执行完了才结束，不会放入回调队列中
 
-举例：数组遍历相关的回调 / Promise的excutor函数
+举例：数组遍历相关的回调 / Promise 的 excutor 函数
 
 ```js
-const arr = [1, 3, 5];
-arr.forEach(item => { // 遍历回调，同步回调，不会放入队列，一上来就要执行
-  console.log(item);
+const arr = [1, 3, 5]
+arr.forEach(item => {
+  // 遍历回调，同步回调，不会放入队列，一上来就要执行
+  console.log(item)
 })
 console.log('forEach()之后')
 // 1
@@ -52,11 +54,12 @@ console.log('forEach()之后')
 
 定义：不会立即执行，会放入回调队列中将来执行
 
-举例：定时器回调 / ajax回调 / Promise成功或失败的回调
+举例：定时器回调 / ajax 回调 / Promise 成功或失败的回调
 
 ```js
 // 定时器回调
-setTimeout(() => { // 异步回调，会放入队列中将来执行
+setTimeout(() => {
+  // 异步回调，会放入队列中将来执行
   console.log('timeout callback()')
 }, 0)
 console.log('setTimeout()之后')
@@ -66,8 +69,12 @@ console.log('setTimeout()之后')
 new Promise((resolve, reject) => {
   resolve(1)
 }).then(
-  value => {console.log('value', value)},
-  reason => {console.log('reason', reason)}
+  value => {
+    console.log('value', value)
+  },
+  reason => {
+    console.log('reason', reason)
+  }
 )
 console.log('----')
 // ----
@@ -124,9 +131,10 @@ const c = """"
 
 ```js
 function something() {
-  if (Date.now()%2===1) {
+  if (Date.now() % 2 === 1) {
     console.log('当前时间为奇数，可以执行任务')
-  } else { //如果时间为偶数抛出异常，由调用来处理
+  } else {
+    //如果时间为偶数抛出异常，由调用来处理
     throw new Error('当前时间为偶数，无法执行任务')
   }
 }
@@ -189,10 +197,11 @@ console.log('出错之后')
 
 ```js
 // 创建一个新的p对象promise
-const p = new Promise((resolve, reject) => { // 执行器函数
+const p = new Promise((resolve, reject) => {
+  // 执行器函数
   // 执行异步操作任务
   setTimeout(() => {
-    const time = Date.now() 
+    const time = Date.now()
     // 如果当前时间是偶数代表成功，否则失败
     if (time % 2 == 0) {
       // 如果成功，调用resolve(value)
@@ -201,14 +210,16 @@ const p = new Promise((resolve, reject) => { // 执行器函数
       // 如果失败，调用reject(reason)
       reject('失败的数据，time=' + time)
     }
-  }, 1000);
+  }, 1000)
 })
 
 p.then(
-  value => { // 接收得到成功的value数据 onResolved
+  value => {
+    // 接收得到成功的value数据 onResolved
     console.log('成功的回调', value)
   },
-  reason => { // 接收得到失败的reason数据 onRejected
+  reason => {
+    // 接收得到失败的reason数据 onRejected
     console.log('失败的回调', reason)
   }
 )
@@ -222,7 +233,7 @@ p.then(
 
 旧的：必须在启动异步任务前指定
 
-promise：启动异步任务 => 返回promise对象 => 给promise对象绑定回调函数(甚至可以在异步任务结束后指定)
+promise：启动异步任务 => 返回 promise 对象 => 给 promise 对象绑定回调函数(甚至可以在异步任务结束后指定)
 
 #### 2.支持链式调用，可以解决回调地狱问题
 
@@ -231,12 +242,20 @@ promise：启动异步任务 => 返回promise对象 => 给promise对象绑定回
 回调函数嵌套调用，**外部回调函数**异步执行的结果是其**内部嵌套的回调函数**执行的条件
 
 ```js
-doSomething(function(result) {
-  doSomethingElse(result, function(newResult) {
-    doThirdThing(newResult, function(finalResult) {
-      console.log('Got the final result:' + finalResult)
-    }, failureCallback)
-  }, failureCallback)
+doSomething(function (result) {
+  doSomethingElse(
+    result,
+    function (newResult) {
+      doThirdThing(
+        newResult,
+        function (finalResult) {
+          console.log('Got the final result:' + finalResult)
+        },
+        failureCallback
+      )
+    },
+    failureCallback
+  )
 }, failureCallback)
 ```
 
@@ -259,8 +278,8 @@ doSomething()
   .then(result => doSomethingElse(result))
   .then(newResult => doThirdThing(newResult))
   .then(finalResult => {
-  console.log('Got the final result:' + finalResult)
-})
+    console.log('Got the final result:' + finalResult)
+  })
   .catch(failureCallback)
 ```
 
@@ -268,7 +287,7 @@ doSomething()
 
 ```js
 async function request() {
-  try{
+  try {
     const result = await doSomething()
     const newResult = await doSomethingElse(result)
     const finalResult = await doThirdThing(newResult)
@@ -312,7 +331,7 @@ new Promise((resolve, reject) => { // excutor执行器函数
  setTimeout(() => {
    if(...) {
      resolve('成功的数据') // resolve()函数
-   } else { 
+   } else {
      reject('失败的数据') //reject()函数
     }
  }, 1000)
@@ -342,16 +361,22 @@ new Promise((resolve, reject) => { // excutor执行器函数
 ```js
 //产生一个成功值为1的promise对象
 new Promise((resolve, reject) => {
- resolve(1)
+  resolve(1)
 })
 //相当于
 const p1 = Promise.resolve(1)
 const p2 = Promise.resolve(2)
 const p3 = Promise.reject(3)
 
-p1.then(value => {console.log(value)}) // 1
-p2.then(value => {console.log(value)}) // 2
-p3.catch(reason => {console.log(reason)}) // 3
+p1.then(value => {
+  console.log(value)
+}) // 1
+p2.then(value => {
+  console.log(value)
+}) // 2
+p3.catch(reason => {
+  console.log(reason)
+}) // 3
 ```
 
 `Promise.resolve()/Promise.reject()` 方法就是一个**语法糖**
@@ -367,26 +392,26 @@ const pAll = Promise.all([p1, p2, p3])
 const pAll2 = Promise.all([p1, p2])
 //因为其中p3是失败所以pAll失败
 pAll.then(
-value => {
-   console.log('all onResolved()', value)
- },
-reason => {
-   console.log('all onRejected()', reason) 
- }
+  value => {
+    console.log('all onResolved()', value)
+  },
+  reason => {
+    console.log('all onRejected()', reason)
+  }
 )
 // all onRejected() 3
 pAll2.then(
-values => {
-   console.log('all onResolved()', values)
- },
-reason => {
-   console.log('all onRejected()', reason) 
- }
+  values => {
+    console.log('all onResolved()', values)
+  },
+  reason => {
+    console.log('all onRejected()', reason)
+  }
 )
 // all onResolved() [1, 2]
 ```
 
-1. Promise.race方法：Promise.race(iterable)
+1. Promise.race 方法：Promise.race(iterable)
 
    iterable：包含 n 个 promise 的可迭代对象，如 `Array` 或 `String`
 
@@ -396,20 +421,20 @@ reason => {
 const pRace = Promise.race([p1, p2, p3])
 // 谁先完成就输出谁(不管是成功还是失败)
 const p1 = new Promise((resolve, reject) => {
- setTimeout(() => {
-   resolve(1)
- }, 1000)
+  setTimeout(() => {
+    resolve(1)
+  }, 1000)
 })
 const p2 = Promise.resolve(2)
 const p3 = Promise.reject(3)
 
 pRace.then(
-value => {
-   console.log('race onResolved()', value)
- },
-reason => {
-   console.log('race onRejected()', reason) 
- }
+  value => {
+    console.log('race onResolved()', value)
+  },
+  reason => {
+    console.log('race onRejected()', reason)
+  }
 )
 //race onResolved() 2
 ```
@@ -432,7 +457,9 @@ const p = new Promise((resolve, reject) => {
 })
 p.then(
   value => {},
-  reason => {console.log('reason',reason)}
+  reason => {
+    console.log('reason', reason)
+  }
 )
 // reason Error:出错了
 ```
@@ -448,11 +475,15 @@ const p = new Promise((resolve, reject) => {
 })
 p.then(
   value => {},
-  reason => {console.log('reason',reason)}
+  reason => {
+    console.log('reason', reason)
+  }
 )
 p.then(
   value => {},
-  reason => {console.log('reason2',reason)}
+  reason => {
+    console.log('reason2', reason)
+  }
 )
 // reason 2
 // reason2 2
@@ -479,9 +510,10 @@ new Promise((resolve, reject) => {
   setTimeout(() => {
     resolve(1) // 改变状态
   }, 1000)
-}).then( // 指定回调函数
+}).then(
+  // 指定回调函数
   value => {},
-  reason =>{}
+  reason => {}
 )
 ```
 
@@ -490,9 +522,10 @@ new Promise((resolve, reject) => {
 ```js
 new Promise((resolve, reject) => {
   resolve(1) // 改变状态
-}).then( // 指定回调函数
+}).then(
+  // 指定回调函数
   value => {},
-  reason =>{}
+  reason => {}
 )
 ```
 
@@ -504,53 +537,57 @@ new Promise((resolve, reject) => {
 
 (2)详细表达：
 
- ① 如果抛出异常，新 promise 变为 rejected，reason 为抛出的异常
+① 如果抛出异常，新 promise 变为 rejected，reason 为抛出的异常
 
- ② 如果返回的是非 promise 的任意值，新 promise 变为 resolved，value 为返回的值
+② 如果返回的是非 promise 的任意值，新 promise 变为 resolved，value 为返回的值
 
- ③ 如果返回的是另一个新 promise，此 promise 的结果就会成为新 promise 的结果
+③ 如果返回的是另一个新 promise，此 promise 的结果就会成为新 promise 的结果
 
 ```js
 new Promise((resolve, reject) => {
   resolve(1)
-}).then(
-  value => {
-    console.log('onResolved1()', value)
-  },
-  reason => {
-    console.log('onRejected1()', reason)
-  }
-).then(
-  value => {
-    console.log('onResolved2()', value)
-  },
-  reason => {
-    console.log('onRejected2()', reason)
-  }
-)
+})
+  .then(
+    value => {
+      console.log('onResolved1()', value)
+    },
+    reason => {
+      console.log('onRejected1()', reason)
+    }
+  )
+  .then(
+    value => {
+      console.log('onResolved2()', value)
+    },
+    reason => {
+      console.log('onRejected2()', reason)
+    }
+  )
 // onResolved1() 1
 // onResolved2() undefined
 new Promise((resolve, reject) => {
   resolve(1)
-}).then(
-  value => {
-    console.log('onResolved1()', value)
-    //return 2                   // onResolved2() 2
-    //return Promise.resolve(3)  // onResolved2() 3
-    //return Promise.reject(4)   // onRejected2() 4
-    //throw 5                    // onRejected2() 5
-  },
-  reason => {
-    console.log('onRejected1()', reason)
-  }
-).then(
-  value => {
-    console.log('onResolved2()', value)
-  },
-  reason => {
-    console.log('onRejected2()', reason)
-  }
-)
+})
+  .then(
+    value => {
+      console.log('onResolved1()', value)
+      //return 2                   // onResolved2() 2
+      //return Promise.resolve(3)  // onResolved2() 3
+      //return Promise.reject(4)   // onRejected2() 4
+      //throw 5                    // onRejected2() 5
+    },
+    reason => {
+      console.log('onRejected1()', reason)
+    }
+  )
+  .then(
+    value => {
+      console.log('onResolved2()', value)
+    },
+    reason => {
+      console.log('onRejected2()', reason)
+    }
+  )
 // onResolved1() 1
 // 对应输出如上所示
 ```
@@ -567,27 +604,25 @@ new Promise((resolve, reject) => {
     console.log('执行任务1(异步)')
     resolve(1)
   }, 1000)
-}).then(
-  value => {
+})
+  .then(value => {
     console.log('任务1的结果', value)
     console.log('执行任务2(同步)')
     return 2 // 同步任务直接return返回结果
-  }
-).then(
-  value => {
+  })
+  .then(value => {
     console.log('任务2的结果', value)
-    return new Promise((resolve, reject) => { // 异步任务需要包裹在Promise对象中
+    return new Promise((resolve, reject) => {
+      // 异步任务需要包裹在Promise对象中
       setTimeout(() => {
         console.log('执行任务3(异步)')
         resolve(3)
       }, 1000)
     })
-  }
-).then(
-  value => {
+  })
+  .then(value => {
     console.log('任务3的结果', value)
-  }
-)
+  })
 // 执行任务1(异步)
 // 任务1的结果 1
 // 执行任务2(同步)
@@ -604,27 +639,23 @@ new Promise((resolve, reject) => {
 
 ```js
 new Promise((resolve, reject) => {
-   //resolve(1)
-   reject(1)
-}).then(
-  value => {
+  //resolve(1)
+  reject(1)
+})
+  .then(value => {
     console.log('onResolved1()', value)
     return 2
-  }
-).then(
-  value => {
+  })
+  .then(value => {
     console.log('onResolved2()', value)
     return 3
-  }
-).then(
-  value => {
+  })
+  .then(value => {
     console.log('onResolved3()', value)
-  }
-).catch(
-  reason => {
+  })
+  .catch(reason => {
     console.log('onRejected1()', reason)
-  }
-)
+  })
 // onRejected1() 1
 ```
 
@@ -632,30 +663,38 @@ new Promise((resolve, reject) => {
 
 ```js
 new Promise((resolve, reject) => {
-   //resolve(1)
-   reject(1)
-}).then(
-  value => {
-    console.log('onResolved1()', value)
-    return 2
-  },
-  reason => {throw reason} // 抛出失败的结果reason
-).then(
-  value => {
-    console.log('onResolved2()', value)
-    return 3
-  },
-  reason => {throw reason}
-).then(
-  value => {
-    console.log('onResolved3()', value)
-  },
-  reason => {throw reason}
-).catch(
-  reason => {
+  //resolve(1)
+  reject(1)
+})
+  .then(
+    value => {
+      console.log('onResolved1()', value)
+      return 2
+    },
+    reason => {
+      throw reason
+    } // 抛出失败的结果reason
+  )
+  .then(
+    value => {
+      console.log('onResolved2()', value)
+      return 3
+    },
+    reason => {
+      throw reason
+    }
+  )
+  .then(
+    value => {
+      console.log('onResolved3()', value)
+    },
+    reason => {
+      throw reason
+    }
+  )
+  .catch(reason => {
     console.log('onRejected1()', reason)
-  }
-)
+  })
 // onRejected1() 1
 ```
 
@@ -671,34 +710,31 @@ new Promise((resolve, reject) => {
 
 ```js
 new Promise((resolve, reject) => {
-   //resolve(1)
-   reject(1)
-}).then(
-  value => {
+  //resolve(1)
+  reject(1)
+})
+  .then(value => {
     console.log('onResolved1()', value)
     return 2
-  }
-).then(
-  value => {
+  })
+  .then(value => {
     console.log('onResolved2()', value)
     return 3
-  }
-).then(
-  value => {
+  })
+  .then(value => {
     console.log('onResolved3()', value)
-  }
-).catch(
-  reason => {
+  })
+  .catch(reason => {
     console.log('onRejected1()', reason)
-  }
-).then(
-  value => {
-    console.log('onResolved4()', value)
-  },
-  reason => {
-    console.log('onRejected2()', reason)
-  }
-)
+  })
+  .then(
+    value => {
+      console.log('onResolved4()', value)
+    },
+    reason => {
+      console.log('onRejected2()', reason)
+    }
+  )
 // onRejected1() 1
 // onResolved4() undefined
 ```
@@ -707,35 +743,32 @@ new Promise((resolve, reject) => {
 
 ```js
 new Promise((resolve, reject) => {
-   //resolve(1)
-   reject(1)
-}).then(
-  value => {
+  //resolve(1)
+  reject(1)
+})
+  .then(value => {
     console.log('onResolved1()', value)
     return 2
-  }
-).then(
-  value => {
+  })
+  .then(value => {
     console.log('onResolved2()', value)
     return 3
-  }
-).then(
-  value => {
+  })
+  .then(value => {
     console.log('onResolved3()', value)
-  }
-).catch(
-  reason => {
+  })
+  .catch(reason => {
     console.log('onRejected1()', reason)
     return new Promise(() => {}) // 返回一个pending的promise
-  }
-).then(
-  value => {
-    console.log('onResolved4()', value)
-  },
-  reason => {
-    console.log('onRejected2()', reason)
-  }
-)
+  })
+  .then(
+    value => {
+      console.log('onResolved4()', value)
+    },
+    reason => {
+      console.log('onRejected2()', reason)
+    }
+  )
 // onRejected1() 1
 ```
 
@@ -747,15 +780,15 @@ new Promise((resolve, reject) => {
 
 ## 三、自定义(手写)Promise
 
-### 3.1 Promise.js 
+### 3.1 Promise.js
 
-> Promise.js是ES5 function 实现 Promise 的完整版
+> Promise.js 是 ES5 function 实现 Promise 的完整版
 
 ```js
 /*
   自定义Promise函数模块：IIFE
 */
-(function(window) {
+;(function (window) {
   const PENDING = 'pending'
   const RESOLVED = 'resolved'
   const REJECTED = 'rejected'
@@ -772,7 +805,7 @@ new Promise((resolve, reject) => {
     self.callbacks = [] // 每个元素的结构： {onResolved() {}, onRejected() {}}
     function resolve(value) {
       // 如果当前状态不是pending，直接结束
-      if (self.status!==PENDING) {
+      if (self.status !== PENDING) {
         return
       }
       // 将状态改为resolved
@@ -780,8 +813,9 @@ new Promise((resolve, reject) => {
       // 保存value数据
       self.data = value
       // 如果有待执行的callback函数，立即异步执行回调函数onResolved
-      if (self.callbacks.length>0) {
-        setTimeout(() => { // 放入队列中执行所有成功的回调
+      if (self.callbacks.length > 0) {
+        setTimeout(() => {
+          // 放入队列中执行所有成功的回调
           self.callbacks.forEach(callbacksObj => {
             callbacksObj.onResolved(value)
           })
@@ -791,7 +825,7 @@ new Promise((resolve, reject) => {
 
     function reject(reason) {
       // 如果当前状态不是pending，直接结束
-      if (self.status!==PENDING) {
+      if (self.status !== PENDING) {
         return
       }
       // 将状态改为rejected
@@ -799,8 +833,9 @@ new Promise((resolve, reject) => {
       // 保存value数据
       self.data = reason
       // 如果有待执行的callback函数，立即异步执行回调函数onRejected
-      if (self.callbacks.length>0) {
-        setTimeout(() => { // 放入队列中执行所有失败的回调
+      if (self.callbacks.length > 0) {
+        setTimeout(() => {
+          // 放入队列中执行所有失败的回调
           self.callbacks.forEach(callbacksObj => {
             callbacksObj.onRejected(reason)
           })
@@ -810,7 +845,8 @@ new Promise((resolve, reject) => {
     //立即同步执行excutor函数
     try {
       excutor(resolve, reject)
-    } catch (error){ // 如果执行器抛出异常，promise对象变为rejected状态
+    } catch (error) {
+      // 如果执行器抛出异常，promise对象变为rejected状态
       reject(error)
     }
   }
@@ -820,10 +856,15 @@ new Promise((resolve, reject) => {
   指定成功和失败的回调函数
   返回一个新的promise对象
   */
-  Promise.prototype.then = function(onResolved, onRejected) {
+  Promise.prototype.then = function (onResolved, onRejected) {
     onResolved = typeof onResolved === 'function' ? onResolved : value => value // 向后传递成功的value
     // 指定默认的失败的回调（实现错误/异常穿透的关键点）
-    onRejected = typeof onRejected === 'function' ? onRejected : reason => {throw reason} // 向后传递失败的reason
+    onRejected =
+      typeof onRejected === 'function'
+        ? onRejected
+        : reason => {
+            throw reason
+          } // 向后传递失败的reason
     const self = this
     // 返回一个新的promise对象
     return new Promise((resolve, reject) => {
@@ -836,38 +877,44 @@ new Promise((resolve, reject) => {
           2. 如果回调函数执行返回的不是promise，return的promise就会成功，value就是返回的值
           3. 如果回调函数执行返回的是promise，return的promise的结果就是这个promise的结果
           */
-         try {
+        try {
           const result = callback(self.data)
-          if (result instanceof Promise) { // 第三种情况
+          if (result instanceof Promise) {
+            // 第三种情况
             result.then(
               value => resolve(value), // 当result成功时，让return的promise也成功
               reason => reject(reason) // 当result失败时，让return的promise也失败
             )
             // result.then(resolve, reject) // 简洁的写法
-          } else { //第二种情况
+          } else {
+            //第二种情况
             resolve(result)
           }
-        } catch (error) { // 第一种情况
+        } catch (error) {
+          // 第一种情况
           reject(error)
         }
       }
-      if (self.status===PENDING) { // 如果当前状态还是pending状态，将回调函数保存起来
+      if (self.status === PENDING) {
+        // 如果当前状态还是pending状态，将回调函数保存起来
         self.callbacks.push({
           onResolved(value) {
             handle(onResolved)
           },
           onRejected(reason) {
             handle(onRejected)
-          }
+          },
         })
-      } else if (self.status===RESOLVED) { // 如果当前状态已经改变为resolved状态，异步执行onResolved并改变return的promise状态
+      } else if (self.status === RESOLVED) {
+        // 如果当前状态已经改变为resolved状态，异步执行onResolved并改变return的promise状态
         setTimeout(() => {
           handle(onResolved)
         })
-      } else { // 如果当前状态已经改变为rejected状态，异步执行onRejected并改变return的promise状态
+      } else {
+        // 如果当前状态已经改变为rejected状态，异步执行onRejected并改变return的promise状态
         setTimeout(() => {
           handle(onRejected)
-      })
+        })
       }
     })
   }
@@ -877,20 +924,22 @@ new Promise((resolve, reject) => {
   指定成功和失败的回调函数
   返回一个新的promise对象
   */
-  Promise.prototype.catch = function(onRejected) {
-    return this.then(undefined, onRejected);
+  Promise.prototype.catch = function (onRejected) {
+    return this.then(undefined, onRejected)
   }
 
   /*
   Promise函数对象的resolve方法
   返回一个指定结果的成功的promise
   */
-  Promise.resolve = function(value) {
+  Promise.resolve = function (value) {
     // 返回一个成功/失败的promise
     return new Promise((resolve, reject) => {
-      if (value instanceof Promise) { // value是promise，使用value的结果作为new的promise的结果
+      if (value instanceof Promise) {
+        // value是promise，使用value的结果作为new的promise的结果
         value.then(resolve, reject)
-      } else { // value不是promise => promise变为成功，数据是value
+      } else {
+        // value不是promise => promise变为成功，数据是value
         resolve(value)
       }
     })
@@ -900,7 +949,7 @@ new Promise((resolve, reject) => {
   Promise函数对象的reject方法
   返回一个指定reason的失败的promise
   */
-  Promise.reject = function(reason) {
+  Promise.reject = function (reason) {
     // 返回一个失败的promise
     return new Promise((resolve, reject) => {
       reject(reason)
@@ -911,7 +960,7 @@ new Promise((resolve, reject) => {
   Promise函数对象的all方法
   返回一个promise，只有当所有promise都成功时才成功，否则只要有一个失败的就失败
   */
-  Promise.all = function(promises) {
+  Promise.all = function (promises) {
     // 用来保存成功promise的数量
     let resolvedCount = 0
     // 用来保存所有成功value的数组
@@ -920,19 +969,22 @@ new Promise((resolve, reject) => {
     return new Promise((resolve, reject) => {
       // 遍历promises获取每个promise的结果
       promises.forEach((p, index) => {
-        Promise.resolve(p).then( // 将p用Promise.resolve()包裹起来使得p可以是一个值
+        Promise.resolve(p).then(
+          // 将p用Promise.resolve()包裹起来使得p可以是一个值
           value => {
             resolvedCount++ // 成功的数量加1
             // p成功，将成功的value按顺序保存到values
             values[index] = value
             // 如果全部成功了。将return的promise改为成功
-            if(resolvedCount===promises.length) {
+            if (resolvedCount === promises.length) {
               resolve(values)
             }
-        },
-        reason => { // 只要有一个失败了，return的promise就失败
-          reject(reason)
-        });
+          },
+          reason => {
+            // 只要有一个失败了，return的promise就失败
+            reject(reason)
+          }
+        )
       })
     })
   }
@@ -941,18 +993,22 @@ new Promise((resolve, reject) => {
   Promise函数对象的all方法
   返回一个promise，其结果由第一个完成的promise决定
   */
-  Promise.race = function(promises) {
+  Promise.race = function (promises) {
     // 返回一个promise
     return new Promise((resolve, reject) => {
       // 遍历promises获取每个promise的结果
-      promises.forEach((p, index) => { // 只有第一次调用的有效果
+      promises.forEach((p, index) => {
+        // 只有第一次调用的有效果
         Promise.resolve(p).then(
-          value => { // 一旦有成功，将return的promise变为成功
-            resolve(value) 
-        },
-        reason => { // 一旦有失败，将return的promise变为失败
-          reject(reason)
-        });
+          value => {
+            // 一旦有成功，将return的promise变为成功
+            resolve(value)
+          },
+          reason => {
+            // 一旦有失败，将return的promise变为失败
+            reject(reason)
+          }
+        )
       })
     })
   }
@@ -961,24 +1017,25 @@ new Promise((resolve, reject) => {
   返回一个promise对象，它在指定的时间后才确定结果
   (在Promise.resolve()上加setTimeout)
   */
-  Promise.resolveDelay = function(value, time) {
+  Promise.resolveDelay = function (value, time) {
     // 返回一个成功/失败的promise
     return new Promise((resolve, reject) => {
       setTimeout(() => {
-        if (value instanceof Promise) {// value是promise，使用value的结果作为new的promise的结果
+        if (value instanceof Promise) {
+          // value是promise，使用value的结果作为new的promise的结果
           value.then(resolve, reject)
-        } else { // value不是promise => promise变为成功，数据是value
+        } else {
+          // value不是promise => promise变为成功，数据是value
           resolve(value)
         }
       }, time)
-      
     })
   }
 
   /*
   返回一个promise对象，它在指定的时间后才失败
   */
-  Promise.rejectDelay = function(reason, time) {
+  Promise.rejectDelay = function (reason, time) {
     // 返回一个失败的promise
     return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -986,8 +1043,6 @@ new Promise((resolve, reject) => {
       }, time)
     })
   }
-
-
 
   window.Promise = Promise // 向外暴露Promise
 })(window)
@@ -1002,7 +1057,7 @@ new Promise((resolve, reject) => {
   类版本
   自定义Promise函数模块：IIFE
 */
-(function(window) {
+;(function (window) {
   const PENDING = 'pending'
   const RESOLVED = 'resolved'
   const REJECTED = 'rejected'
@@ -1012,7 +1067,7 @@ new Promise((resolve, reject) => {
     Promise构造函数
     excutor: 执行器函数(同步执行)
     */
-    constructor (excutor) {
+    constructor(excutor) {
       // 将当前Promise对象保存起来
       const self = this
       self.status = PENDING // 给promise对象指定status属性，初始值为pending
@@ -1020,7 +1075,7 @@ new Promise((resolve, reject) => {
       self.callbacks = [] // 每个元素的结构： {onResolved() {}, onRejected() {}}
       function resolve(value) {
         // 如果当前状态不是pending，直接结束
-        if (self.status!==PENDING) {
+        if (self.status !== PENDING) {
           return
         }
         // 将状态改为resolved
@@ -1028,8 +1083,9 @@ new Promise((resolve, reject) => {
         // 保存value数据
         self.data = value
         // 如果有待执行的callback函数，立即异步执行回调函数onResolved
-        if (self.callbacks.length>0) {
-          setTimeout(() => { // 放入队列中执行所有成功的回调
+        if (self.callbacks.length > 0) {
+          setTimeout(() => {
+            // 放入队列中执行所有成功的回调
             self.callbacks.forEach(callbacksObj => {
               callbacksObj.onResolved(value)
             })
@@ -1039,7 +1095,7 @@ new Promise((resolve, reject) => {
 
       function reject(reason) {
         // 如果当前状态不是pending，直接结束
-        if (self.status!==PENDING) {
+        if (self.status !== PENDING) {
           return
         }
         // 将状态改为rejected
@@ -1047,33 +1103,39 @@ new Promise((resolve, reject) => {
         // 保存value数据
         self.data = reason
         // 如果有待执行的callback函数，立即异步执行回调函数onRejected
-        if (self.callbacks.length>0) {
-          setTimeout(() => { // 放入队列中执行所有失败的回调
+        if (self.callbacks.length > 0) {
+          setTimeout(() => {
+            // 放入队列中执行所有失败的回调
             self.callbacks.forEach(callbacksObj => {
               callbacksObj.onRejected(reason)
             })
           })
         }
       }
-      
+
       //立即同步执行excutor函数
       try {
         excutor(resolve, reject)
-      } catch (error){ // 如果执行器抛出异常，promise对象变为rejected状态
+      } catch (error) {
+        // 如果执行器抛出异常，promise对象变为rejected状态
         reject(error)
       }
     }
 
-    
     /*
     Promise原型对象的then()
     指定成功和失败的回调函数
     返回一个新的promise对象
     */
-    then (onResolved, onRejected) {
+    then(onResolved, onRejected) {
       onResolved = typeof onResolved === 'function' ? onResolved : value => value // 向后传递成功的value
       // 指定默认的失败的回调（实现错误/异常穿透的关键点）
-      onRejected = typeof onRejected === 'function' ? onRejected : reason => {throw reason} // 向后传递失败的reason
+      onRejected =
+        typeof onRejected === 'function'
+          ? onRejected
+          : reason => {
+              throw reason
+            } // 向后传递失败的reason
       const self = this
       // 返回一个新的promise对象
       return new Promise((resolve, reject) => {
@@ -1088,36 +1150,42 @@ new Promise((resolve, reject) => {
             */
           try {
             const result = callback(self.data)
-            if (result instanceof Promise) { // 第三种情况
+            if (result instanceof Promise) {
+              // 第三种情况
               result.then(
                 value => resolve(value), // 当result成功时，让return的promise也成功
                 reason => reject(reason) // 当result失败时，让return的promise也失败
               )
               // result.then(resolve, reject) // 简洁的写法
-            } else { //第二种情况
+            } else {
+              //第二种情况
               resolve(result)
             }
-          } catch (error) { // 第一种情况
+          } catch (error) {
+            // 第一种情况
             reject(error)
           }
         }
-        if (self.status===PENDING) { // 如果当前状态还是pending状态，将回调函数保存起来
+        if (self.status === PENDING) {
+          // 如果当前状态还是pending状态，将回调函数保存起来
           self.callbacks.push({
             onResolved(value) {
               handle(onResolved)
             },
             onRejected(reason) {
               handle(onRejected)
-            }
+            },
           })
-        } else if (self.status===RESOLVED) { // 如果当前状态已经改变为resolved状态，异步执行onResolved并改变return的promise状态
+        } else if (self.status === RESOLVED) {
+          // 如果当前状态已经改变为resolved状态，异步执行onResolved并改变return的promise状态
           setTimeout(() => {
             handle(onResolved)
           })
-        } else { // 如果当前状态已经改变为rejected状态，异步执行onRejected并改变return的promise状态
+        } else {
+          // 如果当前状态已经改变为rejected状态，异步执行onRejected并改变return的promise状态
           setTimeout(() => {
             handle(onRejected)
-        })
+          })
         }
       })
     }
@@ -1127,20 +1195,22 @@ new Promise((resolve, reject) => {
     指定成功和失败的回调函数
     返回一个新的promise对象
     */
-    catch (onRejected) {
-      return this.then(undefined, onRejected);
+    catch(onRejected) {
+      return this.then(undefined, onRejected)
     }
 
     /*
     Promise函数对象的resolve方法
     返回一个指定结果的成功的promise
     */
-    static resolve = function(value) {
+    static resolve = function (value) {
       // 返回一个成功/失败的promise
       return new Promise((resolve, reject) => {
-        if (value instanceof Promise) { // value是promise，使用value的结果作为new的promise的结果
+        if (value instanceof Promise) {
+          // value是promise，使用value的结果作为new的promise的结果
           value.then(resolve, reject)
-        } else { // value不是promise => promise变为成功，数据是value
+        } else {
+          // value不是promise => promise变为成功，数据是value
           resolve(value)
         }
       })
@@ -1150,7 +1220,7 @@ new Promise((resolve, reject) => {
     Promise函数对象的reject方法
     返回一个指定reason的失败的promise
     */
-    static reject = function(reason) {
+    static reject = function (reason) {
       // 返回一个失败的promise
       return new Promise((resolve, reject) => {
         reject(reason)
@@ -1161,7 +1231,7 @@ new Promise((resolve, reject) => {
     Promise函数对象的all方法
     返回一个promise，只有当所有promise都成功时才成功，否则只要有一个失败的就失败
     */
-    static all = function(promises) {
+    static all = function (promises) {
       // 用来保存成功promise的数量
       let resolvedCount = 0
       // 用来保存所有成功value的数组
@@ -1170,19 +1240,22 @@ new Promise((resolve, reject) => {
       return new Promise((resolve, reject) => {
         // 遍历promises获取每个promise的结果
         promises.forEach((p, index) => {
-          Promise.resolve(p).then( // 将p用Promise.resolve()包裹起来使得p可以是一个值
+          Promise.resolve(p).then(
+            // 将p用Promise.resolve()包裹起来使得p可以是一个值
             value => {
               resolvedCount++ // 成功的数量加1
               // p成功，将成功的value按顺序保存到values
               values[index] = value
               // 如果全部成功了。将return的promise改为成功
-              if(resolvedCount===promises.length) {
+              if (resolvedCount === promises.length) {
                 resolve(values)
               }
-          },
-          reason => { // 只要有一个失败了，return的promise就失败
-            reject(reason)
-          });
+            },
+            reason => {
+              // 只要有一个失败了，return的promise就失败
+              reject(reason)
+            }
+          )
         })
       })
     }
@@ -1191,18 +1264,22 @@ new Promise((resolve, reject) => {
     Promise函数对象的all方法
     返回一个promise，其结果由第一个完成的promise决定
     */
-    static race = function(promises) {
+    static race = function (promises) {
       // 返回一个promise
       return new Promise((resolve, reject) => {
         // 遍历promises获取每个promise的结果
-        promises.forEach((p, index) => { // 只有第一次调用的有效果
+        promises.forEach((p, index) => {
+          // 只有第一次调用的有效果
           Promise.resolve(p).then(
-            value => { // 一旦有成功，将return的promise变为成功
-              resolve(value) 
-          },
-          reason => { // 一旦有失败，将return的promise变为失败
-            reject(reason)
-          });
+            value => {
+              // 一旦有成功，将return的promise变为成功
+              resolve(value)
+            },
+            reason => {
+              // 一旦有失败，将return的promise变为失败
+              reject(reason)
+            }
+          )
         })
       })
     }
@@ -1211,24 +1288,25 @@ new Promise((resolve, reject) => {
     返回一个promise对象，它在指定的时间后才确定结果
     (在Promise.resolve()上加setTimeout)
     */
-    static resolveDelay = function(value, time) {
+    static resolveDelay = function (value, time) {
       // 返回一个成功/失败的promise
       return new Promise((resolve, reject) => {
         setTimeout(() => {
-          if (value instanceof Promise) {// value是promise，使用value的结果作为new的promise的结果
+          if (value instanceof Promise) {
+            // value是promise，使用value的结果作为new的promise的结果
             value.then(resolve, reject)
-          } else { // value不是promise => promise变为成功，数据是value
+          } else {
+            // value不是promise => promise变为成功，数据是value
             resolve(value)
           }
         }, time)
-        
       })
     }
 
     /*
     返回一个promise对象，它在指定的时间后才失败
     */
-    static rejectDelay = function(reason, time) {
+    static rejectDelay = function (reason, time) {
       // 返回一个失败的promise
       return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -1236,8 +1314,6 @@ new Promise((resolve, reject) => {
         }, time)
       })
     }
-
-
   }
 
   window.Promise = Promise // 向外暴露Promise
@@ -1245,21 +1321,26 @@ new Promise((resolve, reject) => {
 ```
 
 ### 3.3 then.js
+
 > then.js 是第二次重写的 then()方法
 
 ```javascript
-  
 /*
   Promise原型对象的then()
   指定成功和失败的回调函数
   返回一个新的promise对象
   返回promise的结果由onResolved/onRejected执行结果决定
   */
-Promise.prototype.then = function(onResolved, onRejected) {
+Promise.prototype.then = function (onResolved, onRejected) {
   const self = this
   // 指定回调函数的默认值（必须是函数）
-  onResolved = typeof onResolved==='function' ? onResolved : value => value
-  onRejected = typeof onRejected==='function' ? onRejected : reason => {throw reason}
+  onResolved = typeof onResolved === 'function' ? onResolved : value => value
+  onRejected =
+    typeof onRejected === 'function'
+      ? onRejected
+      : reason => {
+          throw reason
+        }
   // 返回一个新的promise
   return new Promise((resolve, reject) => {
     /*
@@ -1275,39 +1356,46 @@ Promise.prototype.then = function(onResolved, onRejected) {
         */
       try {
         const result = callback(self.data)
-        if (result instanceof Promise) { //2.
+        if (result instanceof Promise) {
+          //2.
           // result.then(
           //   value => resolve(value),
           //   reason => reject(reason)
           // )
-          result.then(resolve. reject) //简洁的写法
-        } else { //3.
+          result.then(resolve.reject) //简洁的写法
+        } else {
+          //3.
           resolve(result)
         }
-      } catch (error) { //1.
+      } catch (error) {
+        //1.
         reject(error)
       }
     }
-    if (self.status===RESOLVED) { //当前promise的状态是resolved
+    if (self.status === RESOLVED) {
+      //当前promise的状态是resolved
       // 立即异步执行成功的回调函数
       setTimeout(() => {
         handle(onResolved)
       })
-    } else if (self.status===REJECTED) { //当前promise的状态是rejected
+    } else if (self.status === REJECTED) {
+      //当前promise的状态是rejected
       // 立即异步执行成功的回调函数
       setTimeout(() => {
         handle(onRejected)
       })
-    } else { //当前promise的状态是pending
+    } else {
+      //当前promise的状态是pending
       // 将成功和失败的回调函数保存到callbacks容器中缓存起来
       self.callbacks.push({
         //在resolve()/reject()中等待调用这两个函数
-        onResolved (value) { //这里使用ES6中的对象字面量特性省略function
+        onResolved(value) {
+          //这里使用ES6中的对象字面量特性省略function
           handle(onResolved)
         },
-        onRejected (reason) {
+        onRejected(reason) {
           handle(onRejected)
-        }
+        },
       })
     }
   })
@@ -1321,18 +1409,17 @@ Promise.prototype.then = function(onResolved, onRejected) {
 ```html
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+  <body>
+    <!-- <script src="Promise.js"></script> -->
+    <script src="Promise_class.js"></script>
 
-<body>
-  <!-- <script src="Promise.js"></script> -->
-  <script src="Promise_class.js"></script>
-
-  <!-- <script>
+    <!-- <script>
     /*
     测试.then()和.catch()
     Promise.resolve(value)
@@ -1379,7 +1466,7 @@ Promise.prototype.then = function(onResolved, onRejected) {
       }
     )
   </script> -->
-  <!-- <script>
+    <!-- <script>
     /*
     测试Promise.resolve(value)和Promise.reject(reason)
     语法
@@ -1401,8 +1488,8 @@ Promise.prototype.then = function(onResolved, onRejected) {
       console.log('p3', reason)
     })
   </script> -->
-  <script>
-    /*
+    <script>
+      /*
     测试Promise.all(value)和Promise.race(reason)
     语法
     1.Promise.resolve(value)
@@ -1410,26 +1497,26 @@ Promise.prototype.then = function(onResolved, onRejected) {
     2.Promise.reject(reason)
     reason表示被拒绝的原因，不能是Promise对象
     */
-    const p1 = Promise.resolve(2) // 如果是一般值，p1成功，value就是这个值
-    const p2 = Promise.resolve(Promise.resolve(3)) // 如果是成功的promise，p2成功，value就是这个promise的value
-    const p3 = Promise.resolve(Promise.reject(4)) // 如果是失败的promise，p3失败，reason就是这个promise的reason(只返回第一个失败的reason)
-    /*const p4 = new Promise((resolve, reject) =>
+      const p1 = Promise.resolve(2) // 如果是一般值，p1成功，value就是这个值
+      const p2 = Promise.resolve(Promise.resolve(3)) // 如果是成功的promise，p2成功，value就是这个promise的value
+      const p3 = Promise.resolve(Promise.reject(4)) // 如果是失败的promise，p3失败，reason就是这个promise的reason(只返回第一个失败的reason)
+      /*const p4 = new Promise((resolve, reject) =>
       setTimeout(() => {
         resolve(5)
       }, 1000)
     )*/
-    const p4 = Promise.resolveDelay(5, 1000) // 新的写法
-    const p5 = Promise.reject(6)
-    const pAll = Promise.all([p4, 7, p1, p2])
-    pAll.then(
-      value => {
-        console.log('all onResolved()', value)
-      },
-      reason => {
-        console.log('all onRejected()', reason)
-      }
-    )
-    /*const pRace = Promise.race([p4, 7, p1, p2])
+      const p4 = Promise.resolveDelay(5, 1000) // 新的写法
+      const p5 = Promise.reject(6)
+      const pAll = Promise.all([p4, 7, p1, p2])
+      pAll.then(
+        value => {
+          console.log('all onResolved()', value)
+        },
+        reason => {
+          console.log('all onRejected()', reason)
+        }
+      )
+      /*const pRace = Promise.race([p4, 7, p1, p2])
     pRace.then(
       value => {
         console.log('race onResolved()', value)
@@ -1439,25 +1526,22 @@ Promise.prototype.then = function(onResolved, onRejected) {
       }
     )*/
 
-    /*
+      /*
     测试自定义的两个函数
     Promise.resolveDelay()和Promise.rejectDelay()
     */
-    const p6 = Promise.resolveDelay(66, 2000)
-    const p7 = Promise.rejectDelay(77, 3000)
-    p6.then(value => {
-      console.log('p6', value)
-    })
-    p7.catch(reason => {
-      console.log('p7', reason)
-    })
-  </script>
-</body>
-
+      const p6 = Promise.resolveDelay(66, 2000)
+      const p7 = Promise.rejectDelay(77, 3000)
+      p6.then(value => {
+        console.log('p6', value)
+      })
+      p7.catch(reason => {
+        console.log('p7', reason)
+      })
+    </script>
+  </body>
 </html>
 ```
-
-
 
 ## 四、async 与 await
 
@@ -1491,7 +1575,7 @@ result.then(
   },
   reason => {
     console.log('onRejected()', reason)
-  },
+  }
 )
 // onRejected() 2
 ```
@@ -1510,7 +1594,7 @@ result.then(
   },
   reason => {
     console.log('onRejected()', reason)
-  },
+  }
 )
 // onResolved() 3
 ```
@@ -1529,12 +1613,13 @@ async function fn1() {
 }
 const result = fn1()
 result.then(
-  value => { // 过1s后才异步执行回调函数 onResolved()
+  value => {
+    // 过1s后才异步执行回调函数 onResolved()
     console.log('onResolved()', value)
   },
   reason => {
     console.log('onRejected()', reason)
-  },
+  }
 )
 // onResolved() 4
 ```
@@ -1553,11 +1638,11 @@ result.then(
 
 **表达式**
 
- 一个 `Promise` 对象或者任何要**等待**的`值`。
+一个 `Promise` 对象或者任何要**等待**的`值`。
 
 **返回值**
 
- 返回 Promise 对象的处理结果。如果**等待**的不是 Promise 对象，则返回该值本身。
+返回 Promise 对象的处理结果。如果**等待**的不是 Promise 对象，则返回该值本身。
 
 **解释**
 
@@ -1595,7 +1680,7 @@ async function fn3() {
 fn3()
 ```
 
-不写 await，只能得到一个 promise 对象。在表达式前面加上 await，1s后将得到 promise 的结果5，但是要用 await 必须在函数上声明 async。
+不写 await，只能得到一个 promise 对象。在表达式前面加上 await，1s 后将得到 promise 的结果 5，但是要用 await 必须在函数上声明 async。
 
 await 右侧表达式 fn2() 为 promise，得到的结果就是 promise 成功的 value；await 右侧表达式 fn4() 不是 promise，得到的结果就是这个值本身。
 
@@ -1607,7 +1692,7 @@ function fn2() {
     setTimeout(() => {
       reject(5)
     }, 1000)
-  }) 
+  })
 }
 
 async function fn3() {
@@ -1618,7 +1703,7 @@ fn3()
 // 报错：Uncaught (in promise) 5
 ```
 
-await 只能得到成功的结果，要想得到失败的结果就要用try/catch：
+await 只能得到成功的结果，要想得到失败的结果就要用 try/catch：
 
 ```js
 function fn2() {
@@ -1632,7 +1717,7 @@ function fn2() {
 async function fn3() {
   try {
     const value = await fn2()
-     console.log('value', value)
+    console.log('value', value)
   } catch (error) {
     console.log('得到失败的结果', error)
   }
@@ -1644,7 +1729,8 @@ fn3()
 下面这个栗子中，fn1 是第 2 种情况，fn2 是第 3 种情况，fn3 也是第 3 种情况
 
 ```js
-async function fn1() { //async声明的异步回调函数将返回一个promise
+async function fn1() {
+  //async声明的异步回调函数将返回一个promise
   return 1
 }
 function fn2() {
@@ -1666,39 +1752,39 @@ async function fn3() {
 fn3()
 ```
 
-## 五、JS异步之宏队列与微队列
+## 五、JS 异步之宏队列与微队列
 
 ![img](https://img-blog.csdnimg.cn/20200703144207979.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQwNTA4ODMy,size_16,color_FFFFFF,t_70)
 
-1. JS 中用来存储待执行回调函数的队列包含2个不同特定的队列
+1. JS 中用来存储待执行回调函数的队列包含 2 个不同特定的队列
 
 2. 宏队列：用来保存待执行的宏任务（回调），比如：定时器回调/DOM 事件回调/ajax 回调
 
 3. 微队列：用来保存待执行的微任务（回调），比如：promise 的回调/MutationObserver 的回调
 
-4. JS 执行时会区别这2个队列
+4. JS 执行时会区别这 2 个队列
 
    (1) JS 引擎首先必须执行所有的初始化同步任务代码
 
    (2) 每次准备取出第一个宏任务前，都要将所有的微任务一个一个取出来执行
 
 ```js
-setTimeout(() => { // 会立即被放入宏队列
+setTimeout(() => {
+  // 会立即被放入宏队列
   console.log('timeout callback1()')
 }, 0)
-setTimeout(() => { // 会立即被放入宏队列
+setTimeout(() => {
+  // 会立即被放入宏队列
   console.log('timeout callback2()')
 }, 0)
-Promise.resolve(1).then(
-  value => { // 会立即被放入微队列
-    console.log('Promise onResolved1()', value)
-  }
-)
-Promise.resolve(1).then(
-  value => { // 会立即被放入微队列
-    console.log('Promise onResolved2()', value)
-  }
-)
+Promise.resolve(1).then(value => {
+  // 会立即被放入微队列
+  console.log('Promise onResolved1()', value)
+})
+Promise.resolve(1).then(value => {
+  // 会立即被放入微队列
+  console.log('Promise onResolved2()', value)
+})
 // Promise onResolved1() 1
 // Promise onResolved2() 1
 // timeout callback1()
@@ -1739,20 +1825,22 @@ Promise.resolve(1).then(
 
 ## 六、相关面试题
 
-### 6.1 面试题1
+### 6.1 面试题 1
 
 ```js
 setTimeout(() => {
   console.log(1)
 }, 0)
-new Promise((resolve) => {
+new Promise(resolve => {
   console.log(2)
   resolve()
-}).then(() => {
-  console.log(3)
-}).then(() => {
-  console.log(4)
 })
+  .then(() => {
+    console.log(3)
+  })
+  .then(() => {
+    console.log(4)
+  })
 console.log(5)
 // 2 5 3 4 1
 /*
@@ -1771,10 +1859,11 @@ console.log(5)
 
 1 放入宏队列，2 执行，3 放入微队列，4 缓存起来等待 Promise 的状态改变，5 执行，微队列中的 3 执行，4 放入微队列，微队列中的 4 执行，宏队列中的 1 执行。
 
-### 6.2 面试题2
+### 6.2 面试题 2
 
 ```js
-const first = () => ( // 省略return所以不用{}而用()
+const first = () =>
+  // 省略return所以不用{}而用()
   new Promise((resolve, reject) => {
     console.log(3)
     let p = new Promise((resolve, reject) => {
@@ -1786,12 +1875,11 @@ const first = () => ( // 省略return所以不用{}而用()
       resolve(1)
     })
     resolve(2)
-    p.then((arg) => {
+    p.then(arg => {
       console.log(arg)
     })
   })
-)
-first().then((arg) => {
+first().then(arg => {
   console.log(arg)
 })
 console.log(4)
@@ -1802,34 +1890,38 @@ console.log(4)
 */
 ```
 
-### 6.3 面试题3
+### 6.3 面试题 3
 
 ```js
 setTimeout(() => {
-  console.log("0")
+  console.log('0')
 }, 0)
 new Promise((resolve, reject) => {
-  console.log("1")
+  console.log('1')
   resolve()
-}).then(() => {
-  console.log("2")
-  new Promise((resolve, reject) => {
-    console.log("3")
-    resolve()
-  }).then(() => {
-    console.log("4")
-  }).then(() => {
-    console.log("5")
-  })
-}).then(() => {
-  console.log("6")
 })
+  .then(() => {
+    console.log('2')
+    new Promise((resolve, reject) => {
+      console.log('3')
+      resolve()
+    })
+      .then(() => {
+        console.log('4')
+      })
+      .then(() => {
+        console.log('5')
+      })
+  })
+  .then(() => {
+    console.log('6')
+  })
 
 new Promise((resolve, reject) => {
-  console.log("7")
+  console.log('7')
   resolve()
 }).then(() => {
-  console.log("8")
+  console.log('8')
 })
 // 1 7 2 3 8 4 6 5 0
 /*

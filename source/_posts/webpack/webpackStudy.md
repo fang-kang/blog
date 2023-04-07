@@ -4,9 +4,9 @@ date: 2020-12-10 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/4.jpg
 sticky: 1
 tags:
- - webpack       
-categories: 
- - webpack
+  - webpack
+categories:
+  - webpack
 ---
 
 # 一、Webpack 简介
@@ -15,7 +15,7 @@ categories:
 
 webpack 是一种**前端资源构建工具**，一个静态模块打包器(module bundler)。
 
-在webpack 看来, 前端的所有资源文件(js/json/css/img/less/...)都会作为模块处理。
+在 webpack 看来, 前端的所有资源文件(js/json/css/img/less/...)都会作为模块处理。
 它将根据模块的依赖关系进行静态分析，打包生成对应的静态资源(bundle)。
 
 ## 1.2 webpack 五个核心概念
@@ -42,9 +42,9 @@ JS)
 
 模式(Mode)：指示 webpack 使用相应模式的配置。
 
-| 选项        | 描述                                                         | 特点                       |
-| ----------- | ------------------------------------------------------------ | -------------------------- |
-| development | 会将 DefinePlugin 中 process.env.NODE_ENV 的值设置为 development。启用 NamedChunksPlugin 和 NamedModulesPlugin。 | 能让代码本地调试运行的环境 |
+| 选项        | 描述                                                                                                                                                                                                                                       | 特点                       |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------- |
+| development | 会将 DefinePlugin 中 process.env.NODE_ENV 的值设置为 development。启用 NamedChunksPlugin 和 NamedModulesPlugin。                                                                                                                           | 能让代码本地调试运行的环境 |
 | production  | 会将 DefinePlugin 中 process.env.NODE_ENV 的值设置为 production。启用 FlagDependencyUsagePlugin, FlagIncludedChunksPlugin, ModuleConcatenationPlugin, NoEmitOnErrorsPlugin, OccurrenceOrderPlugin, SideEffectsFlagPlugin 和 TerserPlugin。 | 能让代码优化上线运行的环境 |
 
 # 二、Webpack 初体验
@@ -53,7 +53,7 @@ JS)
 
 1. 初始化 package.json：npm init
 
-2. 下载安装webpack：(webpack4以上的版本需要全局/本地都安装webpack-cli)
+2. 下载安装 webpack：(webpack4 以上的版本需要全局/本地都安装 webpack-cli)
 
    全局安装：cnpm i webpack webpack-cli -g
 
@@ -67,11 +67,11 @@ JS)
 
 - 开发环境：webpack ./src/index.js -o ./build/built.js --mode=development
 
-  webpack会以 ./src/index.js 为入口文件开始打包，打包后输出到 ./build/built.js 整体打包环境，是开发环境
+  webpack 会以 ./src/index.js 为入口文件开始打包，打包后输出到 ./build/built.js 整体打包环境，是开发环境
 
 - 生产环境：webpack ./src/index.js -o ./build/built.js --mode=production
 
-  webpack会以 ./src/index.js 为入口文件开始打包，打包后输出到 ./build/built.js 整体打包环境，是生产环境
+  webpack 会以 ./src/index.js 为入口文件开始打包，打包后输出到 ./build/built.js 整体打包环境，是生产环境
 
 结论：
 
@@ -95,9 +95,9 @@ webpack.config.js 是 webpack 的配置文件。
 - 打包其他资源
 - devServer
 
-下面是一个简单的开发环境webpack.confg.js配置文件
+下面是一个简单的开发环境 webpack.confg.js 配置文件
 
-``` js
+```js
 // resolve用来拼接绝对路径的方法
 const { resolve } = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin') // 引用plugin
@@ -128,7 +128,7 @@ module.exports = {
           // css-loader：将css文件变成commonjs模块加载到js中，里面内容是样式字符串
           'css-loader',
           // less-loader：将less文件编译成css文件，需要下载less-loader和less
-          'less-loader'
+          'less-loader',
         ],
       },
       {
@@ -200,14 +200,14 @@ module.exports = {
 其中，大部分配置都在注释中给出解释。
 
 - 运行项目的两个指令：
-  webpack 会将打包结果输出出去（build文件夹）
+  webpack 会将打包结果输出出去（build 文件夹）
   npx webpack-dev-server 只会在内存中编译打包，没有输出
 
 - loader 和 plugin 的不同：（plugin 一定要先引入才能使用）
 
-   loader：1. 下载 2. 使用（配置 loader）
+  loader：1. 下载 2. 使用（配置 loader）
 
-   plugins：1.下载 2. 引入 3. 使用
+  plugins：1.下载 2. 引入 3. 使用
 
 # 四、Webpack 生产环境的基本配置
 
@@ -221,7 +221,7 @@ module.exports = {
 - js 压缩
 - html 压缩
 
-下面是一个基本的生产环境下的webpack.config.js配置
+下面是一个基本的生产环境下的 webpack.config.js 配置
 
 ```js
 const { resolve } = require('path')
@@ -336,12 +336,13 @@ module.exports = {
             {
               useBuiltIns: 'usage', //按需加载
               corejs: { version: 3 }, // 指定core-js版本
-              targets: { // 指定兼容到什么版本的浏览器
+              targets: {
+                // 指定兼容到什么版本的浏览器
                 chrome: '60',
                 firefox: '50',
                 ie: '9',
                 safari: '10',
-                edge: '17'
+                edge: '17',
               },
             },
           ],
@@ -408,7 +409,7 @@ HMR: hot module replacement 热模块替换 / 模块热替换
 
 作用：一个模块发生变化，只会重新打包构建这一个模块（而不是打包所有模块） ，极大提升构建速度
 
-代码：只需要在 devServer 中设置 hot 为 true，就会自动开启HMR功能（只能在开发模式下使用）
+代码：只需要在 devServer 中设置 hot 为 true，就会自动开启 HMR 功能（只能在开发模式下使用）
 
 ```js
 devServer: {
@@ -424,9 +425,9 @@ devServer: {
 
 每种文件实现热模块替换的情况：
 
-- 样式文件：可以使用HMR功能，因为开发环境下使用的 style-loader 内部默认实现了热模块替换功能
+- 样式文件：可以使用 HMR 功能，因为开发环境下使用的 style-loader 内部默认实现了热模块替换功能
 
-- js 文件：默认不能使用HMR功能（修改一个 js 模块所有 js 模块都会刷新）
+- js 文件：默认不能使用 HMR 功能（修改一个 js 模块所有 js 模块都会刷新）
 
   --> 实现 HMR 需要修改 js 代码（添加支持 HMR 功能的代码）
 
@@ -434,11 +435,11 @@ devServer: {
   // 绑定
   if (module.hot) {
     // 一旦 module.hot 为true，说明开启了HMR功能。 --> 让HMR功能代码生效
-    module.hot.accept('./print.js', function() {
+    module.hot.accept('./print.js', function () {
       // 方法会监听 print.js 文件的变化，一旦发生变化，只有这个模块会重新打包构建，其他模块不会。
       // 会执行后面的回调函数
-      print();
-    });
+      print()
+    })
   }
   ```
 
@@ -466,7 +467,7 @@ source-map：一种提供**源代码到构建后代码的映射**的技术 （�
 devtool: 'eval-source-map'
 ```
 
-可选方案：[生成source-map的位置|给出的错误代码信息]
+可选方案：[生成 source-map 的位置|给出的错误代码信息]
 
 - source-map：外部，错误代码准确信息 和 源代码的错误位置
 - inline-source-map：内联，只生成一个内联 source-map，错误代码准确信息 和 源代码的错误位置
@@ -624,11 +625,11 @@ module: {
 
 1.hash: 每次 wepack 打包时会生成一个唯一的 hash 值。
 
- 问题：重新打包，所有文件的 hsah 值都改变，会导致所有缓存失效。（可能只改动了一个文件）
+问题：重新打包，所有文件的 hsah 值都改变，会导致所有缓存失效。（可能只改动了一个文件）
 
-2.chunkhash：根据 chunk 生成的 hash 值。来源于同一个 chunk的 hash 值一样
+2.chunkhash：根据 chunk 生成的 hash 值。来源于同一个 chunk 的 hash 值一样
 
- 问题：js 和 css 来自同一个chunk，hash 值是一样的（因为 css-loader 会将 css 文件加载到 js 中，所以同属于一个chunk）
+问题：js 和 css 来自同一个 chunk，hash 值是一样的（因为 css-loader 会将 css 文件加载到 js 中，所以同属于一个 chunk）
 
 3.contenthash: 根据文件的内容生成 hash 值。不同文件 hash 值一定不一样(文件内容修改，文件名里的 hash 才会改变)
 
@@ -638,15 +639,15 @@ module: {
 
 多进程打包：某个任务消耗时间较长会卡顿，多进程可以同一时间干多件事，效率更高。
 
-优点是提升打包速度，缺点是每个进程的开启和交流都会有开销（babel-loader消耗时间最久，所以使用thread-loader针对其进行优化）
+优点是提升打包速度，缺点是每个进程的开启和交流都会有开销（babel-loader 消耗时间最久，所以使用 thread-loader 针对其进行优化）
 
 ```js
 {
   test: /\.js$/,
   exclude: /node_modules/,
   use: [
-    /* 
-      thread-loader会对其后面的loader（这里是babel-loader）开启多进程打包。 
+    /*
+      thread-loader会对其后面的loader（这里是babel-loader）开启多进程打包。
       进程启动大概为600ms，进程通信也有开销。(启动的开销比较昂贵，不要滥用)
       只有工作消耗时间比较长，才需要多进程打包
     */
@@ -715,14 +716,14 @@ webpack.dll.js 配置：(将 jquery 单独打包)
   需求：需要运行webpack.dll.js文件
     --> webpack --config webpack.dll.js（运行这个指令表示以这个配置文件打包）
 */
-const { resolve } = require('path');
-const webpack = require('webpack');
+const { resolve } = require('path')
+const webpack = require('webpack')
 
 module.exports = {
   entry: {
     // 最终打包生成的[name] --> jquery
     // ['jquery] --> 要打包的库是jquery
-    jquery: ['jquery']
+    jquery: ['jquery'],
   },
   output: {
     // 输出出口指定
@@ -734,11 +735,11 @@ module.exports = {
     // 打包生成一个manifest.json --> 提供jquery的映射关系（告诉webpack：jquery之后不需要再打包和暴露内容的名称）
     new webpack.DllPlugin({
       name: '[name]_[hash]', // 映射库的暴露的内容名称
-      path: resolve(__dirname, 'dll/manifest.json') // 输出文件路径
-    })
+      path: resolve(__dirname, 'dll/manifest.json'), // 输出文件路径
+    }),
   ],
-  mode: 'production'
-};
+  mode: 'production',
+}
 ```
 
 webpack.config.js 配置：(告诉 webpack 不需要再打包 jquery，并将之前打包好的 jquery 跟其他打包好的资源一同输出到 build 目录下)
@@ -782,7 +783,7 @@ tree shaking：去除无用代码
 
 这样会导致的问题：可能会把 css / @babel/polyfill 文件干掉（副作用）
 
-所以可以配置：`"sideEffects": ["*.css", "*.less"]` 不会对css/less文件tree shaking处理
+所以可以配置：`"sideEffects": ["*.css", "*.less"]` 不会对 css/less 文件 tree shaking 处理
 
 #### 5.2.2.3 code split（代码分割）
 
@@ -813,10 +814,10 @@ optimization: {
   },
 ```
 
-- 将 node_modules 中的代码单独打包（大小超过30kb）
-- 自动分析多入口chunk中，有没有公共的文件。如果有会打包成单独一个chunk(比如两个模块中都引入了jquery会被打包成单独的文件)（大小超过30kb）
+- 将 node_modules 中的代码单独打包（大小超过 30kb）
+- 自动分析多入口 chunk 中，有没有公共的文件。如果有会打包成单独一个 chunk(比如两个模块中都引入了 jquery 会被打包成单独的文件)（大小超过 30kb）
 
-3.import 动态导入语法：
+  3.import 动态导入语法：
 
 ```js
 /*
@@ -824,16 +825,16 @@ optimization: {
   import动态导入语法：能将某个文件单独打包(test文件不会和index打包在同一个文件而是单独打包)
   webpackChunkName:指定test单独打包后文件的名字
 */
-import(/* webpackChunkName: 'test' */'./test')
+import(/* webpackChunkName: 'test' */ './test')
   .then(({ mul, count }) => {
     // 文件加载成功~
     // eslint-disable-next-line
-    console.log(mul(2, 5));
+    console.log(mul(2, 5))
   })
   .catch(() => {
     // eslint-disable-next-line
-    console.log('文件加载失败~');
-  });
+    console.log('文件加载失败~')
+  })
 ```
 
 #### 5.2.2.4 lazy loading（懒加载/预加载）
@@ -847,16 +848,16 @@ import(/* webpackChunkName: 'test' */'./test')
 代码：
 
 ```js
-document.getElementById('btn').onclick = function() {
+document.getElementById('btn').onclick = function () {
   // 将import的内容放在异步回调函数中使用，点击按钮，test.js才会被加载(不会重复加载)
   // webpackPrefetch: true表示开启预加载
-  import(/* webpackChunkName: 'test', webpackPrefetch: true */'./test').then(({ mul }) => {
-    console.log(mul(4, 5));
-  });
+  import(/* webpackChunkName: 'test', webpackPrefetch: true */ './test').then(({ mul }) => {
+    console.log(mul(4, 5))
+  })
   import('./test').then(({ mul }) => {
     console.log(mul(2, 5))
   })
-};
+}
 ```
 
 #### 5.2.2.5 pwa（离线可访问技术）
@@ -866,7 +867,7 @@ pwa：离线可访问技术（渐进式网络开发应用程序），使用 serv
 webpack.config.js 中配置：
 
 ```js
-const WorkboxWebpackPlugin = require('workbox-webpack-plugin'); // 引入插件
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin') // 引入插件
 
 // plugins中加入：
 new WorkboxWebpackPlugin.GenerateSW({
@@ -877,7 +878,7 @@ new WorkboxWebpackPlugin.GenerateSW({
     生成一个 serviceworker 配置文件
   */
   clientsClaim: true,
-  skipWaiting: true
+  skipWaiting: true,
 })
 ```
 
@@ -896,17 +897,18 @@ index.js 中还需要写一段代码来激活它的使用：
       npm i serve -g
       serve -s build 启动服务器，将打包输出的build目录下所有资源作为静态资源暴露出去
 */
-if ('serviceWorker' in navigator) { // 处理兼容性问题
+if ('serviceWorker' in navigator) {
+  // 处理兼容性问题
   window.addEventListener('load', () => {
     navigator.serviceWorker
       .register('/service-worker.js') // 注册serviceWorker
       .then(() => {
-        console.log('sw注册成功了~');
+        console.log('sw注册成功了~')
       })
       .catch(() => {
-        console.log('sw注册失败了~');
-      });
-  });
+        console.log('sw注册失败了~')
+      })
+  })
 }
 ```
 
@@ -935,7 +937,7 @@ entry: 入口起点
 ```js
 entry: {
   // 最终只会形成一个chunk, 输出出去只有一个bundle文件。
-  index: ['./src/index.js', './src/count.js'], 
+  index: ['./src/index.js', './src/count.js'],
   // 形成一个chunk，输出一个bundle文件。
   add: './src/add.js'
 }
@@ -1060,7 +1062,7 @@ devServer: {
 因为在 `index.js` 中引入 `a.js`，打包后 `index.js` 中记录了 `a.js` 的 `hash` 值，而`a.js` 改变，其重新打包后的 `hash` 改变，导致 `index.js` 文件内容中记录的 `a.js` 的 `hash` 也改变，从而重新打包后 `index.js` 的 `hash` 值也会变，这样就会使缓存失效。（改变的是`a.js`文件但是 `index.js` 文件的 `hash` 值也改变了）
 解决办法：`runtimeChunk` --> 将当前模块记录其他模块的 `hash` 单独打包为一个文件 `runtime`，这样 `a.js` 的 `hash` 改变只会影响 `runtime` 文件，不会影响到 `index.js` 文件
 
-``` js
+```js
 output: {
   filename: 'js/[name].[contenthash:10].js',
   path: resolve(__dirname, 'build'),
@@ -1161,16 +1163,16 @@ webpack 内部有 chunk 命名规则，不再是以 id(0, 1, 2)命名了
 
 ```js
 // inner.js
-export const a = 1;
-export const b = 2;
+export const a = 1
+export const b = 2
 
 // module.js
-import * as inner from './inner';
-export { inner };
+import * as inner from './inner'
+export { inner }
 
 // user.js
-import * as module from './module';
-console.log(module.inner.a);
+import * as module from './module'
+console.log(module.inner.a)
 ```
 
 在生产环境中, inner 模块暴露的 `b` 会被删除
@@ -1178,14 +1180,14 @@ console.log(module.inner.a);
 1. webpack 现在能够多个模块之前的关系
 
 ```js
-import { something } from './something';
+import { something } from './something'
 
 function usingSomething() {
-  return something;
+  return something
 }
 
 export function test() {
-  return usingSomething();
+  return usingSomething()
 }
 ```
 

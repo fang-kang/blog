@@ -3,75 +3,73 @@ title: Vue项目 webpack优化 compression-webpack-plugin 开启gzip
 date: 2020-12-09 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/2.jpg
 tags:
- - webpack       
-categories: 
- - webpack
+  - webpack
+categories:
+  - webpack
 ---
 
-> 打包的时候开启gzip可以很大程度减少包的大小，非常适合于上线部署。更小的体积对于用户体验来说就意味着更快的加载速度以及更好的用户体验。
+> 打包的时候开启 gzip 可以很大程度减少包的大小，非常适合于上线部署。更小的体积对于用户体验来说就意味着更快的加载速度以及更好的用户体验。
 
-## Vue-cli3.0项目 安装依赖：`compression-webpack-plugin`
+## Vue-cli3.0 项目 安装依赖：`compression-webpack-plugin`
 
 ```bash
 　　npm install compression-webpack-plugin@6.0.5 -D
 ```
 
 {% note warning %}
-安装最新版7.0.0的时候报错 回退下版本就好了
+安装最新版 7.0.0 的时候报错 回退下版本就好了
 {% endnote %}
 
 ```js
-"use strict";
-const path = require("path");
-const CompressionWebpackPlugin = require("compression-webpack-plugin");
-const productionGzipExtensions = ["js", "css"];
+'use strict'
+const path = require('path')
+const CompressionWebpackPlugin = require('compression-webpack-plugin')
+const productionGzipExtensions = ['js', 'css']
 
 function resolve(dir) {
- return path.join(__dirname, dir)
+  return path.join(__dirname, dir)
 }
 module.exports = {
- lintOnSave: false,
- publicPath: './',
- // 配置webpack打包
- productionSourceMap: false,
- configureWebpack: (config) => {
-  // 取消console打印    
-  config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
-  if (process.env.NODE_ENV === 'production') {
-   return {
-    plugins: [
-     new CompressionWebpackPlugin({
-      filename: "[path].gz[query]",
-      algorithm: "gzip",
-      test: new RegExp("\\.(" + productionGzipExtensions.join("|") + ")$"), //匹配文件名
-      threshold: 10240, //对10K以上的数据进行压缩
-      minRatio: 0.8,
-      deleteOriginalAssets: true //是否删除源文件
-     })
-    ]
-
-   }
-  }
- },
- chainWebpack: config => {
-  config.plugins.delete('preload') 
-  config.plugins.delete('prefetch')
- },
- // 第三方插件配置
- pluginOptions: {
-  // ...
-  pwa: {
-   iconPaths: {
-    favicon32: './favicon.ico',
-    favicon16: './favicon.ico',
-    appleTouchIcon: './favicon.ico',
-    maskIcon: './favicon.ico',
-    msTileImage: './favicon.ico'
-   }
+  lintOnSave: false,
+  publicPath: './',
+  // 配置webpack打包
+  productionSourceMap: false,
+  configureWebpack: config => {
+    // 取消console打印
+    config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true
+    if (process.env.NODE_ENV === 'production') {
+      return {
+        plugins: [
+          new CompressionWebpackPlugin({
+            filename: '[path].gz[query]',
+            algorithm: 'gzip',
+            test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'), //匹配文件名
+            threshold: 10240, //对10K以上的数据进行压缩
+            minRatio: 0.8,
+            deleteOriginalAssets: true, //是否删除源文件
+          }),
+        ],
+      }
+    }
   },
- }
+  chainWebpack: config => {
+    config.plugins.delete('preload')
+    config.plugins.delete('prefetch')
+  },
+  // 第三方插件配置
+  pluginOptions: {
+    // ...
+    pwa: {
+      iconPaths: {
+        favicon32: './favicon.ico',
+        favicon16: './favicon.ico',
+        appleTouchIcon: './favicon.ico',
+        maskIcon: './favicon.ico',
+        msTileImage: './favicon.ico',
+      },
+    },
+  },
 }
-
 ```
 
 ## 服务器启用`gzip`
@@ -83,7 +81,7 @@ module.exports = {
 gzip on;
 # gizp压缩起点，文件大于1k才进行压缩
 gzip_min_length 1k;
-# 设置压缩所需要的缓冲区大小，以4k为单位，如果文件为7k则申请2*4k的缓冲区 
+# 设置压缩所需要的缓冲区大小，以4k为单位，如果文件为7k则申请2*4k的缓冲区
 gzip_buffers 4 16k;
 # 设置gzip压缩针对的HTTP协议版本
 gzip_http_version 1.1;
