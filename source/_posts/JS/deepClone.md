@@ -2,10 +2,10 @@
 title: deepClone 对象深度克隆
 date: 2020-11-05 15:33:01
 tags:
-  - Js
+  - js
   - utils
 categories:
-  - Js
+  - js
 index_img: https://fang-kang.gitee.io/blog-img/3.jpg
 ---
 

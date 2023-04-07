@@ -3,9 +3,9 @@ title: JS中 reduce() 的用法
 date: 2020-12-12 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/vdysjx.webp
 tags:
-  - Js
+  - js
 categories:
-  - Js
+  - js
 ---
 
 过去有很长一段时间，我一直很难理解 **reduce()** 这个方法的具体用法，平时也很少用到它。事实上，如果你能真正了解它的话，其实在很多地方我们都可以用得上，那么今天我们就来简单聊聊 JS 中 reduce() 的用法。

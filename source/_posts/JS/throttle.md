@@ -3,10 +3,10 @@ title: throttle & debounce节流防抖
 date: 2020-11-05 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/n7a9bv.webp
 tags:
-  - Js
+  - js
   - utils
 categories:
-  - Js
+  - js
 ---
 
 ## 什么是节流和防抖？

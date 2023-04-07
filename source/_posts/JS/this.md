@@ -2,9 +2,9 @@
 title: 嗨，你真的懂this吗？
 date: 2020-12-18 15:33:01
 tags:
-  - Js
+  - js
 categories:
-  - Js
+  - js
 index_img: https://fang-kang.gitee.io/blog-img/sdqryn.webp
 ---
 

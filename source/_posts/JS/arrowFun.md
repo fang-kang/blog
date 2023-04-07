@@ -3,9 +3,9 @@ title: ES6——箭头函数与普通函数的区别
 date: 2021-01-09 17:38
 index_img: https://fang-kang.gitee.io/blog-img/2.jpg
 tags:
-  - Js
+  - js
 categories:
-  - Js
+  - js
 ---
 
 ES6 标准新增了一种新的函数：`Arrow Function`（箭头函数）。

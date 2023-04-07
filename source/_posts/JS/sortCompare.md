@@ -2,11 +2,11 @@
 title: js中数组对象排序
 date: 2021-05-08 11:13:01
 tags:
-  - Js
+  - js
   - 数组
   - utils
 categories:
-  - Js
+  - js
 index_img: https://fang-kang.gitee.io/blog-img/2.jpg
 ---
 

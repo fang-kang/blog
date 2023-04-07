@@ -3,9 +3,9 @@ title: 这一次，彻底弄懂 JavaScript 执行机制
 index_img: https://fang-kang.gitee.io/blog-img/2.jpg
 date: 2020-12-18 15:33:01
 tags:
-  - Js
+  - js
 categories:
-  - Js
+  - js
 ---
 
 本文的目的就是要保证你彻底弄懂`javascript`的执行机制，如果读完本文还不懂，可以揍我。

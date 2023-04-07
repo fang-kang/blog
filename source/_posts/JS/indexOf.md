@@ -3,10 +3,10 @@ title: JS判断字符串中是否存在某个字符
 index_img: https://fang-kang.gitee.io/blog-img/5.jpg
 date: 2020-11-04 15:33:01
 tags:
-  - Js
+  - js
   - utils
 categories:
-  - Js
+  - js
 ---
 
 # JS 判断字符串中是否存在某个字符

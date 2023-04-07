@@ -3,10 +3,10 @@ title: md5加密
 date: 2020-11-05 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/6.jpg
 tags:
-  - Js
+  - js
   - utils
 categories:
-  - Js
+  - js
 ---
 
 ## md5 加密

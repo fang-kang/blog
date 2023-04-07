@@ -3,10 +3,10 @@ title: test 规则校验
 date: 2020-11-05 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/sdqryn.webp
 tags:
-  - Js
+  - js
   - utils
 categories:
-  - Js
+  - js
 ---
 
 # test 规则校验

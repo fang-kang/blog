@@ -3,7 +3,7 @@ title: JavaScript 基础面试
 date: 2021-03-02 ：17:14
 index_img: https://fang-kang.gitee.io/blog-img/1.png
 tags:
-  - Js
+  - js
 categories:
   - 其他
 ---

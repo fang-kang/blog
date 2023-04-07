@@ -3,9 +3,9 @@ title: 回调函数-Promise
 date: 2020-11-24 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/7.jpg
 tags:
-  - Js
+  - js
 categories:
-  - Js
+  - js
 ---
 
 ## 一、准备

@@ -98,7 +98,7 @@ fun_features:
   anchorjs:
     enable: true
     element: h1,h2,h3,h4,h5,h6
-    placement: right
+    placement: left
     # Options: hover | always | touch
     visible: hover
     # Option：§ | # | ❡
@@ -187,7 +187,7 @@ color:
 # Font
 font:
   font_size: 18px
-  font_family:
+  font_family: 'serif'
   code_font_size: 85%
 
 # 指定自定义 .js 文件路径，支持列表；路径是相对 source 目录，如 /js/custom.js 对应存放目录 source/js/custom.js
@@ -343,7 +343,7 @@ scroll_top_arrow:
 
 # 头图滚动视差
 # Banner image scrolling parallax
-banner_parallax: true
+banner:parallax: true
 
 
 #---------------------------
@@ -399,7 +399,7 @@ footer:
 index:
   # 首页 Banner 头图，可以是相对路径或绝对路径，以下相同
   # Path of Banner image, can be a relative path or an absolute path, the same on other pages
-  banner_img: https://fang-kang.gitee.io/blog-img/default.png
+  banner_img: /img/default.png
 
   # 头图高度，屏幕百分比
   # Height ratio of banner image
@@ -475,7 +475,7 @@ index:
 # Post Page
 #---------------------------
 post:
-  banner_img: https://fang-kang.gitee.io/blog-img/default.png
+  banner_img: /img/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -733,7 +733,7 @@ twikoo:
 # Archive Page
 #---------------------------
 archive:
-  banner_img: https://fang-kang.gitee.io/blog-img/default.png
+  banner_img: /img/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -745,7 +745,7 @@ archive:
 #---------------------------
 category:
   enable: true
-  banner_img: https://fang-kang.gitee.io/blog-img/default.png
+  banner_img: /img/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -770,7 +770,7 @@ category:
 #---------------------------
 tag:
   enable: true
-  banner_img: https://fang-kang.gitee.io/blog-img/default.png
+  banner_img: /img/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
@@ -788,7 +788,7 @@ tag:
 #---------------------------
 about:
   enable: true
-  banner_img: https://fang-kang.gitee.io/blog-img/default.png
+  banner_img: /img/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:  # 打字机内容
@@ -811,7 +811,7 @@ about:
 # Custom Page through `hexo new page`
 #---------------------------
 page:
-  banner_img: https://fang-kang.gitee.io/blog-img/default.png
+  banner_img: /img/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
 
@@ -822,7 +822,7 @@ page:
 #---------------------------
 page404:
   enable: true
-  banner_img: https://fang-kang.gitee.io/blog-img/default.png
+  banner_img: /img/default.png
   banner_img_height: 85
   banner_mask_alpha: 0.3
   subtitle: "Page not found"
@@ -834,7 +834,7 @@ page404:
 #---------------------------
 links:
   enable: true
-  banner_img: https://fang-kang.gitee.io/blog-img/default.png
+  banner_img: /img/default.png
   banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:

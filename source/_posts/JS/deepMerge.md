@@ -3,10 +3,10 @@ title: deepMerge 对象深度合并
 index_img: https://fang-kang.gitee.io/blog-img/4.jpg
 date: 2020-11-05 15:33:01
 tags:
-  - Js
+  - js
   - utils
 categories:
-  - Js
+  - js
 ---
 
 ## deepMerge 对象深度合并
