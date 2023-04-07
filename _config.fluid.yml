@@ -91,7 +91,7 @@ fun_features:
 
     # 是否循环播放效果
     # If true, loop animation
-    loop: false
+    loop: true
 
   # 为文章内容中的标题添加锚图标
   # Add an anchor icon to the title on the post page
@@ -280,7 +280,7 @@ navbar:
 
     # 模糊像素，只能为数字，数字越大模糊度越高
     # Number of blurred pixel. the larger the number, the higher the blur
-    px: 3
+    px: 5
 
     # 不透明度，数字越大透明度越低，注意透明过度可能看不清菜单字体
     # Ratio of opacity, 1.0 is completely opaque
@@ -294,16 +294,11 @@ navbar:
     - { key: "归档", link: "/archives/", icon: "iconfont icon-archive-fill" }
     - { key: "分类", link: "/categories/", icon: "iconfont icon-category-fill" }
     - { key: "标签", link: "/tags/", icon: "iconfont icon-tags-fill" }
-    - { key: "友链", link: "/links/", icon: "iconfont icon-link-fill" }
+    # - { key: "友链", link: "/links/", icon: "iconfont icon-link-fill" }
 	  - {
-	      key: '文档',
+	      key: '笔记',
 	      icon: 'iconfont icon-books',
-	      submenu: [
-	        { key: 'Es6', link: 'https://fang-kang.gitee.io/es6' },
-	        { key: 'TypeScript', link: 'https://fang-kang.gitee.io/ts' },
-	        { key: 'Vue3.0', link: 'https://fang-kang.gitee.io/vue3.0' },
-          { key: 'Node', link: 'https://fang-kang.gitee.io/node' }
-	      ]
+	      link: 'https://fang-kang.github.io/note'
 	  }
     - { key: "关于", link: "/about/", icon: "iconfont icon-user-fill" }
 
@@ -805,7 +800,7 @@ about:
   icons:
     - { class: "iconfont icon-github-fill", link: "https://github.com/fang-kang", tip: "GitHub" }
     - { class: "iconfont icon-gitee-fill", link: "https://gitee.com/fang-kang", tip: "Gitee" }
-    - { class: "iconfont iconfont icon-link-fill", link: "http://fang-kang.gitee.io", tip: "Blog" }
+    - { class: "iconfont iconfont icon-link-fill", link: "http://fang-kang.github.io/note", tip: "Note" }
 
 
 #---------------------------
@@ -875,46 +870,42 @@ static_prefix:
 
   # 图标库，包含了大量社交类图标，主题依赖的不包含在内，因此可自行修改，详见 https://hexo.fluid-dev.com/docs/icon/
   # Icon library, which includes many social icons, does not include those theme dependent, so your can modify link by yourself. See: https://hexo.fluid-dev.com/docs/en/icon/
-  iconfont: //at.alicdn.com/t/font_1736178_kmeydafke9r.css
+  anchor: https://lib.baomitu.com/anchor-js/4.3.1/
 
-  anchor: https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/
+  github_markdown: https://lib.baomitu.com/github-markdown-css/4.0.0/
 
-  github_markdown: https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/
+  jquery: https://lib.baomitu.com/jquery/3.6.0/
 
-  jquery: https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/
+  bootstrap: https://lib.baomitu.com/twitter-bootstrap/4.6.1/
 
-  bootstrap: https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/
+  prismjs: https://lib.baomitu.com/prism/1.29.0/
 
-  highlightjs: https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/
+  tocbot: https://lib.baomitu.com/tocbot/4.18.2/
 
-  prismjs: https://cdn.jsdelivr.net/npm/prismjs@1.22.0/
+  typed: https://lib.baomitu.com/typed.js/2.0.12/
 
-  tocbot: https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/
+  fancybox: https://lib.baomitu.com/fancybox/3.5.7/
 
-  typed: https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/
+  nprogress: https://lib.baomitu.com/nprogress/0.2.0/
 
-  fancybox: https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/
+  mathjax: https://lib.baomitu.com/mathjax/3.2.2/
 
-  nprogress: https://cdn.jsdelivr.net/npm/nprogress@0.2.0/
-
-  mathjax: https://cdn.jsdelivr.net/npm/mathjax@3.1.2/es5/
-
-  katex: https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/
+  katex: https://lib.baomitu.com/KaTeX/0.16.2/
 
   busuanzi: https://busuanzi.ibruce.info/busuanzi/2.3/
 
-  clipboard: https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/
+  clipboard: https://lib.baomitu.com/clipboard.js/2.0.11/
 
-  mermaid: https://cdn.jsdelivr.net/npm/mermaid@8.8.3/dist/
+  mermaid: https://lib.baomitu.com/mermaid/8.14.0/
 
-  valine: https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/
+  valine: https://lib.baomitu.com/valine/1.5.1/
 
-  waline: https://cdn.jsdelivr.net/npm/@waline/client@0.4.2/dist/
+  waline: https://lib.baomitu.com/waline/2.14.1/
 
-  gitalk: https://cdn.jsdelivr.net/npm/gitalk@1.7.0/dist/
+  gitalk: https://lib.baomitu.com/gitalk/1.8.0/
 
-  disqusjs: https://cdn.jsdelivr.net/npm/disqusjs@1.0/dist/
+  disqusjs: https://lib.baomitu.com/disqusjs/1.3.0/
 
-  twikoo: https://cdn.jsdelivr.net/npm/twikoo@0.1.15/dist/
+  twikoo: https://lib.baomitu.com/twikoo/1.6.8/
 
-  hint: /lib/hint/
+  hint: https://lib.baomitu.com/hint.css/2.7.0/

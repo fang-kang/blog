@@ -3,7 +3,7 @@ title: react-router-config的使用
 date: 2020-12-21 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/1.jpg
 tags:
- - react    
+ - react
 categories:
   - react
 ---
