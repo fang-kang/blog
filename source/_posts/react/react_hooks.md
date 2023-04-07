@@ -521,11 +521,11 @@ type SetURLSearchParams = (
 
 `useSearchParams`的工作原理与`navigate`类似，但仅适用于 URL 的`search`部分。
 
-::: warning 注意
+{% note warning %}
 
 setSearchParams 的第二个参数要与 navigate 的第二个参数的类型相同
 
-:::
+{% endnote %}
 
 ### useResolvedPath
 
@@ -546,11 +546,11 @@ declare function useRoutes(
 
 `useRoutes`钩子与`Route`组件是功能相等的，但它使用 JavaScript 对象而不是`Route`元素取定义你的路由。该对象与`Route`元素具有相同的属性，但是它们不需要 JSX
 
-:::warning 注意
+{% note warning %}
 
 useRoutes 的返回值要么是一个可以让你用于渲染路由树的 React Element，要么是 null（路由不匹配时）
 
-:::
+{% endnote %}
 
 ## react-redux hooks
 

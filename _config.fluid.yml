@@ -91,7 +91,7 @@ fun_features:
 
     # 是否循环播放效果
     # If true, loop animation
-    loop: true
+    loop: false
 
   # 为文章内容中的标题添加锚图标
   # Add an anchor icon to the title on the post page
@@ -280,7 +280,7 @@ navbar:
 
     # 模糊像素，只能为数字，数字越大模糊度越高
     # Number of blurred pixel. the larger the number, the higher the blur
-    px: 5
+    px: 3
 
     # 不透明度，数字越大透明度越低，注意透明过度可能看不清菜单字体
     # Ratio of opacity, 1.0 is completely opaque
@@ -330,7 +330,7 @@ scroll_down_arrow:
 
   # 头图高度不小于指定比例，才显示箭头
   # Only the height of the banner image is greater than the ratio, the arrow is displayed
-  banner_height_limit: 90
+  banner_height_limit: 60
 
   # 翻页后自动滚动
   # Auto scroll after page turning
@@ -476,7 +476,7 @@ index:
 #---------------------------
 post:
   banner_img: https://fang-kang.gitee.io/blog-img/default.png
-  banner_img_height: 70
+  banner_img_height: 60
   banner_mask_alpha: 0.3
 
   # 文章标题下方的元信息
@@ -546,7 +546,7 @@ post:
   # 版权声明
   # Copyright
   copyright:
-    enable: true
+    enable: false
     content: '本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！'
 
   # 文章底部上一篇下一篇功能
@@ -771,12 +771,12 @@ category:
 tag:
   enable: true
   banner_img: https://fang-kang.gitee.io/blog-img/default.png
-  banner_img_height: 80
+  banner_img_height: 60
   banner_mask_alpha: 0.3
   subtitle:
   tagcloud:
-    min_font: 20
-    max_font: 30
+    min_font: 15
+    max_font: 50
     unit: px
     start_color: "#BBBBEE"
     end_color: "#337ab7"
