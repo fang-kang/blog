@@ -1,6 +1,6 @@
 ---
 title: git emoji
-date: 2021-04-28 ：19:14
+date: 2021-04-28
 index_img: https://fang-kang.gitee.io/blog-img/2.png
 tags:
   - other
