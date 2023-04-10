@@ -1,0 +1,1225 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://fang-kang.gitee.io/blog-img/head.png">
+  <link rel="icon" href="https://fang-kang.gitee.io/blog-img/head.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="房康的个人博客，凌烟的个人博客，博客，记录生活">
+  
+    <meta name="description" content="什么是 Nest Nest是一个强大的Node web框架。它可以帮助您轻松地构建高效、可伸缩的应用程序。它使用现代JavaScript，用TypeScript构建，结合了OOP(面向对象编程)和FP(函数式编程)的最佳概念。 它不仅仅是另一个框架。你不需要等待一个大的社区，因为Nest是用非常棒的、流行的知名库——Express和socket.io构建的!这意味着，您可以快速开始使用框架，而不必">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nest.js学习（一）">
+<meta property="og:url" content="https://fang-kang.gitee.io/blog/2021/01/28/node/nest_1/index.html">
+<meta property="og:site_name" content="凌烟">
+<meta property="og:description" content="什么是 Nest Nest是一个强大的Node web框架。它可以帮助您轻松地构建高效、可伸缩的应用程序。它使用现代JavaScript，用TypeScript构建，结合了OOP(面向对象编程)和FP(函数式编程)的最佳概念。 它不仅仅是另一个框架。你不需要等待一个大的社区，因为Nest是用非常棒的、流行的知名库——Express和socket.io构建的!这意味着，您可以快速开始使用框架，而不必">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fang-kang.gitee.io/blog-img/nest.png">
+<meta property="article:published_time" content="2021-01-28T22:20:00.000Z">
+<meta property="article:modified_time" content="2023-04-10T06:32:05.589Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="node">
+<meta property="article:tag" content="nest">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fang-kang.gitee.io/blog-img/nest.png">
+  
+  
+  
+  <title>nest.js学习（一） - 凌烟</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"fang-kang.gitee.io","root":"/blog/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>凌烟</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://fang-kang.github.io/note">
+                <i class="iconfont icon-books"></i>
+                <span>笔记</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://fang-kang.gitee.io/blog-img/blog/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="nest.js学习（一）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-01-28 22:20" pubdate>
+          2021年1月28日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          25k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          206 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">nest.js学习（一）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="什么是-Nest"><a href="#什么是-Nest" class="headerlink" title="什么是 Nest"></a>什么是 Nest</h2><p><a target="_blank" rel="noopener" href="https://user-images.githubusercontent.com/6111778/44448923-46fd4300-a61f-11e8-86ba-f7ba68f708fc.png"><img src="https://user-images.githubusercontent.com/6111778/44448923-46fd4300-a61f-11e8-86ba-f7ba68f708fc.png" srcset="/blog/img/loading.gif" lazyload alt="nest_logo"></a></p>
+<p><code>Nest</code>是一个强大的<code>Node web</code>框架。它可以帮助您轻松地构建高效、可伸缩的应用程序。它使用现代<code>JavaScript</code>，用<code>TypeScript</code>构建，结合了<code>OOP</code>(面向对象编程)和<code>FP</code>(函数式编程)的最佳概念。</p>
+<p>它不仅仅是另一个框架。你不需要等待一个大的社区，因为<code>Nest</code>是用非常棒的、流行的知名库——<code>Express</code>和<code>socket.io</code>构建的!这意味着，您可以快速开始使用框架，而不必担心第三方插件。</p>
+<p>作者<a target="_blank" rel="noopener" href="http://kamilmysliwiec.com/">Kamil Myśliwiec</a>初衷：</p>
+<blockquote>
+<p>JavaScript is awesome. Node.js gave us a possibility to use this language also on the server side. There are a lot of amazing libraries, helpers and tools on this platform, but non of them do not solve the main problem – the architecture. This is why I decided to create Nest framework.</p>
+</blockquote>
+<blockquote>
+<p><strong>重要</strong>：<code>Nest</code> 受到 <code>Java Spring</code> 和 <code>Angular</code> 的启发。如果你用过 <code>Java Spring</code> 或 <code>Angular</code> 就会学起来非常容易，我本人一直使用 <code>Angular</code>。</p>
+</blockquote>
+<h2 id="Nest-核心概念"><a href="#Nest-核心概念" class="headerlink" title="Nest 核心概念"></a>Nest 核心概念</h2><p>Nest 的核心概念是提供一种体系结构，它帮助开发人员实现层的最大分离，并在应用程序中增加抽象。</p>
+<h3 id="架构概览"><a href="#架构概览" class="headerlink" title="架构概览"></a>架构概览</h3><p><code>Nest</code>采用了<code>ES6</code>和<code>ES7</code>的特性(<code>decorator</code>, <code>async/await</code>)。如果想使用它们，需要用到<code>Babel</code>或<code>TypeScript</code>进行转换成 <code>es5</code>。</p>
+<p><code>Nest</code>默认使用的是<a target="_blank" rel="noopener" href="http://www.typescriptlang.org/">TypeScript</a>，也可以直接使用<code>JavaScript</code>，不过那样就没什么意义了。</p>
+<blockquote>
+<p>如果你使用过<a target="_blank" rel="noopener" href="https://angular.cn/">Angular</a>，你来看这篇文章会觉得非常熟悉的感觉，因为它们大部分写法类似。如果你没有用过也没有关系，我将带领你一起学习它们。</p>
+</blockquote>
+<h3 id="模块-Module"><a href="#模块-Module" class="headerlink" title="模块 Module"></a>模块 Module</h3><p>使用<code>Nest</code>，您可以很自然地将代码拆分为独立的和可重用的模块。<code>Nest</code>模块是一个带有<code>@Module()</code>装饰器的类。这个装饰器提供元数据，框架使用元数据来组织应用程序结构。</p>
+<p>每个 <code>Nest</code> 应用都有一个根模块，通常命名为 <code>AppModule</code>。根模块提供了用来启动应用的引导机制。 一个应用通常会包含很多功能模块。</p>
+<p>像 <code>JavaScript</code> 模块一样，<code>@Module</code> 也可以从其它 <code>@Module</code> 中导入功能，并允许导出它们自己的功能供其它 <code>@Module</code> 使用。 比如，要在你的应用中使用<code>nest</code>提供的<code>mongoose</code>操作功能，就需要导入<code>MongooseModule</code>。</p>
+<p>把你的代码组织成一些清晰的功能模块，可以帮助管理复杂应用的开发工作并实现可复用性设计。 另外，这项技术还能让你使用动态加载，<code>MongooseModule</code>就是使用这项技术。</p>
+<p><code>@Module</code> 装饰器接受一个对象，该对象的属性描述了模块:</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>providers</code></td>
+<td>由<code>Nest</code>注入器实例化的服务，可以在这个模块之间共享。</td>
+</tr>
+<tr>
+<td><code>controllers</code></td>
+<td>存放创建的一组控制器。</td>
+</tr>
+<tr>
+<td><code>imports</code></td>
+<td>导入此模块中所需的提供程序的模块列表。</td>
+</tr>
+<tr>
+<td><code>exports</code></td>
+<td>导出这个模块可以其他模块享用<code>providers</code>里的服务。</td>
+</tr>
+</tbody></table>
+<p><code>@Module</code> 为一个控制器集声明了编译的上下文环境，它专注于某个应用领域、某个工作流或一组紧密相关的能力。 <code>@Module</code> 可以将其控制器和一组相关代码（如服务）关联起来，形成功能单元。</p>
+<p>怎么组织一个模块结构图</p>
+<p>AppModule 根模块</p>
+<ul>
+<li>CoreModule 核心模块（注册中间件，过滤器，管道，守卫，拦截器，装饰器等）</li>
+<li>SharedModule 共享模块（注册服务，mongodb，redis 等）</li>
+<li>ConfigModule 配置模块（系统配置）</li>
+<li>FeatureModule 特性模块（业务模块，如用户模块，产品模块等）</li>
+</ul>
+<p>在<code>Nest</code>中，模块默认是单例的，因此可以在多个模块之间共享任何提供者的同一个实例。共享模块毫不费力。</p>
+<p>整体看起来比较干净清爽，这也是我在<code>Angular</code>项目中一直使用的模块划分。</p>
+<p>如果你有更好建议，欢迎和我一起交流改进。</p>
+<h3 id="控制器-Controller"><a href="#控制器-Controller" class="headerlink" title="控制器 Controller"></a>控制器 Controller</h3><p>控制器负责处理客户端传入的请求参数并向客户端返回响应数据，说的通俗点就是路由<code>Router</code>。</p>
+<p>为了创建一个基本的控制器，我们使用<code>@Controller</code>装饰器。它们将类与基本的元数据相关联，因此<code>Nest</code>知道如何将控制器映射到相应的路由。</p>
+<p><code>@Controller</code>它是定义基本控制器所必需的。<code>@Controller(&#39;Router Prefix&#39;)</code>是类中注册的每个路由的可选前缀。使用前缀可以避免在所有路由共享一个公共前缀时重复使用自己。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-meta">@Controller</span>(<span class="hljs-string">&#x27;user&#x27;</span>)<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>  <span class="hljs-meta">@Get</span>()<br>  <span class="hljs-title function_">findAll</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> []<br>  &#125;<br><br>  <span class="hljs-meta">@Get</span>(<span class="hljs-string">&#x27;/admin&#x27;</span>)<br>  <span class="hljs-title function_">admin</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-keyword">return</span> &#123;&#125;<br>  &#125;<br>&#125;<br><span class="hljs-comment">//  findAll访问就是  xxx/user</span><br><span class="hljs-comment">//  admin访问就是    xxx/user/admin</span><br></code></pre></td></tr></table></figure>
+
+<p>控制器是一个比较核心功能，所有的业务都是围绕它来开展。<code>Nest</code>也提供很多相关的装饰器，接下来一一介绍他们，这里只是简单说明，后面实战会介绍他们的使用。</p>
+<p>请求对象表示 HTTP 请求，并具有请求查询字符串、参数、HTTP 标头等属性，但在大多数情况下，不需要手动获取它们。我们可以使用专用的<code>decorator</code>，例如<code>@Body()</code>或<code>@Query()</code>，它们是开箱即用的。下面是<code>decorator</code>与普通<code>Express</code>对象的比较。</p>
+<p>先说方法参数装饰器：</p>
+<table>
+<thead>
+<tr>
+<th>装饰器名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@Request()</code></td>
+<td>对应<code>Express</code>的<code>req</code>，也可以简写<code>@req</code></td>
+</tr>
+<tr>
+<td><code>@Response()</code></td>
+<td>对应<code>Express</code>的<code>res</code>，也可以简写<code>@res</code></td>
+</tr>
+<tr>
+<td><code>@Next()</code></td>
+<td>对应<code>Express</code>的<code>next</code></td>
+</tr>
+<tr>
+<td><code>@Session()</code></td>
+<td>对应<code>Express</code>的<code>req.session</code></td>
+</tr>
+<tr>
+<td><code>@Param(param?: string)</code></td>
+<td>对应<code>Express</code>的<code>req.params</code></td>
+</tr>
+<tr>
+<td><code>@Body(param?: string)</code></td>
+<td>对应<code>Express</code>的<code>req.body</code></td>
+</tr>
+<tr>
+<td><code>@Query(param?: string)</code></td>
+<td>对应<code>Express</code>的<code>req.query</code></td>
+</tr>
+<tr>
+<td><code>@Headers(param?: string)</code></td>
+<td>对应<code>Express</code>的<code>req.headers</code></td>
+</tr>
+</tbody></table>
+<p>先说方法装饰器：</p>
+<table>
+<thead>
+<tr>
+<th>装饰器名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>@Post()</code></td>
+<td>对应<code>Express</code>的<code>Post</code>方法</td>
+</tr>
+<tr>
+<td><code>@Get()</code></td>
+<td>对应<code>Express</code>的<code>Get</code>方法</td>
+</tr>
+<tr>
+<td><code>@Put()</code></td>
+<td>对应<code>Express</code>的<code>Put</code>方法</td>
+</tr>
+<tr>
+<td><code>@Delete()</code></td>
+<td>对应<code>Express</code>的<code>Delete</code>方法</td>
+</tr>
+<tr>
+<td><code>@All()</code></td>
+<td>对应<code>Express</code>的<code>All</code>方法</td>
+</tr>
+<tr>
+<td><code>@Patch()</code></td>
+<td>对应<code>Express</code>的<code>Patch</code>方法</td>
+</tr>
+<tr>
+<td><code>@Options()</code></td>
+<td>对应<code>Express</code>的<code>Options</code>方法</td>
+</tr>
+<tr>
+<td><code>@Head()</code></td>
+<td>对应<code>Express</code>的<code>Head</code>方法</td>
+</tr>
+<tr>
+<td><code>@Render()</code></td>
+<td>对应<code>Express</code>的<code>res.render</code>方法</td>
+</tr>
+<tr>
+<td><code>@Header()</code></td>
+<td>对应<code>Express</code>的<code>res.header</code>方法</td>
+</tr>
+<tr>
+<td><code>@HttpCode()</code></td>
+<td>对应<code>Express</code>的<code>res.status</code>方法，可以配合<code>HttpStatus</code>枚举</td>
+</tr>
+</tbody></table>
+<p>以上基本都是控制器装饰器，一些常用的 HTTP 请求参数需要使用对应的方法装饰器和参数来配合使用。</p>
+<p>关于返回响应数据，<code>Nest</code>也提供 2 种解决方案：</p>
+<ol>
+<li>直接返回一个<code>JavaScript</code>对象或数组时，它将被自动解析为<code>JSON</code>。当我们返回一个字符串时，<code>Nest</code>只发送一个字符串，而不尝试解析它。默认情况下，响应的状态代码总是<code>200</code>,<br>但<code>POST</code>请求除外，它使用<code>201</code>。可以使用<code>@HttpCode(HttpStatus.xxxx)</code>装饰器可以很容易地改变这种行为。</li>
+<li>我们可以使用库特定的响应对象，我们这里可以使用<a target="_blank" rel="noopener" href="https://github.com/res">@res</a>()修饰符在函数签名中注入该对象，<br><code>res.status(HttpStatus.CREATED).send()</code>或者<code>res.status(HttpStatus.OK).json([])</code>等<code>Express</code>的<code>res</code>方法。</li>
+</ol>
+<p><strong>注意</strong>：禁止同时使用这两种方法，如果 2 个都使用，那么会出现这个路由不工作的情况。如果你在使用时候发现路由不响应，请检查有没有出现混用的情况，如果是正常情况下，推荐第一种方式返回。</p>
+<blockquote>
+<p>控制器必须注册到该模块元数据的<code>controllers</code>里才能正常工作。</p>
+</blockquote>
+<p>关于控制器异常处理，在后面过滤器讲解。</p>
+<h3 id="服务与依赖注入-Provider-Dependency-injection"><a href="#服务与依赖注入-Provider-Dependency-injection" class="headerlink" title="服务与依赖注入 Provider Dependency injection"></a>服务与依赖注入 Provider Dependency injection</h3><p>服务是一个广义的概念，它包括应用所需的任何值、函数或特性。狭义的服务是一个明确定义了用途的类。它应该做一些具体的事，并做好。</p>
+<p><code>Nest</code> 把控制器和服务区分开，以提高模块性和复用性。</p>
+<p>通过把控制器中和逻辑有关的功能与其他类型的处理分离开，你可以让控制器类更加精简、高效。 理想情况下，控制器的工作只管申明装饰器和响应数据，而不用顾及其它。 它应该提供请求和响应桥梁，以便作为视图（由模板渲染）和应用逻辑（通常包含一些模型的概念）的中介者。</p>
+<p>控制器不需要定义任何诸如从客户端获取数据、验证用户输入或直接往控制台中写日志等工作。 而要把这些任务委托给各种服务。通过把各种处理任务定义到可注入的服务类中，你可以让它可以被任何控制器使用。 通过在不同的环境中注入同一种服务的不同提供商，你还可以让你的应用更具适应性。</p>
+<p><code>Nest</code> 不会强制遵循这些原则。它只会通过依赖注入让你能更容易地将应用逻辑分解为服务，并让这些服务可用于各个控制器中。</p>
+<p>控制器是服务的消费者，也就是说，你可以把一个服务注入到控制器中，让控制器类得以访问该服务类。</p>
+<p>那么服务就是提供者，基本上，几乎所有事情都可以看作是提供者—服务、存储库、工厂、助手等等。它们都可以通过构造函数注入依赖关系，这意味着它们可以彼此创建各种关系。</p>
+<p>在 <code>Nest</code> 中，要把一个类定义为服务，就要用 <code>@Injectable</code> 装饰器来提供元数据，以便让 <code>Nest</code> 可以把它作为依赖注入到控制器中。</p>
+<p>同样，也要使用 <code>@Injectable</code> 装饰器来表明一个控制器或其它类（比如另一个服务、模块等）拥有一个依赖。 依赖并不必然是服务，它也可能是函数或值等等。</p>
+<p>依赖注入（通常简称 DI）被引入到 <code>Nest</code> 框架中，并且到处使用它，来为新建的控制器提供所需的服务或其它东西。</p>
+<p>注入器是主要的机制。你不用自己创建 <code>Nest</code> 注入器。<code>Nest</code> 会在启动过程中为你创建全应用级注入器。</p>
+<p>该注入器维护一个包含它已创建的依赖实例的容器，并尽可能复用它们。</p>
+<p>提供者是创建依赖项的配方。对于服务来说，它通常就是这个服务类本身。你在应用中要用到的任何类都必须使用该应用的注入器注册一个提供商，以便注入器可以使用它来创建新实例。</p>
+<p>关于依赖注入，前端框架<code>Angular</code>应该是最出名的，可以看<a target="_blank" rel="noopener" href="https://angular.cn/guide/dependency-injection-pattern">这里</a>介绍。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 用户服务</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Injectable</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nestjs/common&#x27;</span><br><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">User</span> &#123;&#125;<br><br><span class="hljs-meta">@Injectable</span>()<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserService</span> &#123;<br>  <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> <span class="hljs-attr">user</span>: <span class="hljs-title class_">User</span>[] = []<br><br>  <span class="hljs-title function_">create</span>(<span class="hljs-params">cat: User</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">user</span>.<span class="hljs-title function_">push</span>(<span class="hljs-title class_">User</span>)<br>  &#125;<br><br>  <span class="hljs-title function_">findAll</span>(): <span class="hljs-title class_">User</span>[] &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">user</span><br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 用户控制器</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Controller</span>, <span class="hljs-title class_">Get</span>, <span class="hljs-title class_">Post</span>, <span class="hljs-title class_">Body</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nestjs/common&#x27;</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">UserService</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./user.service&#x27;</span><br><br><span class="hljs-meta">@Controller</span>(<span class="hljs-string">&#x27;user&#x27;</span>)<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> userService: UserService</span>) &#123;&#125;<br><br>  <span class="hljs-meta">@Post</span>()<br>  <span class="hljs-keyword">async</span> <span class="hljs-title function_">create</span>(<span class="hljs-params"><span class="hljs-meta">@Body</span>() createUserDto: CreateUserDto</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">userService</span>.<span class="hljs-title function_">create</span>(createUserDto)<br>  &#125;<br><br>  <span class="hljs-meta">@Get</span>()<br>  <span class="hljs-keyword">async</span> <span class="hljs-title function_">findAll</span>(): <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-title class_">User</span>[]&gt; &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">userService</span>.<span class="hljs-title function_">findAll</span>()<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>自定义服务</p>
+<p>我们不光可以使用<code>@Injectable()</code>来定义服务，还可以使用其他三种方式：<code>value</code>、<code>class</code>、<code>factory</code>。<br>这个和 Angular 一样，默认<code>@Injectable()</code>来定义服务就是<code>class</code>。</p>
+<p>使用<code>value</code>：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> customObject = &#123;&#125;;<br><span class="hljs-meta">@Module</span>(&#123;<br>    <span class="hljs-attr">controllers</span>: [ <span class="hljs-title class_">UsersController</span> ],<br>    <span class="hljs-attr">components</span>: [<br>        &#123; <span class="hljs-attr">provide</span>: <span class="hljs-title class_">UsersService</span>, <span class="hljs-attr">useValue</span>: customObject &#125;<br>    ],<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：<code>useValue</code>可以是任何值，在这个模块中，<code>Nest</code>将把<code>customObject</code>与<code>UsersService</code>相关联，你还可以使用做测试替身(单元测试)。</p>
+</blockquote>
+<p>使用<code>class</code>：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">UserService</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./user.service&#x27;</span>;<br><span class="hljs-keyword">const</span> customObject = &#123;&#125;;<br><span class="hljs-meta">@Module</span>(&#123;<br>    <span class="hljs-attr">controllers</span>: [ <span class="hljs-title class_">UsersController</span> ],<br>    <span class="hljs-attr">components</span>: [<br>        &#123; <span class="hljs-attr">provide</span>: <span class="hljs-title class_">UsersService</span>, <span class="hljs-attr">useClass</span>: <span class="hljs-title class_">UserService</span> &#125;<br>        <span class="hljs-variable constant_">OR</span><br>        <span class="hljs-title class_">UserService</span><br>    ],<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：只需要在本模块中使用选定的、更具体的类，<code>useClass</code>可以是和<code>provide</code>一样，如果不一样就相当于<code>useClass</code>替换<code>provide</code>。简单理解换方法，不换方法名，常用处理不同环境依赖注入。</p>
+</blockquote>
+<p>使用<code>factory</code>：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-meta">@Module</span>(&#123;<br>    <span class="hljs-attr">controllers</span>: [ <span class="hljs-title class_">UsersController</span> ],<br>    <span class="hljs-attr">components</span>: [<br>        <span class="hljs-title class_">ChatService</span>,<br>        &#123;<br>            <span class="hljs-attr">provide</span>: <span class="hljs-title class_">UsersService</span>,<br>            <span class="hljs-attr">useFactory</span>: <span class="hljs-function">(<span class="hljs-params">chatService</span>) =&gt;</span> &#123;<br>                <span class="hljs-keyword">return</span> <span class="hljs-title class_">Observable</span>.<span class="hljs-title function_">of</span>(<span class="hljs-string">&#x27;customValue&#x27;</span>);<br>            &#125;,<br>            <span class="hljs-attr">inject</span>: [ <span class="hljs-title class_">ChatService</span> ]<br>        &#125;<br>    ],<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：希望提供一个值，该值必须使用其他组件(或自定义包特性)计算，希望提供异步值(只返回可观察的或承诺的值)，例如数据库连接。<code>inject</code>依赖服务，<code>provide</code>注册名，<code>useFactory</code>处理方式，<code>useFactory</code>参数和<code>inject</code>注入数组顺序一样。</p>
+</blockquote>
+<p>如果我们<code>provide</code>注册名不是一个服务怎么办，是一个字符串<code>key</code>，也是很常用的。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-meta">@Module</span>(&#123;<br>    <span class="hljs-attr">controllers</span>: [ <span class="hljs-title class_">UsersController</span> ],<br>    <span class="hljs-attr">components</span>: [<br>        &#123; <span class="hljs-attr">provide</span>: <span class="hljs-string">&#x27;isProductionMode&#x27;</span>, <span class="hljs-attr">useValue</span>: <span class="hljs-literal">false</span> &#125;<br>    ],<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>要用选择的自定义字符串<code>key</code>，您必须告诉 Nest，需要用到<code>@Inject()</code>装饰器，就像这样:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Component</span>, <span class="hljs-title class_">Inject</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;nest.js&#x27;</span><br><br><span class="hljs-meta">@Component</span>()<br><span class="hljs-keyword">class</span> <span class="hljs-title class_">SampleComponent</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-meta">@Inject</span>(<span class="hljs-string">&#x27;isProductionMode&#x27;</span>) <span class="hljs-keyword">private</span> isProductionMode: <span class="hljs-built_in">boolean</span></span>) &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(isProductionMode) <span class="hljs-comment">// false</span><br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>还有一个循环依赖的坑，后面实战会介绍怎么避免和解决这个坑。</p>
+<blockquote>
+<p>服务必须注册到该模块元数据的<code>providers</code>里才能正常工作。如果需要给其他模块使用，需要添加到<code>exports</code>中。</p>
+</blockquote>
+<h3 id="中间件-Middleware"><a href="#中间件-Middleware" class="headerlink" title="中间件 Middleware"></a>中间件 Middleware</h3><p>中间件是在路由处理程序之前调用的函数。中间件功能可以访问请求和响应对象，以及应用程序请求-响应周期中的下一个中间件功能。下一个中间件函数通常由一个名为<code>next</code>的变量表示。在<code>Express</code>中的中间件是非常出名的。</p>
+<p>默认情况下，<code>Nest</code>中间件相当于表示<code>Express</code>中间件。和<code>Express</code>中间件功能类似，中间件功能可以执行以下任务</p>
+<ul>
+<li>执行任何代码。</li>
+<li>对请求和响应对象进行更改。</li>
+<li>请求-响应周期结束。</li>
+<li>调用堆栈中的下一个中间件函数。</li>
+<li>如果当前中间件函数没有结束请求-响应周期，它必须调用<code>next()</code>将控制权传递给下一个中间件函数。否则，请求将被挂起。</li>
+</ul>
+<p>简单理解<code>Nest</code>中间件就是把<code>Express</code>中间件进行了包装。那么好处就是只要你想用中间件，可以立马搜索<code>Express</code>中间件，拿来即可使用。是不是很方便。</p>
+<p><code>Nest</code>中间件要么是一个函数，要么是一个带有<code>@Injectable()</code>装饰器的类。类应该实现<code>NestMiddleware</code>接口，而函数却没有任何特殊要求。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 实现一个带有`@Injectable()`装饰器的类打印中间件</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Injectable</span>, <span class="hljs-title class_">NestMiddleware</span>, <span class="hljs-title class_">MiddlewareFunction</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nestjs/common&#x27;</span><br><br><span class="hljs-meta">@Injectable</span>()<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LoggerMiddleware</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">NestMiddleware</span> &#123;<br>  <span class="hljs-title function_">resolve</span>(...<span class="hljs-attr">args</span>: <span class="hljs-built_in">any</span>[]): <span class="hljs-title class_">MiddlewareFunction</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Request...&#x27;</span>)<br>      <span class="hljs-title function_">next</span>()<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>怎么使用，有两种方式：</p>
+<ol>
+<li>中间件可以全局注册</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">bootstrap</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-comment">// 创建Nest.js实例</span><br>  <span class="hljs-keyword">const</span> app = <span class="hljs-keyword">await</span> <span class="hljs-title class_">NestFactory</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">AppModule</span>, application, &#123;<br>    <span class="hljs-attr">bodyParser</span>: <span class="hljs-literal">true</span>,<br>  &#125;)<br>  <span class="hljs-comment">// 注册中间件</span><br>  app.<span class="hljs-title function_">use</span>(<span class="hljs-title class_">LoggerMiddleware</span>())<br>  <span class="hljs-comment">// 监听3000端口</span><br>  <span class="hljs-keyword">await</span> app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>)<br>&#125;<br><span class="hljs-title function_">bootstrap</span>()<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>中间件可以模块里局部注册</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CnodeModule</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">NestModule</span> &#123;<br>  <span class="hljs-title function_">configure</span>(<span class="hljs-params">consumer: MiddlewareConsumer</span>) &#123;<br>    consumer<br>      .<span class="hljs-title function_">apply</span>(<span class="hljs-title class_">LoggerMiddleware</span>)<br>      .<span class="hljs-title function_">with</span>(<span class="hljs-string">&#x27;ApplicationModule&#x27;</span>)<br>      .<span class="hljs-title function_">exclude</span>(&#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-attr">method</span>: <span class="hljs-title class_">RequestMethod</span>.<span class="hljs-property">GET</span> &#125;, &#123; <span class="hljs-attr">path</span>: <span class="hljs-string">&#x27;user&#x27;</span>, <span class="hljs-attr">method</span>: <span class="hljs-title class_">RequestMethod</span>.<span class="hljs-property">POST</span> &#125;)<br>      .<span class="hljs-title function_">forRoutes</span>(<span class="hljs-title class_">UserController</span>)<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// or</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CnodeModule</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">NestModule</span> &#123;<br>  <span class="hljs-title function_">configure</span>(<span class="hljs-params">consumer: MiddlewareConsumer</span>) &#123;<br>    consumer.<span class="hljs-title function_">apply</span>(<span class="hljs-title class_">LoggerMiddleware</span>).<span class="hljs-title function_">forRoutes</span>(<span class="hljs-string">&#x27;*&#x27;</span>)<br>  &#125;<br>&#125;<br><br><span class="hljs-comment">// 1. with是提供数据，resolve里可以获取，exclude指定的路由，forRoutes注册路由，</span><br><span class="hljs-comment">// 2. forRoutes传递&#x27;*&#x27;表示作用全部路由</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：他们注册地方不一样，影响的路由也不一样，全局注册影响全部路由，局部注册只是影响当前路由下的路由。</p>
+</blockquote>
+<h3 id="过滤器-Exception-filter"><a href="#过滤器-Exception-filter" class="headerlink" title="过滤器 Exception filter"></a>过滤器 Exception filter</h3><p>异常过滤器层负责在整个应用程序中处理所有抛出的异常。当发现未处理的异常时，最终用户将收到适当的用户友好响应。</p>
+<p>默认显示响应<code>JSON</code>信息</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ts">&#123;<br>  <span class="hljs-string">&quot;statusCode&quot;</span>: <span class="hljs-number">500</span>,<br>  <span class="hljs-string">&quot;message&quot;</span>: <span class="hljs-string">&quot;Internal server error&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用底层过滤器</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-meta">@Post</span>()<br><span class="hljs-keyword">async</span> <span class="hljs-title function_">create</span>(<span class="hljs-params"><span class="hljs-meta">@Body</span>() createCatDto: CreateCatDto</span>) &#123;<br>  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpException</span>(<span class="hljs-string">&#x27;Forbidden&#x27;</span>, <span class="hljs-title class_">HttpStatus</span>.<span class="hljs-property">FORBIDDEN</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>HttpException 接受 2 个参数：</p>
+<ul>
+<li>消息内容，可以是字符串错误消息或者对象<code>&#123;status: 状态码，error：错误消息&#125;</code></li>
+<li>状态码</li>
+</ul>
+<p>每次写这么多很麻烦，那么过滤器也支持扩展和定制快捷过滤器对象。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ForbiddenException</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">HttpException</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) &#123;<br>    <span class="hljs-variable language_">super</span>(<span class="hljs-string">&#x27;Forbidden&#x27;</span>, <span class="hljs-title class_">HttpStatus</span>.<span class="hljs-property">FORBIDDEN</span>)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>就可以直接使用了：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-meta">@Post</span>()<br><span class="hljs-keyword">async</span> <span class="hljs-title function_">create</span>(<span class="hljs-params"><span class="hljs-meta">@Body</span>() createCatDto: CreateCatDto</span>) &#123;<br>  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ForbiddenException</span>(<span class="hljs-string">&#x27;Forbidden&#x27;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>是不是，方便很多了。</p>
+<p><code>Nest</code>给我们提供很多这样快捷常用的 HTTP 状态错误：</p>
+<ul>
+<li>BadRequestException 400</li>
+<li>UnauthorizedException 401</li>
+<li>ForbiddenException 403</li>
+<li>NotFoundException 404</li>
+<li>NotAcceptableException 406</li>
+<li>RequestTimeoutException 408</li>
+<li>ConflictException 409</li>
+<li>GoneException 410</li>
+<li>PayloadTooLargeException 413</li>
+<li>UnsupportedMediaTypeException 415</li>
+<li>UnprocessableEntityException 422</li>
+<li>InternalServerErrorException 500</li>
+<li>NotImplementedException 501</li>
+<li>BadGatewayException 502</li>
+<li>ServiceUnavailableException 503</li>
+<li>GatewayTimeoutException 504</li>
+</ul>
+<p>异常处理程序基础很好,但有时你可能想要完全控制异常层,例如,添加一些日志记录或使用一个不同的<code>JSON</code>模式基于一些选择的因素。前面说了，<code>Nest</code>给我们内置返回响应模板，这个不能接受的，我们要自定义怎么办了，<code>Nest</code>给我们扩展空间。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">ExceptionFilter</span>, <span class="hljs-title class_">Catch</span>, <span class="hljs-title class_">ArgumentsHost</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nestjs/common&#x27;</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">HttpException</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nestjs/common&#x27;</span><br><br><span class="hljs-meta">@Catch</span>(<span class="hljs-title class_">HttpException</span>)<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HttpExceptionFilter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ExceptionFilter</span> &#123;<br>  <span class="hljs-keyword">catch</span>(<span class="hljs-attr">exception</span>: <span class="hljs-title class_">HttpException</span>, <span class="hljs-attr">host</span>: <span class="hljs-title class_">ArgumentsHost</span>) &#123;<br>    <span class="hljs-keyword">const</span> ctx = host.<span class="hljs-title function_">switchToHttp</span>()<br>    <span class="hljs-keyword">const</span> response = ctx.<span class="hljs-title function_">getResponse</span>()<br>    <span class="hljs-keyword">const</span> request = ctx.<span class="hljs-title function_">getRequest</span>()<br>    <span class="hljs-keyword">const</span> status = exception.<span class="hljs-title function_">getStatus</span>()<br><br>    response.<span class="hljs-title function_">status</span>(status).<span class="hljs-title function_">json</span>(&#123;<br>      <span class="hljs-attr">statusCode</span>: status,<br>      <span class="hljs-attr">timestamp</span>: <span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>().<span class="hljs-title function_">toISOString</span>(),<br>      <span class="hljs-attr">path</span>: request.<span class="hljs-property">url</span>,<br>    &#125;)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>它返回是一个<code>Express</code>的方法<code>response</code>，来定制自己的响应异常格式。</p>
+<p>怎么使用，有四种方式：</p>
+<ol>
+<li>直接<code>@UseFilters()</code>装饰器里面使用，作用当前这条路由的响应结果</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-meta">@Post</span>()<br><span class="hljs-meta">@UseFilters</span>(<span class="hljs-title class_">HttpExceptionFilter</span> | <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpExceptionFilter</span>())<br><span class="hljs-keyword">async</span> <span class="hljs-title function_">create</span>(<span class="hljs-params"><span class="hljs-meta">@Body</span>() createCatDto: CreateCatDto</span>) &#123;<br>  <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ForbiddenException</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>直接<code>@UseFilters()</code>装饰器里面使用，作用当前控制器路由所有的响应结果</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-meta">@UseFilters</span>(<span class="hljs-title class_">HttpExceptionFilter</span> | <span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpExceptionFilter</span>())<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CatsController</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>在全局注册使用内置实例方法<code>useGlobalFilters</code>，作用整个项目。过滤器这种比较通用推荐全局注册。</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">bootstrap</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> app = <span class="hljs-keyword">await</span> <span class="hljs-title class_">NestFactory</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">ApplicationModule</span>)<br>  app.<span class="hljs-title function_">useGlobalFilters</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HttpExceptionFilter</span>())<br>  <span class="hljs-keyword">await</span> app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>)<br>&#125;<br><span class="hljs-title function_">bootstrap</span>()<br></code></pre></td></tr></table></figure>
+
+<h3 id="管道-Pipe"><a href="#管道-Pipe" class="headerlink" title="管道 Pipe"></a>管道 Pipe</h3><p>管道可以把你的请求参数根据特定条件验证类型、对象结构或映射数据。管道是一个纯函数，不应该从数据库中选择或调用任何服务操作。</p>
+<p>定义一个简单管道：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">PipeTransform</span>, <span class="hljs-title class_">Injectable</span>, <span class="hljs-title class_">ArgumentMetadata</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nestjs/common&#x27;</span><br><br><span class="hljs-meta">@Injectable</span>()<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ValidationPipe</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">PipeTransform</span> &#123;<br>  <span class="hljs-title function_">transform</span>(<span class="hljs-params">value: <span class="hljs-built_in">any</span>, metadata: ArgumentMetadata</span>) &#123;<br>    <span class="hljs-keyword">return</span> value<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>管道是用<code>@Injectable()</code>装饰器注释的类。应该实现<code>PipeTransform</code>接口，具体代码在<code>transform</code>实现，这个和<code>Angular</code>很像。</p>
+<p><code>Nest</code>处理请求数据验证，在数据不正确时可以抛出异常，使用过滤器来捕获。</p>
+<p><code>Nest</code>为我们内置了 2 个通用的管道，一个数据验证<code>ValidationPipe</code>，一个数据转换<code>ParseIntPipe</code>。</p>
+<p>使用<code>ValidationPipe</code>需要配合<code>class-validator class-transformer</code>，如果你不安装它们 ，你使用<code>ValidationPipe</code>会报错的。</p>
+<blockquote>
+<p><strong>提示</strong>：<code>ValidationPipe</code>不光可以验证请求数据也做数据类型转换，这个可以看官网。</p>
+</blockquote>
+<p>怎么使用，有四种方式</p>
+<ol>
+<li>直接<code>@Body()</code>装饰器里面使用，只作用当前 body 这个参数</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 用户控制器</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Controller</span>, <span class="hljs-title class_">Get</span>, <span class="hljs-title class_">Post</span>, <span class="hljs-title class_">Body</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nestjs/common&#x27;</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">UserService</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./user.service&#x27;</span><br><br><span class="hljs-meta">@Controller</span>(<span class="hljs-string">&#x27;user&#x27;</span>)<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> userService: UserService</span>) &#123;&#125;<br>  <span class="hljs-meta">@Post</span>()<br>  <span class="hljs-keyword">async</span> <span class="hljs-title function_">create</span>(<span class="hljs-params"><span class="hljs-meta">@Body</span>(ValidationPipe | <span class="hljs-keyword">new</span> ValidationPipe()) createUserDto: CreateUserDto</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">userService</span>.<span class="hljs-title function_">create</span>(createUserDto)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>在<code>@UsePipes()</code>装饰器里面使用，作用当前这条路由所有的请求参数</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 用户控制器</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Controller</span>, <span class="hljs-title class_">Get</span>, <span class="hljs-title class_">Post</span>, <span class="hljs-title class_">Body</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nestjs/common&#x27;</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">UserService</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./user.service&#x27;</span><br><br><span class="hljs-meta">@Controller</span>(<span class="hljs-string">&#x27;user&#x27;</span>)<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> userService: UserService</span>) &#123;&#125;<br>  <span class="hljs-meta">@Post</span>()<br>  <span class="hljs-meta">@UsePipes</span>(<span class="hljs-title class_">ValidationPipe</span> | <span class="hljs-keyword">new</span> <span class="hljs-title class_">ValidationPipe</span>())<br>  <span class="hljs-keyword">async</span> <span class="hljs-title function_">create</span>(<span class="hljs-params"><span class="hljs-meta">@Body</span>() createUserDto: CreateUserDto</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">userService</span>.<span class="hljs-title function_">create</span>(createUserDto)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>在<code>@UsePipes()</code>装饰器里面使用，作用当前控制器路由所有的请求参数</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-comment">// 用户控制器</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Controller</span>, <span class="hljs-title class_">Get</span>, <span class="hljs-title class_">Post</span>, <span class="hljs-title class_">Body</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nestjs/common&#x27;</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">UserService</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./user.service&#x27;</span><br><br><span class="hljs-meta">@Controller</span>(<span class="hljs-string">&#x27;user&#x27;</span>)<br><span class="hljs-meta">@UsePipes</span>(<span class="hljs-title class_">ValidationPipe</span> | <span class="hljs-keyword">new</span> <span class="hljs-title class_">ValidationPipe</span>())<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> userService: UserService</span>) &#123;&#125;<br>  <span class="hljs-meta">@Post</span>()<br>  <span class="hljs-keyword">async</span> <span class="hljs-title function_">create</span>(<span class="hljs-params"><span class="hljs-meta">@Body</span>() createUserDto: CreateUserDto</span>) &#123;<br>    <span class="hljs-variable language_">this</span>.<span class="hljs-property">userService</span>.<span class="hljs-title function_">create</span>(createUserDto)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>在全局注册使用内置实例方法<code>useGlobalPipes</code>，作用整个项目。这个管道比较通用推荐全局注册。</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">bootstrap</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> app = <span class="hljs-keyword">await</span> <span class="hljs-title class_">NestFactory</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">ApplicationModule</span>)<br>  app.<span class="hljs-title function_">useGlobalPipes</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ValidationPipe</span>())<br>  <span class="hljs-keyword">await</span> app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>)<br>&#125;<br><span class="hljs-title function_">bootstrap</span>()<br></code></pre></td></tr></table></figure>
+
+<p>那么<code>createUserDto</code>怎么玩了，后面实战教程会讲解，这里不展开。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-meta">@Get</span>(<span class="hljs-string">&#x27;:id&#x27;</span>)<br><span class="hljs-keyword">async</span> <span class="hljs-title function_">findOne</span>(<span class="hljs-params"><span class="hljs-meta">@Param</span>(<span class="hljs-string">&#x27;id&#x27;</span>, ParseIntPipe | <span class="hljs-keyword">new</span> ParseIntPipe()) id</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">await</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">catsService</span>.<span class="hljs-title function_">findOne</span>(id);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>ParseIntPipe</code>使用也很简单，就是把一个字符串转换成数字。也是比较常用的，特别是你的 id 是字符串数字的时候，用<code>get</code>，<code>put</code>，<code>patch</code>，<code>delete</code>等请求，有 id 时候特别好用了。<br>还可以做分页处理，后面实战中用到，具体在讲解。</p>
+<h3 id="守卫-Guard"><a href="#守卫-Guard" class="headerlink" title="守卫 Guard"></a>守卫 Guard</h3><p>守卫可以做权限认证，如果你没有权限可以拒绝你访问这个路由，默认返回<code>403</code>错误。</p>
+<p>定义一个简单管道：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Injectable</span>, <span class="hljs-title class_">CanActivate</span>, <span class="hljs-title class_">ExecutionContext</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nestjs/common&#x27;</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Observable</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;rxjs&#x27;</span><br><br><span class="hljs-meta">@Injectable</span>()<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AuthGuard</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">CanActivate</span> &#123;<br>  <span class="hljs-title function_">canActivate</span>(<span class="hljs-attr">context</span>: <span class="hljs-title class_">ExecutionContext</span>): <span class="hljs-built_in">boolean</span> | <span class="hljs-title class_">Promise</span>&lt;<span class="hljs-built_in">boolean</span>&gt; | <span class="hljs-title class_">Observable</span>&lt;<span class="hljs-built_in">boolean</span>&gt; &#123;<br>    <span class="hljs-keyword">const</span> request = context.<span class="hljs-title function_">switchToHttp</span>().<span class="hljs-title function_">getRequest</span>()<br>    <span class="hljs-keyword">return</span> <span class="hljs-title function_">validateRequest</span>(request)<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>守卫是用<code>@Injectable()</code>装饰器注释的类。应该实现<code>CanActivate</code>接口，具体代码在<code>canActivate</code>方法实现，返回一个布尔值，true 就表示有权限，false 抛出异常 403 错误。这个写法和<code>Angular</code>很像。</p>
+<p>怎么使用，有两种方式</p>
+<ol>
+<li>直接<code>@UseGuards()</code>装饰器里面使用，作用当前控制器路由所有的请求参数</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-meta">@Controller</span>(<span class="hljs-string">&#x27;cats&#x27;</span>)<br><span class="hljs-meta">@UseGuards</span>(<span class="hljs-title class_">RolesGuard</span> | <span class="hljs-keyword">new</span> <span class="hljs-title class_">RolesGuard</span>())<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CatsController</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>在全局注册使用内置实例方法<code>useGlobalGuards</code>，作用整个项目。</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">await</span> <span class="hljs-title class_">NestFactory</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">ApplicationModule</span>)<br>app.<span class="hljs-title function_">useGlobalGuards</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">RolesGuard</span>())<br></code></pre></td></tr></table></figure>
+
+<p>如果你不做权限管理相关的身份验证操作，基本用不上这个功能。不过还是很有用抽象功能。我们这个实战项目也会用到这个功能。</p>
+<h3 id="拦截器-Interceptor"><a href="#拦截器-Interceptor" class="headerlink" title="拦截器 Interceptor"></a>拦截器 Interceptor</h3><p>拦截器是一个比较特殊强大功能，类似于 AOP 面向切面编程，前端编程中也尝尝使用这样的技术，比如各种 http 请求库都提供类似功能。有名的框架<code>Angular</code>框架 HTTP 模块。有名的库有老牌的<code>jquery</code>和新潮的<code>axios</code>等。</p>
+<p>定义一个简单拦截器：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Injectable</span>, <span class="hljs-title class_">NestInterceptor</span>, <span class="hljs-title class_">ExecutionContext</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;@nestjs/common&#x27;</span><br><span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">Observable</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;rxjs&#x27;</span><br><span class="hljs-keyword">import</span> &#123; tap &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;rxjs/operators&#x27;</span><br><br><span class="hljs-meta">@Injectable</span>()<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LoggingInterceptor</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">NestInterceptor</span> &#123;<br>  <span class="hljs-title function_">intercept</span>(<span class="hljs-attr">context</span>: <span class="hljs-title class_">ExecutionContext</span>, <span class="hljs-attr">call$</span>: <span class="hljs-title class_">Observable</span>&lt;<span class="hljs-built_in">any</span>&gt;): <span class="hljs-title class_">Observable</span>&lt;<span class="hljs-built_in">any</span>&gt; &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;Before...&#x27;</span>)<br>    <span class="hljs-keyword">const</span> now = <span class="hljs-title class_">Date</span>.<span class="hljs-title function_">now</span>()<br>    <span class="hljs-keyword">return</span> call$.<span class="hljs-title function_">pipe</span>(<span class="hljs-title function_">tap</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`After... <span class="hljs-subst">$&#123;<span class="hljs-built_in">Date</span>.now() - now&#125;</span>ms`</span>)))<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>拦截器是用<code>@Injectable()</code>装饰器注释的类。应该实现<code>NestInterceptor</code>接口，具体代码在<code>intercept</code>方法实现，返回一个<code>Observable</code>，这个写法和<code>Angular</code>很像。</p>
+<p>拦截器可以做什么：</p>
+<ul>
+<li>在方法执行之前/之后绑定额外的逻辑</li>
+<li>转换从函数返回的结果</li>
+<li>转换从函数抛出的异常</li>
+<li>扩展基本的函数行为</li>
+<li>完全覆盖一个函数取决于所选择的条件(例如缓存)</li>
+</ul>
+<p>怎么使用，有三种方式</p>
+<ol>
+<li>直接<code>@UseInterceptors()</code>装饰器里面使用，作用当前路由，还可以传参数，需要特殊处理，写成高阶函数，也可以使用依赖注入。</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-meta">@Post</span>(<span class="hljs-string">&#x27;upload&#x27;</span>)<br><span class="hljs-meta">@UseInterceptors</span>(<span class="hljs-title class_">FileFieldsInterceptor</span> | <span class="hljs-title class_">FileFieldsInterceptor</span>([<br>  &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;avatar&#x27;</span>, <span class="hljs-attr">maxCount</span>: <span class="hljs-number">1</span> &#125;,<br>  &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;background&#x27;</span>, <span class="hljs-attr">maxCount</span>: <span class="hljs-number">1</span> &#125;,<br>]))<br><span class="hljs-title function_">uploadFile</span>(<span class="hljs-params"><span class="hljs-meta">@UploadedFiles</span>() files</span>) &#123;<br>  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(files);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>直接<code>@UseInterceptors()</code>装饰器里面使用，作用当前控制器路由，这个不能传参数，可以使用依赖注入</li>
+</ol>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs coffeescript">@UseInterceptors(LoggingInterceptor | <span class="hljs-keyword">new</span> LoggingInterceptor())<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CatsController</span> &#123;&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>在全局注册使用内置实例方法<code>useGlobalInterceptors</code>，作用整个项目。</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ts"><span class="hljs-keyword">const</span> app = <span class="hljs-keyword">await</span> <span class="hljs-title class_">NestFactory</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">ApplicationModule</span>)<br>app.<span class="hljs-title function_">useGlobalInterceptors</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">LoggingInterceptor</span>())<br></code></pre></td></tr></table></figure>
+
+<p>拦截器可以做很多功能，比如缓存处理，响应数据转换，异常捕获转换，响应超时跑错，打印请求响应日志。我们这个实战项目也会用到这个功能。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>模块是按业务逻辑划分基本单元，包含控制器和服务。控制器是处理请求和响应数据的部件，服务处理实际业务逻辑的部件。</p>
+<p>中间件是路由处理 Handler 前的数据处理层，只能在模块或者全局注册，可以做日志处理中间件、用户认证中间件等处理，中间件和 express 的中间件一样，所以可以访问整个 request、response 的上下文，模块作用域可以依赖注入服务。全局注册只能是一个纯函数或者一个高阶函数。</p>
+<p>管道是数据流处理，在中间件后路由处理前做数据处理，可以控制器中的类、方法、方法参数、全局注册使用，只能是一个纯函数。可以做数据验证，数据转换等数据处理。</p>
+<p>守卫是决定请求是否可以到达对应的路由处理器，能够知道当前路由的执行上下文，可以控制器中的类、方法、全局注册使用，可以做角色守卫。</p>
+<p>拦截器是进入控制器之前和之后处理相关逻辑，能够知道当前路由的执行上下文，可以控制器中的类、方法、全局注册使用，可以做日志、事务处理、异常处理、响应数据格式等。</p>
+<p>过滤器是捕获错误信息，返回响应给客户端。可以控制器中的类、方法、全局注册使用，可以做自定义响应异常格式。</p>
+<p>中间件、过滤器、管道、守卫、拦截器，这是几个比较容易混淆的东西。他们有个共同点都是和控制器挂钩的中间抽象处理层，但是他们的职责却不一样。</p>
+<p>全局管道、守卫、过滤器和拦截器和任何模块松散耦合。他们不能依赖注入任何服务，因为他们不属于任何模块。<br>可以使用控制器作用域、方法作用域或辅助作用域仅由管道支持，其他除了中间件是模块作用域，都是控制器作用域和方法作用域。</p>
+<blockquote>
+<p><strong>重点</strong>：在示例给出了它们的写法，注意全局管道、守卫、过滤器和拦截器，只能 new，全局中间件是纯函数，全局管道、守卫、过滤器和拦截器，中间件都不能依赖注入。中间件模块注册也不能用 new，可以依赖注入。管道、守卫、过滤器和拦截器局部注册可以使用 new 和类名，除了管道以为其他都可以依赖注入。拦截器和守卫可以写成高阶方法来传参，达到定制目的。</p>
+</blockquote>
+<p>管道、过滤器、拦截器守卫都有各自的具体职责。拦截器和守卫与模块结合在一起，而管道和过滤器则运行在模块区域之外。管道任务是根据特定条件验证类型、对象结构或映射数据。过滤器任务是捕获各种错误返回给客户端。管道不是从数据库中选择或调用任何服务的适当位置。另一方面来说，拦截器不应该验证对象模式或修饰数据。如果需要重写，则必须由数据库调用服务引起。守卫决定了哪些路由可以访问，它接管你的验证责任。</p>
+<p>那你肯定最关心他们执行顺序是什么：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">客户端请求 ---&gt; 中间件 ---&gt; 守卫 ---&gt; 拦截器之前 ---&gt; 管道 ---&gt; 控制器处理并响应 ---&gt; 拦截器之后 ---&gt; 过滤器<br></code></pre></td></tr></table></figure>
+
+<p>我们来看 2 张图，</p>
+<p>请求返回响应结果：</p>
+<p><a target="_blank" rel="noopener" href="https://user-images.githubusercontent.com/6111778/44449059-a3f8f900-a61f-11e8-9414-15ae4fe6f312.png"><img src="https://user-images.githubusercontent.com/6111778/44449059-a3f8f900-a61f-11e8-9414-15ae4fe6f312.png" srcset="/blog/img/loading.gif" lazyload alt="hdvo ug9_58 g 9o_n n 7o"></a></p>
+<p>请求返回响应异常：</p>
+<p><a target="_blank" rel="noopener" href="https://user-images.githubusercontent.com/6111778/44449066-a9eeda00-a61f-11e8-92c4-8aca90649f53.png"><img src="https://user-images.githubusercontent.com/6111778/44449066-a9eeda00-a61f-11e8-92c4-8aca90649f53.png" srcset="/blog/img/loading.gif" lazyload alt="nmzgsgsc5ynm_ghfsxzl5jh"></a></p>
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>学习一门语言一门技术都是从 <code>Hello World</code> 开始，我们也是从零到<code>Hello World</code>开启学习<code>Nest</code>之旅</p>
+<h3 id="准备必备开发环境和工具"><a href="#准备必备开发环境和工具" class="headerlink" title="准备必备开发环境和工具"></a>准备必备开发环境和工具</h3><p>推荐<code>nvm</code>来管理<code>nodejs</code>版本，根据自己电脑下载对应版本吧。</p>
+<ol>
+<li><p>准备环境: <a target="_blank" rel="noopener" href="https://nodejs.org/en/">Nodejs</a> v8+ (目前版本 v10+, 必须 8 以上，对 es2015 支持率很高)</p>
+</li>
+<li><p>准备数据库：<a target="_blank" rel="noopener" href="https://www.mongodb.com/">mongodb</a> v3+ (目前版本 v4+)</p>
+</li>
+<li><p>准备数据库：<a target="_blank" rel="noopener" href="https://redis.io/">redis</a> v3+ (目前版本 v3+)</p>
+</li>
+<li><p>准备编辑器: <a target="_blank" rel="noopener" href="https://code.visualstudio.com/">vs code</a> 最新版即可(本机 windows v1.26)</p>
+</li>
+<li><pre><code class="bash">vs code
+&lt;!--hexoPostRenderEscape:&lt;figure class=&quot;highlight markdown&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;code class=&quot;hljs markdown&quot;&gt;&lt;br&gt;   推荐插件：(其他插件自己随意)&lt;br&gt;&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; Debugger for Chrome -- 调试&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; ejs -- ejs 文件高亮&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; Beautify -- 代码格式化&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; DotENV -- .env 文件高亮&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; Jest -- nest 默认测试框架支持&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; TSLint -- ts 语法检查&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; TypeScript Hero -- ts 提示&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; vscode-icons -- icons&lt;br&gt;&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;6.&lt;/span&gt; 推荐几个好用的工具：&lt;br&gt;&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; Postmen -- API 测试神器&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; Robomongo -- mongodb 图形化工具&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; Redis Desktop Manager -- Redis 图形化工具&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;   -&lt;/span&gt; Cmder -- Windows 命令行神器&lt;br&gt;&lt;br&gt;&lt;span class=&quot;hljs-section&quot;&gt;### Nest 相关资源&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;1.&lt;/span&gt; 官网：[&lt;span class=&quot;hljs-string&quot;&gt;https://nestjs.com&lt;/span&gt;](&lt;span class=&quot;hljs-link&quot;&gt;https://nestjs.com/&lt;/span&gt;)&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;2.&lt;/span&gt; 文档：[&lt;span class=&quot;hljs-string&quot;&gt;https://docs.nestjs.com&lt;/span&gt;](&lt;span class=&quot;hljs-link&quot;&gt;https://docs.nestjs.com/&lt;/span&gt;)&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;3.&lt;/span&gt; 中文文档：[&lt;span class=&quot;hljs-string&quot;&gt;https://docs.nestjs.cn&lt;/span&gt;](&lt;span class=&quot;hljs-link&quot;&gt;https://docs.nestjs.cn/&lt;/span&gt;)&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;4.&lt;/span&gt; Github：&lt;span class=&quot;language-xml&quot;&gt;&amp;lt;https://github.com/nestjs/nest&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;5.&lt;/span&gt; 版本：目前稳定版 v5.1.0&lt;br&gt;&lt;span class=&quot;hljs-bullet&quot;&gt;6.&lt;/span&gt; CLI：&lt;span class=&quot;language-xml&quot;&gt;&amp;lt;https://github.com/nestjs/nest-cli&amp;gt;&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;hljs-section&quot;&gt;### nest-cli&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;hljs-code&quot;&gt;`nest-cli`&lt;/span&gt; 是一个 &lt;span class=&quot;hljs-code&quot;&gt;`nest`&lt;/span&gt; 项目脚手架。为我们提供一个初始化模块，可以让我们快速完成&lt;span class=&quot;hljs-code&quot;&gt;`Hello World`&lt;/span&gt;功能。&lt;br&gt;&lt;br&gt;&lt;span class=&quot;hljs-section&quot;&gt;#### 安装&lt;/span&gt;&lt;br&gt;&lt;br&gt;&lt;span class=&quot;hljs-code&quot;&gt;```bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;hljs-code&quot;&gt;npm i -g @nestjs/cli&lt;/span&gt;&lt;br&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;:hexoPostRenderEscape--&gt;
+</code></pre>
+</li>
+</ol>
+<h4 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h4><h5 id="new-简写：n-构建新项目"><a href="#new-简写：n-构建新项目" class="headerlink" title="new(简写：n) 构建新项目"></a>new(简写：n) 构建新项目</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ nest new my-awesome-app<br>OR<br>$ nest n my-awesome-app<br></code></pre></td></tr></table></figure>
+
+<h5 id="generate-简写：g-生成文件"><a href="#generate-简写：g-生成文件" class="headerlink" title="generate(简写：g) 生成文件"></a>generate(简写：g) 生成文件</h5><ul>
+<li>class (简写: cl) 类</li>
+<li>controller (简写: co) 控制器</li>
+<li>decorator (简写: d) 装饰器</li>
+<li>exception (简写: e) 异常捕获</li>
+<li>filter (简写: f) 过滤器</li>
+<li>gateway (简写: ga) 网关</li>
+<li>guard (简写: gu) 守卫</li>
+<li>interceptor (简写: i) 拦截器</li>
+<li>middleware (简写: mi) 中间件</li>
+<li>module (简写: mo) 模块</li>
+<li>pipe (简写: pi) 管道</li>
+<li>provider (简写: pr) 供应商</li>
+<li>service (简写: s) 服务</li>
+</ul>
+<p>创建一个 users 服务文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ nest generate service <span class="hljs-built_in">users</span><br>OR<br>$ nest g s <span class="hljs-built_in">users</span><br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>注意</strong>：</p>
+</blockquote>
+<ol>
+<li><code>必须</code>在项目<code>根目录</code>下创建，（默认创建在 src/）。（不能在当前文件夹里面创建，不然会自动生成 xxx/src/xxx。吐槽：这个没有 Angular-cli 智能）</li>
+<li>需要<code>优先</code>新建模块，不然创建的非模块以外的服务，控制器等就会自动注入更新到上级的模块里面</li>
+</ol>
+<h5 id="info-简写：i-打印版本信息"><a href="#info-简写：i-打印版本信息" class="headerlink" title="info(简写：i) 打印版本信息"></a>info(简写：i) 打印版本信息</h5><p>打印当前系统，使用 nest 核心模块版本，供你去官方提交<a target="_blank" rel="noopener" href="https://github.com/nestjs/nest/issues">issues</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">| \ | |           | |    |_  |/  ___|/  __ \| |   |_   _|<br>|  \| |  ___  ___ | |_     | |\ `--. | /  \/| |     | |<br>| . ` | / _ \/ __|| __|    | | `--. \| |    | |     | |<br>| |\  ||  __/\__ \| |_ /\__/ //\__/ /| \__/\| |_____| |_<br>\_| \_/ \___||___/ \__|\____/ \____/  \____/\_____/\___/<br><br><br>[System Information]<br>OS Version     : Windows 10<br>NodeJS Version : v8.11.1<br>NPM Version    : 5.6.0<br>[Nest Information]<br>microservices version : 5.1.0<br>websockets version    : 5.1.0<br>testing version       : 5.1.0<br>common version        : 5.1.0<br>core version          : 5.1.0<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>最后，整体功能和<code>Angular-cli</code>类似，比较简单实用功能。构建项目，生成文件，打印版本信息。</p>
+</blockquote>
+<h3 id="nest-内置功能"><a href="#nest-内置功能" class="headerlink" title="nest 内置功能"></a>nest 内置功能</h3><p>目前<code>Nest.js</code>支持 <code>express</code> 和 <code>fastify</code>, 对 <code>fastify</code> 不熟，本文选择<code>express</code>。</p>
+<h4 id="核心模块"><a href="#核心模块" class="headerlink" title="核心模块"></a>核心模块</h4><ul>
+<li>@nestjs/common 提供很多装饰器，log 服务等</li>
+<li>@nestjs/core 核心模块处理底层框架兼容</li>
+<li>@nestjs/microservices 微服务支持</li>
+<li>@nestjs/testing 测试套件</li>
+<li>@nestjs/websockets websocket 支持</li>
+</ul>
+<h4 id="可选模块"><a href="#可选模块" class="headerlink" title="可选模块"></a>可选模块</h4><ul>
+<li>@nestjs/typeorm 还没玩过</li>
+<li>@nestjs/graphql 还没玩过</li>
+<li>@nestjs/cqrs 还没玩过</li>
+<li>@nestjs/passport 身份验证（v5 版支持，不向下兼容）</li>
+<li>@nestjs/swagger swagger UI API</li>
+<li>@nestjs/mongoose mongoose 模块</li>
+</ul>
+<blockquote>
+<p><strong>注意</strong>: 其他中间件模块，只要支持<code>express</code>和都可以使用。</p>
+</blockquote>
+<h3 id="构建项目"><a href="#构建项目" class="headerlink" title="构建项目"></a>构建项目</h3><ol>
+<li>创建项目<code>nest-cnode</code></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nest new nest-cnode<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://user-images.githubusercontent.com/6111778/44448993-7318c400-a61f-11e8-9201-0d099d6f5d24.png"><img src="https://user-images.githubusercontent.com/6111778/44448993-7318c400-a61f-11e8-9201-0d099d6f5d24.png" srcset="/blog/img/loading.gif" lazyload alt="nest_cli"></a></p>
+<p>其中提交的你的<code>description</code>, 初始化版本<code>version</code>, 作者<code>author</code>, 以及一个<code>package manager</code>选择<code>node_modules</code>安装方式 <code>npm</code> 或者 <code>yarn</code>。</p>
+<ol>
+<li>项目启动</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> nest-cnode<br><br>// 启动命令<br><br>npm run start  // 预览<br>npm run start:dev // 开发<br>npm run prestart:prod  // 编译成js<br>npm run start:prod  // 生产<br><br>// 测试命令<br><br>npm run <span class="hljs-built_in">test</span>  // 单元测试<br>npm run <span class="hljs-built_in">test</span>:cov  // 单元测试+覆盖率生成<br>npm run <span class="hljs-built_in">test</span>:e2e  // E2E测试<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>项目文件介绍</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>node_modules</td>
+<td>npm 包</td>
+</tr>
+<tr>
+<td>src</td>
+<td>源码</td>
+</tr>
+<tr>
+<td>logs</td>
+<td>日志</td>
+</tr>
+<tr>
+<td>test</td>
+<td>E2E 测试</td>
+</tr>
+<tr>
+<td>views</td>
+<td>模板</td>
+</tr>
+<tr>
+<td>public</td>
+<td>静态资源</td>
+</tr>
+<tr>
+<td>nodemon.json</td>
+<td>nodemon 配置（npm run start:dev 启动）</td>
+</tr>
+<tr>
+<td>package.json</td>
+<td>npm 包管理</td>
+</tr>
+<tr>
+<td>README.md</td>
+<td>说明文件</td>
+</tr>
+<tr>
+<td>tsconfig.json</td>
+<td>Typescript 配置文件（Typescript 必备）</td>
+</tr>
+<tr>
+<td>tslint.json</td>
+<td>Typescript 风格检查文件（Typescript 必备）</td>
+</tr>
+<tr>
+<td>webpack.config.js</td>
+<td>热更新（npm run start:hmr 启动）</td>
+</tr>
+<tr>
+<td>.env</td>
+<td>配置文件</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>开发代码都在<code>src</code>里，生成代码在<code>dist</code> (打包自动编译)，<code>typescript</code>打包只会编译<code>ts</code>到<code>dist</code> 下，静态文件<code>public</code>和模板<code>views</code>不会移动，所以需要放到根目录下。</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://user-images.githubusercontent.com/6111778/44449023-8b88de80-a61f-11e8-8f5e-ae3760859942.png"><img src="https://user-images.githubusercontent.com/6111778/44449023-8b88de80-a61f-11e8-8f5e-ae3760859942.png" srcset="/blog/img/loading.gif" lazyload alt="nest_start"></a></p>
+<p>我们打开浏览器，访问<code>http://localhost:3000</code>，您应该看到一个页面，上面显示<code>Hello World</code>文字。</p>
+<p><a target="_blank" rel="noopener" href="https://user-images.githubusercontent.com/6111778/44449034-92afec80-a61f-11e8-9dc8-3e8a0160b978.png"><img src="https://user-images.githubusercontent.com/6111778/44449034-92afec80-a61f-11e8-9dc8-3e8a0160b978.png" srcset="/blog/img/loading.gif" lazyload alt="j _ 2k2q0pqpjt 03o t16u"></a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/jiayisheji/blog/issues/18">本文来自 https://github.com/jiayisheji/blog/issues/18</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/node/" class="category-chain-item">node</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/node/">#node</a>
+      
+        <a href="/blog/tags/nest/">#nest</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/01/29/node/nest_2/" title="nest.js学习（二）">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">nest.js学习（二）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/01/09/JS/arrowFun/" title="ES6——箭头函数与普通函数的区别">
+                        <span class="hidden-mobile">ES6——箭头函数与普通函数的区别</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appKey":"nwLIBSLqc2For9OE49wSuWaf","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"appid":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appkey":"nwLIBSLqc2For9OE49wSuWaf"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <i class="iconfont icon-mail"></i> <a href="#" rel="nofollow noopener"><span>1793980864@qq.com</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

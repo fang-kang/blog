@@ -1,0 +1,872 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://fang-kang.gitee.io/blog-img/head.png">
+  <link rel="icon" href="https://fang-kang.gitee.io/blog-img/head.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="房康的个人博客，凌烟的个人博客，博客，记录生活">
+  
+    <meta name="description" content="react-hooksHook 是 React16.8 的新特性，Hook 使你在无需修改组件结构的情况下复用状态逻辑。 弥补了 functin Component 没有实例没有生命周期的问题，react 项目基本上可以全部用 function Component 去实现了。 hook 总览常用的官方的 hook 主要是下面几个：  useState() useReducer() useConte">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ReactHooks">
+<meta property="og:url" content="https://fang-kang.gitee.io/blog/2021/01/04/react/react_hooks/index.html">
+<meta property="og:site_name" content="凌烟">
+<meta property="og:description" content="react-hooksHook 是 React16.8 的新特性，Hook 使你在无需修改组件结构的情况下复用状态逻辑。 弥补了 functin Component 没有实例没有生命周期的问题，react 项目基本上可以全部用 function Component 去实现了。 hook 总览常用的官方的 hook 主要是下面几个：  useState() useReducer() useConte">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fang-kang.gitee.io/blog-img/20200102135816.jpg-slim">
+<meta property="article:published_time" content="2021-01-04T21:36:01.000Z">
+<meta property="article:modified_time" content="2023-04-10T06:32:05.593Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="react">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fang-kang.gitee.io/blog-img/20200102135816.jpg-slim">
+  
+  
+  
+  <title>ReactHooks - 凌烟</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"fang-kang.gitee.io","root":"/blog/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>凌烟</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://fang-kang.github.io/note">
+                <i class="iconfont icon-books"></i>
+                <span>笔记</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://fang-kang.gitee.io/blog-img/blog/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ReactHooks"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-01-04 21:36" pubdate>
+          2021年1月4日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          15k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          124 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ReactHooks</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="react-hooks"><a href="#react-hooks" class="headerlink" title="react-hooks"></a>react-hooks</h1><p><code>Hook</code> 是 React16.8 的新特性，<code>Hook</code> 使你在无需修改组件结构的情况下复用状态逻辑。</p>
+<p>弥补了 functin Component 没有实例没有生命周期的问题，<code>react</code> 项目基本上可以全部用 function Component 去实现了。</p>
+<h2 id="hook-总览"><a href="#hook-总览" class="headerlink" title="hook 总览"></a>hook 总览</h2><p>常用的官方的 <code>hook</code> 主要是下面几个：</p>
+<ul>
+<li>useState()</li>
+<li>useReducer()</li>
+<li>useContext()</li>
+<li>useRef()</li>
+<li>useImperative()</li>
+<li>useEffect()</li>
+<li>useLayoutEffect()</li>
+<li>useMemo()</li>
+<li>useCallback()</li>
+</ul>
+<h2 id="hook-基础"><a href="#hook-基础" class="headerlink" title="hook 基础"></a>hook 基础</h2><p>hook 使用规则：</p>
+<ul>
+<li>不要在循环，条件，或者嵌套函数中调用 hook，在最顶层使用 hook</li>
+<li>不能在普通函数中调用 hook</li>
+</ul>
+<p>下面主要记录每个 hook 基础的用法，</p>
+<h3 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h3><p>存取数据的一种方式，对于简单的 state 适用，复杂的更新逻辑的 state 考虑使用 useReducer</p>
+<p>使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> [state, setState] = <span class="hljs-title function_">useState</span>(initState)<br></code></pre></td></tr></table></figure>
+
+<p>更新：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">setState</span>(newState)<br><span class="hljs-title function_">setState</span>(<span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> newState) <span class="hljs-comment">// 函数式更新</span><br></code></pre></td></tr></table></figure>
+
+<p>setState 是稳定的，所以在一些 hook 依赖中可以省略</p>
+<h3 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h3><p>useState 的一种代替方案，当 state 的处理逻辑比较复杂的时候，有多个子值得时候，可以考虑用 useReducer</p>
+<p>使用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> initialState = &#123; <span class="hljs-attr">count</span>: <span class="hljs-number">0</span> &#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">reducer</span>(<span class="hljs-params">state, action</span>) &#123;<br>  <span class="hljs-keyword">switch</span> (action.<span class="hljs-property">type</span>) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;increment&#x27;</span>:<br>      <span class="hljs-keyword">return</span> &#123; ...state, <span class="hljs-attr">count</span>: state.<span class="hljs-property">count</span> + <span class="hljs-number">1</span> &#125;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;decrement&#x27;</span>:<br>      <span class="hljs-keyword">return</span> &#123; ...state, <span class="hljs-attr">count</span>: state.<span class="hljs-property">count</span> - <span class="hljs-number">1</span> &#125;<br>    <span class="hljs-attr">default</span>:<br>      <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>()<br>  &#125;<br>&#125;<br><span class="hljs-keyword">const</span> [state, dispatch] = <span class="hljs-title function_">useReducer</span>(reducer, initialState)<br></code></pre></td></tr></table></figure>
+
+<p>如果有第三个参数，则第三个参数为一个函数，接受第二个参数的值作为参数，返回初始值。</p>
+<p>dispatch 是稳定的，所以在一些 hook 依赖中可以省略</p>
+<h3 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> value = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">MyContext</span>)<br></code></pre></td></tr></table></figure>
+
+<p>接受一个 context 对象，并返回该 context 对象的当前值，配合 context 使用</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> themes = &#123;<br>  <span class="hljs-attr">light</span>: &#123;<br>    <span class="hljs-attr">foreground</span>: <span class="hljs-string">&#x27;#000000&#x27;</span>,<br>    <span class="hljs-attr">background</span>: <span class="hljs-string">&#x27;#eeeeee&#x27;</span>,<br>  &#125;,<br>  <span class="hljs-attr">dark</span>: &#123;<br>    <span class="hljs-attr">foreground</span>: <span class="hljs-string">&#x27;#ffffff&#x27;</span>,<br>    <span class="hljs-attr">background</span>: <span class="hljs-string">&#x27;#222222&#x27;</span>,<br>  &#125;,<br>&#125;<br><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">ThemeContext</span> = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">createContext</span>(themes.<span class="hljs-property">light</span>)<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ThemeContext.Provider</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;themes.dark&#125;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Toolbar</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ThemeContext.Provider</span>&gt;</span></span><br>  )<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Toolbar</span>(<span class="hljs-params">props</span>) &#123;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">ThemedButton</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">ThemedButton</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> theme = <span class="hljs-title function_">useContext</span>(<span class="hljs-title class_">ThemeContext</span>)<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">background:</span> <span class="hljs-attr">theme.background</span>, <span class="hljs-attr">color:</span> <span class="hljs-attr">theme.foreground</span> &#125;&#125;&gt;</span>I am styled by theme context!<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="useRef"><a href="#useRef" class="headerlink" title="useRef"></a>useRef</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> refContainer = <span class="hljs-title function_">useRef</span>(initValue)<br></code></pre></td></tr></table></figure>
+
+<p>返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内持续存在。</p>
+<ul>
+<li>访问 dom 的一个方式</li>
+<li>可以将其作为一个值来使用，在每次渲染时都返回同一个 ref 对象</li>
+<li>改变其 ref 的值，不会引起组件的重新渲染</li>
+</ul>
+<p>例子 1，访问 dom 的方式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">TextInputWithFocusButton</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> inputEl = <span class="hljs-title function_">useRef</span>(<span class="hljs-literal">null</span>)<br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">onButtonClick</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-comment">// `current` 指向已挂载到 DOM 上的文本输入元素</span><br>    inputEl.<span class="hljs-property">current</span>.<span class="hljs-title function_">focus</span>()<br>  &#125;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;inputEl&#125;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;text&quot;</span> /&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onButtonClick&#125;</span>&gt;</span>Focus the input<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>例子 2，作为一个对象来保存值：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">import</span> &#123; useEffect, useRef, useState &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">const</span> [count, setCount] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>)<br>  <span class="hljs-comment">// 记录定时器，方便可以随时停止计时器</span><br>  <span class="hljs-keyword">let</span> timer = <span class="hljs-title function_">useRef</span>(<span class="hljs-literal">null</span>)<br>  <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    timer.<span class="hljs-property">current</span> = <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>)<br>      <span class="hljs-title function_">setCount</span>(<span class="hljs-function"><span class="hljs-params">count</span> =&gt;</span> count + <span class="hljs-number">1</span>)<br>    &#125;, <span class="hljs-number">1000</span>)<br>    <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> &#123;<br>      <span class="hljs-built_in">clearInterval</span>(timer.<span class="hljs-property">current</span>)<br>      timer.<span class="hljs-property">current</span> = <span class="hljs-literal">null</span><br>    &#125;<br>  &#125;, [])<br><br>  <span class="hljs-keyword">const</span> <span class="hljs-title function_">stop</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-keyword">if</span> (timer.<span class="hljs-property">current</span>) &#123;<br>      <span class="hljs-built_in">clearInterval</span>(timer.<span class="hljs-property">current</span>)<br>      timer.<span class="hljs-property">current</span> = <span class="hljs-literal">null</span><br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>&#123;count&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;stop&#125;</span>&gt;</span>stop<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">App</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="useImperativeHandle"><a href="#useImperativeHandle" class="headerlink" title="useImperativeHandle"></a>useImperativeHandle</h3><p><code>useImperativeHandle</code> 可以让你在使用 ref 时自定义暴露给父组件的实例值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">useImperativeHandle</span>(ref, createHandle, [deps])<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>ref：需要被赋值的 ref 对象</li>
+<li>createHandle：的返回值作为 ref.current 的值。</li>
+<li>[deps]：依赖数组，依赖发生变化重新执行 createHandle 函数</li>
+</ul>
+<p>使用例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title class_">Child</span> = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">forwardRef</span>(<span class="hljs-function">(<span class="hljs-params">props, ref</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> inputRef = <span class="hljs-title function_">useRef</span>()<br>  <span class="hljs-title function_">useImperativeHandle</span>(ref, <span class="hljs-function">() =&gt;</span> (&#123;<br>    <span class="hljs-attr">focus</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>      inputRef.<span class="hljs-property">current</span>.<span class="hljs-title function_">focus</span>()<br>    &#125;,<br>  &#125;))<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;inputRef&#125;</span> /&gt;</span></span><br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">// App.js</span><br>;<span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Child</span> <span class="hljs-attr">cRef</span>=<span class="hljs-string">&#123;this.myRef&#125;</span> /&gt;</span></span><br><br><span class="hljs-comment">// Child.js</span><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Child</span> = props =&gt; &#123;<br>  <span class="hljs-keyword">const</span> inputRef = <span class="hljs-title function_">useRef</span>()<br>  <span class="hljs-keyword">const</span> &#123; cRef &#125; = props<br>  <span class="hljs-title function_">useImperativeHandle</span>(cRef, <span class="hljs-function">() =&gt;</span> (&#123;<br>    <span class="hljs-attr">focus</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>      inputRef.<span class="hljs-property">current</span>.<span class="hljs-title function_">focus</span>()<br>    &#125;,<br>  &#125;))<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">&#123;inputRef&#125;</span> /&gt;</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h3><p>引入副作用，销毁函数和回调函数在 commit 阶段异步调度，在 layout 阶段完成后异步执行，不会阻塞 ui 得渲染。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-comment">//...副作用</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-comment">// ...清除副作用</span><br>  &#125;<br>&#125;, [deps])<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>副作用在 commit 阶段异步执行，清除副作用的销毁函数会在下一阶段的的 commit 阶段执行，</li>
+<li>[deps]：依赖数组，依赖发生变化重新执行</li>
+</ul>
+<h3 id="useLayoutEffect"><a href="#useLayoutEffect" class="headerlink" title="useLayoutEffect"></a>useLayoutEffect</h3><p>引入副作用的，用法和 <code>useEffect</code> 一样，但 <code>useLayoutEffect</code> 会阻塞 <code>dom</code> 的渲染，同步执行，上一次更新的销毁函数在 commit 的 mutation 阶段执行，回调函数在在 layout 阶段执行，和 componentDidxxxx 是等价的。</p>
+<h3 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h3><p>返回一个<code>memo</code> 值，作为一种性能优化的手段，只有当依赖项的依赖改变才会重新渲染值</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> memoizedValue = <span class="hljs-title function_">useMemo</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">computeExpensiveValue</span>(a, b), [a, b])<br></code></pre></td></tr></table></figure>
+
+<h3 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h3><p>返回一个 <code>memoized</code> 回调函数，作为一种性能优化的手段，只有当依赖项的依赖改变才会重新构建该函数</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> memoizedCallback = <span class="hljs-title function_">useCallback</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>  <span class="hljs-title function_">doSomething</span>(a, b)<br>&#125;, [a, b])<br></code></pre></td></tr></table></figure>
+
+<h3 id="useDebugValue"><a href="#useDebugValue" class="headerlink" title="useDebugValue"></a>useDebugValue</h3><p><code>useDebugValue</code> 可用于在 React 开发者工具中显示自定义 hook 的标签, 浏览器装有 react 开发工具调试代码的时候才有用。</p>
+<h3 id="useTransition"><a href="#useTransition" class="headerlink" title="useTransition"></a>useTransition</h3><p>返回一个状态值表示过渡任务的等待状态，以及一个启动该过渡任务的函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> [isPending, startTransition] = <span class="hljs-title function_">useTransition</span>()<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>isPending: 指示过渡任务何时活跃以显示一个等待状态，为 true 时表示过渡任务还没更新完。</li>
+<li>startTransition: 允许你通过标记更新将提供的回调函数作为一个过渡任务，变为过渡任务则说明更新往后放，先更新其他更紧急的任务。</li>
+</ul>
+<p>例子：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useEffect, useState, useTransition &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">SearchResult</span> = props =&gt; &#123;<br>  <span class="hljs-keyword">const</span> resultList = props.<span class="hljs-property">query</span><br>    ? <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">from</span>(&#123; <span class="hljs-attr">length</span>: <span class="hljs-number">50000</span> &#125;, <span class="hljs-function">(<span class="hljs-params">_, index</span>) =&gt;</span> (&#123;<br>        <span class="hljs-attr">id</span>: index,<br>        <span class="hljs-attr">keyword</span>: <span class="hljs-string">`<span class="hljs-subst">$&#123;props.query&#125;</span> -- 搜索结果<span class="hljs-subst">$&#123;index&#125;</span>`</span>,<br>      &#125;))<br>    : []<br>  <span class="hljs-keyword">return</span> resultList.<span class="hljs-title function_">map</span>(<span class="hljs-function">(<span class="hljs-params">&#123; id, keyword &#125;</span>) =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span>=<span class="hljs-string">&#123;id&#125;</span>&gt;</span>&#123;keyword&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>)<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () =&gt; &#123;<br>  <span class="hljs-keyword">const</span> [isTrans, setIstrans] = <span class="hljs-title function_">useState</span>(<span class="hljs-literal">false</span>)<br>  <span class="hljs-keyword">const</span> [value, setValue] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&#x27;&#x27;</span>)<br>  <span class="hljs-keyword">const</span> [searchVal, setSearchVal] = <span class="hljs-title function_">useState</span>(<span class="hljs-string">&#x27;&#x27;</span>)<br>  <span class="hljs-keyword">const</span> [loading, startTransition] = <span class="hljs-title function_">useTransition</span>(&#123; <span class="hljs-attr">timeoutMs</span>: <span class="hljs-number">2000</span> &#125;)<br><br>  <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-comment">// 监听搜索值改变</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;对搜索值更新的响应++++++&#x27;</span> + searchVal + <span class="hljs-string">&#x27;+++++++++++&#x27;</span>)<br>  &#125;, [searchVal])<br><br>  <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-comment">// 监听输入框值改变</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;对输入框值更新的响应-----&#x27;</span> + value + <span class="hljs-string">&#x27;-------------&#x27;</span>)<br>  &#125;, [value])<br><br>  <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-keyword">if</span> (isTrans) &#123;<br>      <span class="hljs-title function_">startTransition</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>        <span class="hljs-title function_">setSearchVal</span>(value)<br>      &#125;)<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      <span class="hljs-title function_">setSearchVal</span>(value)<br>    &#125;<br>  &#125;, [value])<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">&quot;App&quot;</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">h3</span>&gt;</span>StartTransition<span class="hljs-tag">&lt;/<span class="hljs-name">h3</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>=<span class="hljs-string">&#123;value&#125;</span> <span class="hljs-attr">onChange</span>=<span class="hljs-string">&#123;e</span> =&gt;</span> setValue(e.target.value)&#125; /&gt;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> setIstrans(!isTrans)&#125;&gt;&#123;isTrans ? &#x27;transiton&#x27; : &#x27;normal&#x27;&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span><br><span class="language-xml">      &#123;loading &amp;&amp; <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>数据加载中，请稍候...<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>&#125;</span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">        <span class="hljs-tag">&lt;<span class="hljs-name">SearchResult</span> <span class="hljs-attr">query</span>=<span class="hljs-string">&#123;searchVal&#125;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">SearchResult</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="useDeferredValue"><a href="#useDeferredValue" class="headerlink" title="useDeferredValue"></a>useDeferredValue</h3><p><code>useDeferredValue</code> 接受一个值，并返回该值的新副本，该副本将推迟到更紧急地更新之后。如果当前渲染是一个紧急更新的结果，比如用户输入，React 将返回之前的值，然后在紧急渲染完成后渲染新的值。本，该副本将推迟到更紧急地更新之后</p>
+<h2 id="react-router-v6-hooks"><a href="#react-router-v6-hooks" class="headerlink" title="react-router v6 hooks"></a>react-router v6 hooks</h2><h3 id="useHref"><a href="#useHref" class="headerlink" title="useHref"></a>useHref</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useHref</span>(<span class="hljs-params">to: To</span>): <span class="hljs-built_in">string</span><br></code></pre></td></tr></table></figure>
+
+<p><code>useHref</code>钩子返回一个 URL，可以用来链接到给定的 to 位置，甚至在 React router 之外。</p>
+<p><code>useHref</code>传入一个字符串或<code>To</code>对象，返回一个 URL 的绝对路径。可以在参数中传入一个相对路径、绝对路径、To 对象。<br><code>react hooks v6</code>中的<code>Link</code>组件内部使用<code>useHref</code>获取它的 href 值</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Path</span> &#123;<br>  <span class="hljs-attr">pathname</span>: <span class="hljs-title class_">Pathname</span><br>  <span class="hljs-attr">search</span>: <span class="hljs-title class_">Search</span><br>  <span class="hljs-attr">hash</span>: <span class="hljs-title class_">Hash</span><br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">To</span> = <span class="hljs-built_in">string</span> | <span class="hljs-title class_">Partial</span>&lt;<span class="hljs-title class_">Path</span>&gt;<br></code></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<p>当前路由：/page1/page2</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useEffect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> &#123; useHref &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router-dom&#x27;</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Page2</span>(<span class="hljs-params">props</span>) &#123;<br>  <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">useHref</span>(<span class="hljs-string">&#x27;../&#x27;</span>)) <span class="hljs-comment">// 输出 &#x27;/page1/&#x27;</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">useHref</span>(<span class="hljs-string">&#x27;../../&#x27;</span>)) <span class="hljs-comment">// 输出 &#x27;/&#x27;</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">useHref</span>(<span class="hljs-string">&#x27;/page1&#x27;</span>)) <span class="hljs-comment">// 输出 &#x27;/page&#x27;</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">useHref</span>(<span class="hljs-string">&#x27;/pageabc&#x27;</span>)) <span class="hljs-comment">// 输出 &#x27;/pageabc&#x27; 可见路径与当前路由无关</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">useHref</span>(&#123; <span class="hljs-attr">pathname</span>: <span class="hljs-string">&#x27;/page1&#x27;</span>, <span class="hljs-attr">search</span>: <span class="hljs-string">&#x27;name=123&#x27;</span>, <span class="hljs-attr">hash</span>: <span class="hljs-string">&#x27;test&#x27;</span> &#125;)) <span class="hljs-comment">// 输出 &#x27;/page1?name=123#test&#x27;</span><br>  &#125;, [])<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Page2</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="useInRouterContext"><a href="#useInRouterContext" class="headerlink" title="useInRouterContext"></a>useInRouterContext</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useInRouterContext</span>(<span class="hljs-params"></span>): <span class="hljs-built_in">boolean</span><br></code></pre></td></tr></table></figure>
+
+<p>如果组件在<code>Router</code>组件中的上下文中渲染，<code>useInRouterContext</code>将返回 true，否则返回 false。这对于一些需要知道是否在<code>react router</code>的上下文中渲染的第三方扩展非常有用。</p>
+<p>判断当前组件是否在由<code>Router</code>组件创建的<code>Context</code>中</p>
+<h3 id="useLocation"><a href="#useLocation" class="headerlink" title="useLocation"></a>useLocation</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useLocation</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">Location</span><br><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Location</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Path</span> &#123;<br>  <span class="hljs-attr">state</span>: <span class="hljs-built_in">unknown</span><br>  <span class="hljs-attr">key</span>: <span class="hljs-title class_">Key</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个<code>hook</code>返回当前路由的<code>location</code>对象。</p>
+<h3 id="useMatch"><a href="#useMatch" class="headerlink" title="useMatch"></a>useMatch</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> useMatch&lt;<span class="hljs-title class_">ParamKey</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> = <span class="hljs-built_in">string</span>&gt;(<span class="hljs-attr">pattern</span>: <span class="hljs-title class_">PathPattern</span> | <span class="hljs-built_in">string</span>): <span class="hljs-title class_">PathMatch</span>&lt;<span class="hljs-title class_">ParamKey</span>&gt; | <span class="hljs-literal">null</span><br></code></pre></td></tr></table></figure>
+
+<p>返回给定路径上相对于当前位置的路由的匹配数据。</p>
+<p><code>react router v5</code>中的<code>useRouteMatch</code>在 v6 版本中更名为<code>useMatch</code>。内部示例调用了<code>matchPath</code>方法根据 URL 路径名匹配路由路径模式，并返回有关匹配的信息。如果模式与给定路径名不匹配，则返回<code>null</code>。</p>
+<h3 id="useNavigate"><a href="#useNavigate" class="headerlink" title="useNavigate"></a>useNavigate</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useNavigate</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">NavigateFunction</span><br><br><span class="hljs-keyword">interface</span> <span class="hljs-title class_">NavigateFunction</span> &#123;<br>  (<span class="hljs-attr">to</span>: <span class="hljs-title class_">To</span>, options?: &#123; replace?: <span class="hljs-built_in">boolean</span>; state?: <span class="hljs-built_in">any</span> &#125;): <span class="hljs-built_in">void</span><br>  (<span class="hljs-attr">delta</span>: <span class="hljs-built_in">number</span>): <span class="hljs-built_in">void</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>useNavigate</code>钩子返回一个函数，该函数允许您以编程方式进行导航，例如在提交表单之后。</p>
+<p><code>react router v5</code>中组件获取到的<code>useHistory</code>在 v6 版本更名为<code>useNavigate</code>。在用法上作出了较大改变</p>
+<p>例子：</p>
+<p>当前路由：/user/page2<br>其他路由：/user/page1</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useEffect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> &#123; useNavigate &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-router-dom&#x27;</span><br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">Page2</span>(<span class="hljs-params"></span>)&#123;<br>  <span class="hljs-keyword">let</span> navigate = <span class="hljs-title function_">useNavigate</span>()<br>  <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>    <span class="hljs-title function_">navigate</span>(<span class="hljs-string">&#x27;/user/page1&#x27;</span>) <span class="hljs-comment">// 导航到&#x27;/user/page1&#x27;</span><br>    <span class="hljs-title function_">navigate</span>(<span class="hljs-string">&#x27;../&#x27;</span>) <span class="hljs-comment">// 导航到&#x27;/user&#x27;</span><br>    <span class="hljs-title function_">navigate</span>(-<span class="hljs-number">1</span>) <span class="hljs-comment">// 导航到/user/page1 相当于v5中history.go(-1) history.goBack()</span><br>    <span class="hljs-title function_">navigate</span>(<span class="hljs-number">1</span>) <span class="hljs-comment">//导航到/user 相当于v5中history.go(1) history.goForward()</span><br>    <span class="hljs-title function_">navigate</span>(<span class="hljs-string">&#x27;/user/page2/&#x27;</span>,&#123; <span class="hljs-attr">replace</span>: <span class="hljs-literal">true</span>, <span class="hljs-attr">state</span>: &#123; <span class="hljs-attr">name</span>:<span class="hljs-number">123</span> &#125;&#125; <span class="hljs-comment">// 相当于v5中history.replace()，并同时传入state</span><br>  &#125;,[])<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Page2</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="useNavigationType"><a href="#useNavigationType" class="headerlink" title="useNavigationType"></a>useNavigationType</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useNavigationType</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">NavigationType</span><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">NavigationType</span> = <span class="hljs-string">&#x27;POP&#x27;</span> | <span class="hljs-string">&#x27;PUSH&#x27;</span> | <span class="hljs-string">&#x27;REPLACE&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>这个钩子返回当前的导航类型或用户如何到达当前页面；通过历史堆栈上的<code>pop</code>、<code>push</code>或<code>replace</code>操作。</p>
+<p>这个<code>hooks</code>类似<code>react router v5</code>中组件传入参数中的<code>history</code>对象的<code>action</code>属性，返回触发当前<code>navigate</code>的是何种操作</p>
+<h3 id="useOutlet"><a href="#useOutlet" class="headerlink" title="useOutlet"></a>useOutlet</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useOutlet</span>(<span class="hljs-params"></span>): <span class="hljs-title class_">React</span>.<span class="hljs-property">ReactElement</span> | <span class="hljs-literal">null</span><br></code></pre></td></tr></table></figure>
+
+<p>返回路由当前路由的子路由的元素。这个<code>hook</code>被<code>Outlet</code>组件在内部使用用于渲染子路由。</p>
+<h3 id="useParams"><a href="#useParams" class="headerlink" title="useParams"></a>useParams</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> useParams&lt;K <span class="hljs-keyword">extends</span> <span class="hljs-built_in">string</span> = <span class="hljs-built_in">string</span>&gt;(): <span class="hljs-title class_">Readonly</span>&lt;<span class="hljs-title class_">Params</span>&lt;K&gt;&gt;<br></code></pre></td></tr></table></figure>
+
+<p><code>useParams</code>返回 URL 参数的键/值对的对象。使用它来访问当前<code>Route</code>的<code>match.params</code>。子路由从其父路由继承所有参数。</p>
+<h3 id="useSearchParams"><a href="#useSearchParams" class="headerlink" title="useSearchParams"></a>useSearchParams</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useSearchParams</span>(<span class="hljs-params"></span><br><span class="hljs-params">  defaultInit?: URLSearchParamsInit</span><br><span class="hljs-params"></span>): [<span class="hljs-title class_">URLSearchParams</span>, <span class="hljs-title class_">SetURLSearchParams</span>];<br><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">ParamKeyValuePair</span> = [<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span>];<br><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">URLSearchParamsInit</span> =<br>  | <span class="hljs-built_in">string</span><br>  | <span class="hljs-title class_">ParamKeyValuePair</span>[]<br>  | <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">string</span> | <span class="hljs-built_in">string</span>[]&gt;<br>  | <span class="hljs-title class_">URLSearchParams</span>;<br><br><span class="hljs-keyword">type</span> <span class="hljs-title class_">SetURLSearchParams</span> = <span class="hljs-function">(<span class="hljs-params"></span></span><br><span class="hljs-params"><span class="hljs-function">  nextInit?: URLSearchParamsInit,</span></span><br><span class="hljs-params"><span class="hljs-function">  navigateOpts?: : &#123; replace?: <span class="hljs-built_in">boolean</span>; state?: <span class="hljs-built_in">any</span> &#125;</span></span><br><span class="hljs-params"><span class="hljs-function"></span>) =&gt;</span> <span class="hljs-built_in">void</span>;<br></code></pre></td></tr></table></figure>
+
+<p><code>useSearchParams</code>用于读取和修改 URL 中当前位置的查询字符串。与<code>useState</code>一样，<code>useSearchParams</code>返回一个包含两个值的数组：<code>当前位置的搜索参数</code>和<code>一个可用于更新它们的函数</code>。</p>
+<p><code>useSearchParams</code>的工作原理与<code>navigate</code>类似，但仅适用于 URL 的<code>search</code>部分。</p>
+<div class="note note-warning">
+            <p>setSearchParams 的第二个参数要与 navigate 的第二个参数的类型相同</p>
+          </div>
+
+<h3 id="useResolvedPath"><a href="#useResolvedPath" class="headerlink" title="useResolvedPath"></a>useResolvedPath</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useResolvedPath</span>(<span class="hljs-params">to: To</span>): <span class="hljs-title class_">Path</span><br></code></pre></td></tr></table></figure>
+
+<p>这个<code>hook</code>解析给定<code>to</code>对象中的<code>pathname</code>与当前位置的路径名，并返回一个<code>Path</code>对象</p>
+<h3 id="useRoutes"><a href="#useRoutes" class="headerlink" title="useRoutes"></a>useRoutes</h3><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs typescript"><span class="hljs-keyword">declare</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">useRoutes</span>(<span class="hljs-params"></span><br><span class="hljs-params">  routes: RouteObject[],</span><br><span class="hljs-params">  location?: Partial&lt;Location&gt; | <span class="hljs-built_in">string</span>;</span><br><span class="hljs-params"></span>): <span class="hljs-title class_">React</span>.<span class="hljs-property">ReactElement</span> | <span class="hljs-literal">null</span>;<br></code></pre></td></tr></table></figure>
+
+<p><code>useRoutes</code>钩子与<code>Route</code>组件是功能相等的，但它使用 JavaScript 对象而不是<code>Route</code>元素取定义你的路由。该对象与<code>Route</code>元素具有相同的属性，但是它们不需要 JSX</p>
+<div class="note note-warning">
+            <p>useRoutes 的返回值要么是一个可以让你用于渲染路由树的 React Element，要么是 null（路由不匹配时）</p>
+          </div>
+
+<h2 id="react-redux-hooks"><a href="#react-redux-hooks" class="headerlink" title="react-redux hooks"></a>react-redux hooks</h2><p>首先看一个实际应用中使用<code>connect</code>的例子</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; connect &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-redux&#x27;</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Home</span> = props=&gt;&#123;<br>    <span class="hljs-comment">// 获取数据</span><br>    <span class="hljs-keyword">const</span> &#123; user, loading, dispatch &#125; = props<br><br>    <span class="hljs-comment">// 发起请求</span><br>    <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>        <span class="hljs-title function_">dispatch</span>(&#123;<br>            <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;user/fetchUser&#x27;</span>,<span class="hljs-attr">payload</span>:&#123;&#125;<br>        &#125;)<br>    &#125;, [])<br><br>    <span class="hljs-comment">// 渲染页面</span><br>    <span class="hljs-keyword">if</span>(loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    <span class="hljs-keyword">return</span> (<br>        &lt;div&gt;&#123;user.<span class="hljs-property">name</span>&#125;&lt;div&gt;<br>    )<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title function_">connect</span>(<span class="hljs-function">(<span class="hljs-params">&#123; loading, user &#125;</span>)=&gt;</span>(&#123;<br>    <span class="hljs-attr">loading</span>:loading.<span class="hljs-property">effects</span>[<span class="hljs-string">&#x27;user/fetchUser&#x27;</span>],<br>    <span class="hljs-attr">user</span>:user.<span class="hljs-property">userInfo</span><br>&#125;))(<span class="hljs-title class_">Home</span>)<br></code></pre></td></tr></table></figure>
+
+<p>现在使用<code>useDispatch</code> <code>useSelector</code>改造一下上面的代码：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> &#123; useDispatch, useSelector &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-redux&#x27;</span><br><br><span class="hljs-keyword">const</span> <span class="hljs-title function_">Home</span> = props =&gt; &#123;<br><br>    <span class="hljs-keyword">const</span> dispatch = <span class="hljs-title function_">useDispatch</span>()<br><br>    <span class="hljs-keyword">const</span> loadingEffect = <span class="hljs-title function_">useSelector</span>(<span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span>state.<span class="hljs-property">loading</span>);<br>    <span class="hljs-keyword">const</span> loading = loadingEffect.<span class="hljs-property">effects</span>[<span class="hljs-string">&#x27;user/fetchUser&#x27;</span>];<br>    <span class="hljs-keyword">const</span> user = <span class="hljs-title function_">useSelector</span>(<span class="hljs-function"><span class="hljs-params">state</span>=&gt;</span>state.<span class="hljs-property">user</span>.<span class="hljs-property">userInfo</span>)<br><br>    <span class="hljs-comment">// 发起请求</span><br>    <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">()=&gt;</span>&#123;<br>        <span class="hljs-title function_">dispatch</span>(&#123;<br>            <span class="hljs-attr">type</span>:<span class="hljs-string">&#x27;user/fetchUser&#x27;</span>,<span class="hljs-attr">payload</span>:&#123;&#125;<br>        &#125;)<br>    &#125;,[])<br><br>    <span class="hljs-comment">// 渲染页面</span><br>    <span class="hljs-keyword">if</span>(loading) <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>loading...<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>    <span class="hljs-keyword">return</span> (<br>        &lt;div&gt;&#123;user.<span class="hljs-property">name</span>&#125;&lt;div&gt;<br>    )<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-title class_">Home</span><br></code></pre></td></tr></table></figure>
+
+<p>再来说说<code>hooks</code>，它是<code>React-Redux</code>提供用来替代<code>connect()</code>高阶组件。这些<code>hooks</code> API 允许不使用<code>connect()</code>包裹组件的情况下订阅<code>store</code>和分发<code>actions</code>。</p>
+<p>hooks 需要在函数组件中使用，不能在 React 类中使用<code>hooks</code>。</p>
+<p>使用<code>hooks</code>和<code>connect</code>()一样，需要将应用包裹在<code>&lt;Provider/&gt;</code>中。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> store = <span class="hljs-title function_">createStore</span>(rootReducer)<br><br><span class="hljs-title class_">ReactDOM</span>.<span class="hljs-title function_">render</span>(<br>  <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Provider</span> <span class="hljs-attr">store</span>=<span class="hljs-string">&#123;store&#125;</span>&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;<span class="hljs-name">App</span> /&gt;</span></span><br><span class="language-xml">  <span class="hljs-tag">&lt;/<span class="hljs-name">Provider</span>&gt;</span></span>,<br>  <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">&#x27;root&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="useSelector"><a href="#useSelector" class="headerlink" title="useSelector"></a>useSelector</h3><p>作用：从<code>redux</code>的<code>store</code>对象中提取数据(<code>state</code>)。</p>
+<p>注意：<code>selector</code>函数应该是个纯函数，因为可能在任何时候执行多次。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> &#123; useSelector &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-redux&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">CounterComponent</span> = (<span class="hljs-params"></span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> counter = <span class="hljs-title function_">useSelector</span>(<span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.<span class="hljs-property">counter</span>)<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;counter&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>selector</code>函数被调用时将会被传入<code>Redux store</code>的整个<code>state</code>，作为唯一的参数。每次函数组件渲染时，<code>selector</code>函数都会被调用。<code>useSelector()</code>同样会订阅<code>Redux</code>的<code>store</code>，并且在分发<code>action</code>时，都会被执行一次。</p>
+<p><code>selector</code>和<code>connect</code>的<code>mapStateToProps</code>的差异：</p>
+<ul>
+<li><code>selector</code>函数的返回值会被用作调用 useSelector() <code>hook</code>时的返回值，可以是任意类型的值。</li>
+<li>当分发<code>action</code>时，useSelector 会将上次调用的结果与当前调用的结果进行引用（<code>===</code>）比较，不一样会进行重新渲染。</li>
+<li><code>useSelector()</code>默认使用严格比较<code>===</code>来比较引用，而非浅比较。</li>
+<li><code>selector</code>函数不会接收<code>ownProps</code>参数，但是<code>props</code>可以通过闭包获取使用或者通过使用柯里化的<code>selector</code>函数。</li>
+</ul>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> &#123; useSelector &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-redux&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">TodoListItem</span> = props =&gt; &#123;<br>  <span class="hljs-keyword">const</span> todo = <span class="hljs-title function_">useSelector</span>(<span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.<span class="hljs-property">todos</span>[props.<span class="hljs-property">id</span>])<br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;todo.text&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在<code>action</code>被分发后，<code>useSelector()</code>对<code>selector</code>函数的返回值进行引用比较<code>===</code>，在<code>selector</code>的值改变时会触发 re-render。与<code>connect</code>不同，<code>useSelector()</code>不会阻止父组件重渲染导致的子组件重渲染的行为，即使组件的<code>props</code>没有发生改变。</p>
+<p>如果想要进一步的性能优化，可以在<code>React.memo()</code>中包装函数组件。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> <span class="hljs-title function_">CounterComponent</span> = (<span class="hljs-params">&#123; name &#125;</span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> counter = <span class="hljs-title function_">useSelector</span>(<span class="hljs-function"><span class="hljs-params">state</span> =&gt;</span> state.<span class="hljs-property">counter</span>)<br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      &#123;name&#125;: &#123;counter&#125;</span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">MemoizedCounterComponent</span> = <span class="hljs-title class_">React</span>.<span class="hljs-title function_">memo</span>(<span class="hljs-title class_">CounterComponent</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="useDispatch"><a href="#useDispatch" class="headerlink" title="useDispatch"></a>useDispatch</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> dispatch = <span class="hljs-title function_">useDispatch</span>()<br></code></pre></td></tr></table></figure>
+
+<p>作用：返回<code>Redux store</code>中对<code>dispatch</code>函数的引用。</p>
+<p>当使用<code>dispatch</code>函数将回调传递给子组件时，建议使用<code>useCallback</code>函数将回调函数记忆化，防止因为回调函数引用的变化导致不必要的渲染。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span>, &#123; useCallback, memo &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> &#123; useDispatch &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-redux&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title class_">MyIncrementButton</span> = <span class="hljs-title function_">memo</span>(<span class="hljs-function">(<span class="hljs-params">&#123; onIncrement &#125;</span>) =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;onIncrement&#125;</span>&gt;</span>Increment counter<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span></span>)<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">Counter</span> = (<span class="hljs-params">&#123; value &#125;</span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> dispatch = <span class="hljs-title function_">useDispatch</span>()<br>  <span class="hljs-keyword">const</span> incrementCounter = <span class="hljs-title function_">useCallback</span>(<span class="hljs-function">() =&gt;</span> <span class="hljs-title function_">dispatch</span>(&#123; <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;increment-counter&#x27;</span> &#125;), [dispatch])<br><br>  <span class="hljs-keyword">return</span> (<br>    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">span</span>&gt;</span>&#123;value&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">span</span>&gt;</span></span><br><span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">MyIncrementButton</span> <span class="hljs-attr">onIncrement</span>=<span class="hljs-string">&#123;incrementCounter&#125;</span> /&gt;</span></span><br><span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="useStore"><a href="#useStore" class="headerlink" title="useStore()"></a>useStore()</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">const</span> store = <span class="hljs-title function_">useStore</span>()<br></code></pre></td></tr></table></figure>
+
+<p>作用：返回传递给组件的 <code>Redux store</code> 的引用。</p>
+<p>注意：应该将<code>useSelector()</code>作为首选，只有在个别场景下才会需要使用它，比如替换 <code>store</code> 的 <code>reducers</code>。</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs jsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span><br><span class="hljs-keyword">import</span> &#123; useStore &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react-redux&#x27;</span><br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-title function_">Counter</span> = (<span class="hljs-params">&#123; value &#125;</span>) =&gt; &#123;<br>  <span class="hljs-keyword">const</span> store = <span class="hljs-title function_">useStore</span>()<br><br>  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>&#123;store.getState()&#125;<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="hook-进阶"><a href="#hook-进阶" class="headerlink" title="hook 进阶"></a>hook 进阶</h2><p>react hook 工作当中也用了一段时间了，中间踩过一些坑，针对不同 <code>hook</code> 的特点，进行总结。</p>
+<ul>
+<li>两个 <code>state</code> 是关联或者需要一起发生改变，可以放在同一个 <code>state</code>，但不要太多</li>
+<li>当 <code>state</code> 的更新逻辑比较复杂的时候则可以考虑使用 <code>useReducer</code> 代替</li>
+<li><code>useEffect</code>、<code>useLayoutEffect</code>、<code>useMemo</code>、<code>useCallback</code>、<code>useImperativeHandle</code> 中依赖数组依赖项最好不要太多，太多则考虑拆分一下，感觉不超 3 到 4 个会比较合适。</li>
+<li>去掉不必要的依赖项</li>
+<li>合并相关的 <code>state</code> 为一个</li>
+<li>通过 <code>setState</code> 回到函数方式去更新 <code>state</code></li>
+<li>按照不同维度这个 hook 还能不能拆分的更细</li>
+<li><code>useMemo</code> 多用于对 <code>React</code> 元素做 <code>memorize</code> 处理或者需要复杂计算得出的值，对于简单纯 js 计算就不要进行 <code>useMemo</code> 处理了。</li>
+<li>useCallback 要配合<code>memo</code>使用</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/react/" class="category-chain-item">react</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/react/">#react</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/01/05/uniApp/uni_wx_login/" title="uniApp公众号登录和支付公用封装方法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">uniApp公众号登录和支付公用封装方法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2020/12/26/vue/mixins/" title="mixins的基本使用">
+                        <span class="hidden-mobile">mixins的基本使用</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appKey":"nwLIBSLqc2For9OE49wSuWaf","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"appid":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appkey":"nwLIBSLqc2For9OE49wSuWaf"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <i class="iconfont icon-mail"></i> <a href="#" rel="nofollow noopener"><span>1793980864@qq.com</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

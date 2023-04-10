@@ -1,0 +1,1000 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://fang-kang.gitee.io/blog-img/head.png">
+  <link rel="icon" href="https://fang-kang.gitee.io/blog-img/head.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="房康的个人博客，凌烟的个人博客，博客，记录生活">
+  
+    <meta name="description" content="git 提交消息的表情符号指南Gitmoji 是一项倡议，旨在标准化和解释 GitHub 提交消息上表情符号的使用。  记录一下 emoji 在 git 中的使用方法，直接在 git 提交时添加 emoji 图标代码就可以了，如下： 1git commit -m &quot;:tada: Initial commit&quot;  关于所有的 emoji 图标代码，可以参考emojipedia，不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git emoji">
+<meta property="og:url" content="https://fang-kang.gitee.io/blog/2021/04/28/other/gitemoji/index.html">
+<meta property="og:site_name" content="凌烟">
+<meta property="og:description" content="git 提交消息的表情符号指南Gitmoji 是一项倡议，旨在标准化和解释 GitHub 提交消息上表情符号的使用。  记录一下 emoji 在 git 中的使用方法，直接在 git 提交时添加 emoji 图标代码就可以了，如下： 1git commit -m &quot;:tada: Initial commit&quot;  关于所有的 emoji 图标代码，可以参考emojipedia，不">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fang-kang.gitee.io/blog-img/2.png">
+<meta property="article:published_time" content="2021-04-28T00:00:00.000Z">
+<meta property="article:modified_time" content="2023-04-10T06:32:05.593Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="other">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fang-kang.gitee.io/blog-img/2.png">
+  
+  
+  
+  <title>git emoji - 凌烟</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"fang-kang.gitee.io","root":"/blog/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>凌烟</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://fang-kang.github.io/note">
+                <i class="iconfont icon-books"></i>
+                <span>笔记</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://fang-kang.gitee.io/blog-img/blog/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="git emoji"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-04-28 00:00" pubdate>
+          2021年4月28日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          21 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">git emoji</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="git-提交消息的表情符号指南"><a href="#git-提交消息的表情符号指南" class="headerlink" title="git 提交消息的表情符号指南"></a>git 提交消息的表情符号指南</h1><h2 id="Gitmoji"><a href="#Gitmoji" class="headerlink" title="Gitmoji"></a>Gitmoji</h2><blockquote>
+<p>是一项倡议，旨在标准化和解释 GitHub 提交消息上表情符号的使用。</p>
+</blockquote>
+<p>记录一下 emoji 在 git 中的使用方法，直接在 git 提交时添加 emoji 图标代码就可以了，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git commit -m <span class="hljs-string">&quot;:tada: Initial commit&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>关于所有的 emoji 图标代码，可以参考<a href="https://link.juejin.im/?target=https://emojipedia.org/">emojipedia</a>，不过 GitHub 上有一套约定俗成的 emoji 使用规范，我整理成了以下表格，在使用 git 提交信息的时候，你不妨尝试使用它们，让你的提交信息更加明晰和生动。</p>
+<table>
+<thead>
+<tr>
+<th align="left">emoji</th>
+<th align="left">emoji 代码</th>
+<th align="left">commit 说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">:art: (调色板)</td>
+<td align="left"><code>:art:</code></td>
+<td align="left">改进代码结构/代码格式</td>
+</tr>
+<tr>
+<td align="left">:zap: (闪电) :racehorse: (赛马)</td>
+<td align="left"><code>:zap:</code> <code>:racehorse:</code></td>
+<td align="left">提升性能</td>
+</tr>
+<tr>
+<td align="left">:fire: (火焰)</td>
+<td align="left"><code>:fire:</code></td>
+<td align="left">移除代码或文件</td>
+</tr>
+<tr>
+<td align="left">:bug: (bug)</td>
+<td align="left"><code>:bug:</code></td>
+<td align="left">修复 bug</td>
+</tr>
+<tr>
+<td align="left">:ambulance: (急救车)</td>
+<td align="left"><code>:ambulance:</code></td>
+<td align="left">重要补丁</td>
+</tr>
+<tr>
+<td align="left">:sparkles: (火花)</td>
+<td align="left"><code>:sparkles:</code></td>
+<td align="left">引入新功能</td>
+</tr>
+<tr>
+<td align="left">:memo: (备忘录)</td>
+<td align="left"><code>:memo:</code></td>
+<td align="left">撰写文档</td>
+</tr>
+<tr>
+<td align="left">:rocket: (火箭)</td>
+<td align="left"><code>:rocket:</code></td>
+<td align="left">部署功能</td>
+</tr>
+<tr>
+<td align="left">:lipstick: (口红)</td>
+<td align="left"><code>:lipstick:</code></td>
+<td align="left">更新 UI 和样式文件</td>
+</tr>
+<tr>
+<td align="left">:tada: (庆祝)</td>
+<td align="left"><code>:tada:</code></td>
+<td align="left">初次提交</td>
+</tr>
+<tr>
+<td align="left">:white_check_mark: (白色复选框)</td>
+<td align="left"><code>:white_check_mark:</code></td>
+<td align="left">更新测试</td>
+</tr>
+<tr>
+<td align="left">:lock: (锁)</td>
+<td align="left"><code>:lock:</code></td>
+<td align="left">修复安全问题</td>
+</tr>
+<tr>
+<td align="left">:apple: (苹果)</td>
+<td align="left"><code>:apple:</code></td>
+<td align="left">修复 macOS 下的问题</td>
+</tr>
+<tr>
+<td align="left">:penguin: (企鹅)</td>
+<td align="left"><code>:penguin:</code></td>
+<td align="left">修复 Linux 下的问题</td>
+</tr>
+<tr>
+<td align="left">:checkered_flag: (旗帜)</td>
+<td align="left"><code>:checked_flag:</code></td>
+<td align="left">修复 Windows 下的问题</td>
+</tr>
+<tr>
+<td align="left">:robot:（机器人）</td>
+<td align="left"><code>:robot:</code></td>
+<td align="left">修复 Android 下的问题</td>
+</tr>
+<tr>
+<td align="left">:green_apple: (绿苹果)</td>
+<td align="left"><code>:green_apple:</code></td>
+<td align="left">修复 iOS 下的问题</td>
+</tr>
+<tr>
+<td align="left">:bookmark: (书签)</td>
+<td align="left"><code>:bookmark:</code></td>
+<td align="left">发行/版本标签</td>
+</tr>
+<tr>
+<td align="left">:rotating_light: (警车灯)</td>
+<td align="left"><code>:rotating_light:</code></td>
+<td align="left">移除 linter 警告</td>
+</tr>
+<tr>
+<td align="left">:construction: (施工)</td>
+<td align="left"><code>:construction:</code></td>
+<td align="left">工作进行中</td>
+</tr>
+<tr>
+<td align="left">:construction_worker: (工人)</td>
+<td align="left"><code>:construction_worker:</code></td>
+<td align="left">添加 CI 构建系统</td>
+</tr>
+<tr>
+<td align="left">:green_heart: (绿心)</td>
+<td align="left"><code>:green_heart:</code></td>
+<td align="left">修复 CI 构建问题</td>
+</tr>
+<tr>
+<td align="left">:arrow_up: (上升箭头)</td>
+<td align="left"><code>:arrow_up:</code></td>
+<td align="left">升级依赖</td>
+</tr>
+<tr>
+<td align="left">:arrow_down: (下降箭头)</td>
+<td align="left"><code>:arrow_down:</code></td>
+<td align="left">降级依赖</td>
+</tr>
+<tr>
+<td align="left">:pushpin: (图钉)</td>
+<td align="left"><code>:pushpin:</code></td>
+<td align="left">将依赖项固定到特定版本</td>
+</tr>
+<tr>
+<td align="left">:chart_with_upwards_trend: (上升趋势图)</td>
+<td align="left"><code>:chart_with_upwards_trend:</code></td>
+<td align="left">添加分析或跟踪代码</td>
+</tr>
+<tr>
+<td align="left">:recycle: （回收）</td>
+<td align="left"><code>:recycle:</code></td>
+<td align="left">重构代码</td>
+</tr>
+<tr>
+<td align="left">:whale: (鲸鱼)</td>
+<td align="left"><code>:whale:</code></td>
+<td align="left">Docker 相关工作</td>
+</tr>
+<tr>
+<td align="left">:globe_with_meridians: (带子午线的地球仪)</td>
+<td align="left"><code>:globe_with_meridians:</code></td>
+<td align="left">国际化与本地化</td>
+</tr>
+<tr>
+<td align="left">:heavy_plus_sign: (加号)</td>
+<td align="left"><code>:heavy_plus_sign:</code></td>
+<td align="left">增加一个依赖</td>
+</tr>
+<tr>
+<td align="left">:heavy_minus_sign: (减号)</td>
+<td align="left"><code>:heavy_minus_sign:</code></td>
+<td align="left">减少一个依赖</td>
+</tr>
+<tr>
+<td align="left">:wrench: (扳手)</td>
+<td align="left"><code>:wrench:</code></td>
+<td align="left">修改配置文件</td>
+</tr>
+<tr>
+<td align="left">:hammer: (锤子)</td>
+<td align="left"><code>:hammer:</code></td>
+<td align="left">重大重构</td>
+</tr>
+<tr>
+<td align="left">:pencil2: (铅笔)</td>
+<td align="left"><code>:pencil2:</code></td>
+<td align="left">修复 typo</td>
+</tr>
+<tr>
+<td align="left">:hankey: (粑粑…)</td>
+<td align="left"><code>:hankey:</code></td>
+<td align="left">写了辣鸡代码需要优化</td>
+</tr>
+<tr>
+<td align="left">:rewind: (倒带)</td>
+<td align="left"><code>:rewind:</code></td>
+<td align="left">恢复更改</td>
+</tr>
+<tr>
+<td align="left">:twisted_rightwards_arrows: (交叉向右的箭头)</td>
+<td align="left"><code>:twisted_rightwards_arrows:</code></td>
+<td align="left">合并分支</td>
+</tr>
+<tr>
+<td align="left">:package: (包裹)</td>
+<td align="left"><code>:package:</code></td>
+<td align="left">更新编译的文件或包</td>
+</tr>
+<tr>
+<td align="left">:alien: (外星人)</td>
+<td align="left"><code>:alien:</code></td>
+<td align="left">由于外部 API 更改而更新代码</td>
+</tr>
+<tr>
+<td align="left">:truck: (货车)</td>
+<td align="left"><code>:truck:</code></td>
+<td align="left">移动或者重命名文件</td>
+</tr>
+<tr>
+<td align="left">:page_facing_up: (正面朝上的页面)</td>
+<td align="left"><code>:page_facing_up:</code></td>
+<td align="left">增加或更新许可证书</td>
+</tr>
+<tr>
+<td align="left">:boom: (爆炸)</td>
+<td align="left"><code>:boom:</code></td>
+<td align="left">引入突破性的变化</td>
+</tr>
+<tr>
+<td align="left">:bento: (铅笔)</td>
+<td align="left"><code>:bento:</code></td>
+<td align="left">增加或更新资源</td>
+</tr>
+<tr>
+<td align="left">:ok_hand: (OK 手势)</td>
+<td align="left"><code>:ok_hand:</code></td>
+<td align="left">由于代码审查更改而更新代码</td>
+</tr>
+<tr>
+<td align="left">:wheelchair: (轮椅)</td>
+<td align="left"><code>:wheelchair:</code></td>
+<td align="left">改善无障碍交互</td>
+</tr>
+<tr>
+<td align="left">:bulb: (灯泡)</td>
+<td align="left"><code>:bulb:</code></td>
+<td align="left">给代码添加注释</td>
+</tr>
+<tr>
+<td align="left">:beers: (啤酒)</td>
+<td align="left"><code>:beers:</code></td>
+<td align="left">醉醺醺地写代码…</td>
+</tr>
+<tr>
+<td align="left">:speech_balloon: (消息气泡)</td>
+<td align="left"><code>:speech_balloon:</code></td>
+<td align="left">更新文本文档</td>
+</tr>
+<tr>
+<td align="left">:card_file_box: (卡片文件盒)</td>
+<td align="left"><code>:card_file_box:</code></td>
+<td align="left">执行与数据库相关的更改</td>
+</tr>
+<tr>
+<td align="left">:loud_sound: (音量大)</td>
+<td align="left"><code>:loud_sound:</code></td>
+<td align="left">增加日志</td>
+</tr>
+<tr>
+<td align="left">:mute: (静音)</td>
+<td align="left"><code>:mute:</code></td>
+<td align="left">移除日志</td>
+</tr>
+<tr>
+<td align="left">:busts_in_silhouette: (轮廓中的半身像)</td>
+<td align="left"><code>:busts_in_silhouette:</code></td>
+<td align="left">增加贡献者</td>
+</tr>
+<tr>
+<td align="left">:children_crossing: (孩童通行)</td>
+<td align="left"><code>:children_crossing:</code></td>
+<td align="left">优化用户体验、可用性</td>
+</tr>
+<tr>
+<td align="left">:building_construction: (建筑建造)</td>
+<td align="left"><code>:building_construction:</code></td>
+<td align="left">结构变动</td>
+</tr>
+<tr>
+<td align="left">:iphone: (iPhone)</td>
+<td align="left"><code>:iphone:</code></td>
+<td align="left">做响应式设计</td>
+</tr>
+<tr>
+<td align="left">:clown_face: (小丑脸)</td>
+<td align="left"><code>:clown_face:</code></td>
+<td align="left">嘲弄事物（直译，这个没明白）</td>
+</tr>
+<tr>
+<td align="left">:egg: (鸡蛋)</td>
+<td align="left"><code>:egg:</code></td>
+<td align="left">增加彩蛋</td>
+</tr>
+<tr>
+<td align="left">:see_no_evil: (看不见邪恶)</td>
+<td align="left"><code>:see_no_evil:</code></td>
+<td align="left">增加或更改 gitignore</td>
+</tr>
+<tr>
+<td align="left">:camera_flash: (照相机闪光灯)</td>
+<td align="left"><code>:camera_flash:</code></td>
+<td align="left">增加或更新截图</td>
+</tr>
+<tr>
+<td align="left">:alembic: (蒸馏器)</td>
+<td align="left"><code>:alembic:</code></td>
+<td align="left">尝试新东西</td>
+</tr>
+<tr>
+<td align="left">:mag: (放大镜)</td>
+<td align="left"><code>:mag:</code></td>
+<td align="left">SEO 优化</td>
+</tr>
+<tr>
+<td align="left">:wheel_of_dharma: (船的方向盘)</td>
+<td align="left"><code>:wheel_of_dharma:</code></td>
+<td align="left">关于 Kubernetes 的工作</td>
+</tr>
+<tr>
+<td align="left">:label: (标签)</td>
+<td align="left"><code>:label:</code></td>
+<td align="left">增加类型（FLow、Typescript）</td>
+</tr>
+</tbody></table>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/%E5%85%B6%E4%BB%96/" class="category-chain-item">其他</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/other/">#other</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2021/05/08/JS/sortCompare/" title="js中数组对象排序">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">js中数组对象排序</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2021/03/17/JS/%E6%95%B0%E7%BB%84%E5%AF%B9%E8%B1%A1%E5%8E%BB%E9%87%8D/" title="js中数组对象去重">
+                        <span class="hidden-mobile">js中数组对象去重</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appKey":"nwLIBSLqc2For9OE49wSuWaf","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"appid":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appkey":"nwLIBSLqc2For9OE49wSuWaf"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <i class="iconfont icon-mail"></i> <a href="#" rel="nofollow noopener"><span>1793980864@qq.com</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

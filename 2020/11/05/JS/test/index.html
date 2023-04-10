@@ -1,0 +1,838 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://fang-kang.gitee.io/blog-img/head.png">
+  <link rel="icon" href="https://fang-kang.gitee.io/blog-img/head.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="房康的个人博客，凌烟的个人博客，博客，记录生活">
+  
+    <meta name="description" content="test 规则校验             里面有一些常用的规则校验 如是否手机号，邮箱号，URL 等             首先引入 1234&#x2F;&#x2F;main.jsimport test from &amp;#x27;.&#x2F;common&#x2F;test.js&amp;#x27;Vue.prototype.$test &#x3D; test">
+<meta property="og:type" content="article">
+<meta property="og:title" content="test 规则校验">
+<meta property="og:url" content="https://fang-kang.gitee.io/blog/2020/11/05/JS/test/index.html">
+<meta property="og:site_name" content="凌烟">
+<meta property="og:description" content="test 规则校验             里面有一些常用的规则校验 如是否手机号，邮箱号，URL 等             首先引入 1234&#x2F;&#x2F;main.jsimport test from &amp;#x27;.&#x2F;common&#x2F;test.js&amp;#x27;Vue.prototype.$test &#x3D; test">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fang-kang.gitee.io/blog-img/sdqryn.webp">
+<meta property="article:published_time" content="2020-11-05T15:33:01.000Z">
+<meta property="article:modified_time" content="2023-04-10T06:32:05.589Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="js">
+<meta property="article:tag" content="utils">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fang-kang.gitee.io/blog-img/sdqryn.webp">
+  
+  
+  
+  <title>test 规则校验 - 凌烟</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"fang-kang.gitee.io","root":"/blog/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>凌烟</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://fang-kang.github.io/note">
+                <i class="iconfont icon-books"></i>
+                <span>笔记</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://fang-kang.gitee.io/blog-img/blog/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="test 规则校验"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-11-05 15:33" pubdate>
+          2020年11月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          7.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          61 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">test 规则校验</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="test-规则校验"><a href="#test-规则校验" class="headerlink" title="test 规则校验"></a>test 规则校验</h1><div class="note note-success">
+            <p>里面有一些常用的规则校验 如是否手机号，邮箱号，URL 等</p>
+          </div>
+
+<p><strong>首先引入</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//main.js</span><br><br><span class="hljs-keyword">import</span> test <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./common/test.js&#x27;</span><br><span class="hljs-title class_">Vue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">$test</span> = test<br></code></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h2 id="是否验证码"><a href="#是否验证码" class="headerlink" title="是否验证码"></a>是否验证码</h2><p><code>code(value, len = 6)</code></p>
+<p>校验是否验证码(要求为数字)，返回<code>true</code>或者<code>false</code></p>
+<ul>
+<li><code>value</code> <String> 验证码字符串</li>
+<li><code>len</code> <Number> 验证码长度，默认为 6</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">code</span>(<span class="hljs-string">&#x27;4567&#x27;</span>, <span class="hljs-number">4</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否数组"><a href="#是否数组" class="headerlink" title="是否数组"></a>是否数组</h2><p><code>array(array)</code></p>
+<p>校验是否数组，返回<code>true</code>或者<code>false</code>。</p>
+<ul>
+<li><code>array</code> <Array> 数组</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">array</span>([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否-Json-字符串"><a href="#是否-Json-字符串" class="headerlink" title="是否 Json 字符串"></a>是否 Json 字符串</h2><p><code>jsonString(json)</code></p>
+<p>校验是否<code>Json</code>，返回<code>true</code>或者<code>false</code>。</p>
+<ul>
+<li><code>json</code> <Json> Json 字符串</li>
+</ul>
+<p>注意：请留意<code>json</code>字符串的要求：</p>
+<ol>
+<li>整体为一个字符串</li>
+<li>字符串对象内的属性需要用<code>&quot;&quot;</code>双引号包含</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">jsonString</span>(<span class="hljs-string">&#x27;&#123;&quot;a&quot;: 1&#125;&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否对象"><a href="#是否对象" class="headerlink" title="是否对象"></a>是否对象</h2><p><code>object(object)</code></p>
+<p>校验是否对象，返回<code>true</code>或者<code>false</code>。</p>
+<ul>
+<li><code>object</code> <Object> 对象</li>
+</ul>
+<p>注意：请留意<code>json</code>字符串的要求：</p>
+<ol>
+<li>整体为一个字符串</li>
+<li>字符串对象内的属性需要用<code>&quot;&quot;</code>双引号包含</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">object</span>(&#123; <span class="hljs-attr">a</span>: <span class="hljs-number">1</span> &#125;))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否邮箱号"><a href="#是否邮箱号" class="headerlink" title="是否邮箱号"></a>是否邮箱号</h2><p><code>email(email)</code></p>
+<p>校验是否邮箱号，返回<code>true</code>或者<code>false</code>。</p>
+<ul>
+<li><code>email</code> <String> 字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">email</span>(<span class="hljs-string">&#x27;123465798@gmail.com&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否手机号"><a href="#是否手机号" class="headerlink" title="是否手机号"></a>是否手机号</h2><p><code>mobile(mobile)</code></p>
+<p>校验是否手机号，返回<code>true</code>或者<code>false</code>。</p>
+<ul>
+<li><code>mobile</code> <String> 字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">mobile</span>(<span class="hljs-string">&#x27;13845678900&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否-URL"><a href="#是否-URL" class="headerlink" title="是否 URL"></a>是否 URL</h2><p><code>url(url)</code></p>
+<p>校验是否 URL 链接，返回<code>true</code>或者<code>false</code>。</p>
+<ul>
+<li><code>url</code> <String> 字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">url</span>(<span class="hljs-string">&#x27;http://www.baidu.com&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否为空"><a href="#是否为空" class="headerlink" title="是否为空"></a>是否为空</h2><p>这里指的“空”，包含如下几种情况：</p>
+<ul>
+<li>值为<code>undefined</code>(一种类型)，非字符串”<code>undefined</code>“</li>
+<li>字符串长度为<code>0</code>，也即空字符串</li>
+<li>值为<code>false</code>(布尔类型)，非字符串”<code>false</code>“</li>
+<li>值为数值<code>0</code>(非字符串”<code>0</code>“)，或者<code>NaN</code></li>
+<li>值为<code>null</code>，空对象<code>&#123;&#125;</code>，或者长度为<code>0</code>的数组</li>
+</ul>
+<p><code>isEmpty(value)</code></p>
+<p>校验值是否为空，返回<code>true</code>或者<code>false</code>。<br>此方法等同于<code>empty</code>名称，但是为了更语义化，推荐用<code>isEmpty</code>名称。</p>
+<ul>
+<li><code>value</code> <any> 字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">isEmpty</span>(<span class="hljs-literal">false</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否普通日期"><a href="#是否普通日期" class="headerlink" title="是否普通日期"></a>是否普通日期</h2><p>验证一个字符串是否日期，返回<code>true</code>或者<code>false</code>，如下行为正确</p>
+<ul>
+<li><code>2020-02-10</code>、<code>2020-02-10 08:32:10</code>、<code>2020/02/10 3:10</code>、<code>2020/02/10 03:10</code>、<code>2020/02-10 3:10</code></li>
+</ul>
+<p>如下为错误：</p>
+<ul>
+<li><code>2020年02月10日、2020-02-10 25:32</code></li>
+</ul>
+<p>总的来说，年月日之间可以用”/“或者”-“分隔(不能用中文分隔)，时分秒之间用”:”分隔，数值不能超出范围，如月份不能为 13，则检验成功，否则失败。</p>
+<p><code>date(date)</code></p>
+<ul>
+<li><code>date</code> <String> 日期字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">date</span>(<span class="hljs-string">&#x27;2020-02-10 08:32:10&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否十进制数值"><a href="#是否十进制数值" class="headerlink" title="是否十进制数值"></a>是否十进制数值</h2><p>整数，小数，负数，带千分位数(2,359.08)等可以检验通过，返回<code>true</code>或者<code>false</code>。</p>
+<p><code>number(number)</code></p>
+<ul>
+<li><code>number</code> <String> 数字</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">number</span>(<span class="hljs-string">&#x27;2020&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否整数"><a href="#是否整数" class="headerlink" title="是否整数"></a>是否整数</h2><p>所有字符都在<code>0-9</code>之间，才校验通过，结果返回<code>true</code>或者<code>false</code>。</p>
+<p><code>digits(number)</code></p>
+<ul>
+<li><code>number</code> <String> 数字</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">digits</span>(<span class="hljs-string">&#x27;2020&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否身份证号"><a href="#是否身份证号" class="headerlink" title="是否身份证号"></a>是否身份证号</h2><p>身份证号，包括尾数为”X”的类型，可以校验通过，结果返回<code>true</code>或者<code>false</code>。</p>
+<p><code>idCard(idCard)</code></p>
+<ul>
+<li><code>idCard</code> <String> 身份证号</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">idCard</span>(<span class="hljs-string">&#x27;110101199003070134&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否车牌号"><a href="#是否车牌号" class="headerlink" title="是否车牌号"></a>是否车牌号</h2><p>可以校验旧车牌号和新能源类型车牌号，结果返回<code>true</code>或者<code>false</code>。</p>
+<p><code>carNo(carNo)</code></p>
+<ul>
+<li><code>carNo</code> <String> 车牌号</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">carNo</span>(<span class="hljs-string">&#x27;京A88888&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否金额"><a href="#是否金额" class="headerlink" title="是否金额"></a>是否金额</h2><p>最多两位小数，可以带千分位，结果返回<code>true</code>或者<code>false</code>。</p>
+<p><code>amount(amount)</code></p>
+<ul>
+<li><code>amount</code> <String> 金额字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">amount</span>(<span class="hljs-string">&#x27;3,233.08&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否字母或者数字"><a href="#是否字母或者数字" class="headerlink" title="是否字母或者数字"></a>是否字母或者数字</h2><p>只能是字母或者数字，结果返回<code>true</code>或者<code>false</code>。</p>
+<p><code>enOrNum(str)</code></p>
+<ul>
+<li><code>str</code> <String> 字母或者数字字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">enOrNum</span>(<span class="hljs-string">&#x27;sas&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="是否包含某个值"><a href="#是否包含某个值" class="headerlink" title="是否包含某个值"></a>是否包含某个值</h2><p>字符串中是否包含某一个子字符串，区分大小写，结果返回<code>true</code>或者<code>false</code>。</p>
+<p><code>contains(str, subStr)</code></p>
+<ul>
+<li><code>str</code> <String> 字母或者数字字符串</li>
+<li><code>subStr</code> <String> 子字符串</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">contains</span>(<span class="hljs-string">&#x27;sas&#x27;</span>, <span class="hljs-string">&#x27;sa&#x27;</span>))<br></code></pre></td></tr></table></figure>
+
+<h2 id="数值是否在某个范围内"><a href="#数值是否在某个范围内" class="headerlink" title="数值是否在某个范围内"></a>数值是否在某个范围内</h2><p>如 30 在”29-35”这个范围内，不在”25-28”这个范围内，结果返回<code>true</code>或者<code>false</code></p>
+<p><code>range(number, range)</code></p>
+<ul>
+<li><code>number</code> <Number> 数值</li>
+<li><code>range</code> <Array> 如”[25-35]”</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">range</span>(<span class="hljs-number">35</span>, [<span class="hljs-number">30</span>, <span class="hljs-number">34</span>]))<br></code></pre></td></tr></table></figure>
+
+<h2 id="字符串长度是否在某个范围内"><a href="#字符串长度是否在某个范围内" class="headerlink" title="字符串长度是否在某个范围内"></a>字符串长度是否在某个范围内</h2><p>如”<code>abc</code>“长度为 3，范围在”2-5”这个区间，结果返回<code>true</code>或者<code>false</code></p>
+<p><code>rangeLength(str, range)</code></p>
+<ul>
+<li><code>str</code> <String> 数值</li>
+<li><code>range</code> <Array> 如”[25-35]”</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">$test</span>.<span class="hljs-title function_">rangeLength</span>(<span class="hljs-string">&#x27;abc&#x27;</span>, [<span class="hljs-number">3</span>, <span class="hljs-number">10</span>]))<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证电子邮箱格式</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">email</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/</span>.<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证手机格式</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">mobile</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^1[23456789]\d&#123;9&#125;$/</span>.<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证URL格式</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">url</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^((https|http|ftp|rtsp|mms):\/\/)(([0-9a-zA-Z_!~*&#x27;().&amp;=+$%-]+: )?[0-9a-zA-Z_!~*&#x27;().&amp;=+$%-]+@)?(([0-9]&#123;1,3&#125;.)&#123;3&#125;[0-9]&#123;1,3&#125;|([0-9a-zA-Z_!~*&#x27;()-]+.)*([0-9a-zA-Z][0-9a-zA-Z-]&#123;0,61&#125;)?[0-9a-zA-Z].[a-zA-Z]&#123;2,6&#125;)(:[0-9]&#123;1,4&#125;)?((\/?)|(\/[0-9a-zA-Z_!~*&#x27;().;?:@&amp;=+$,%#-]+)+\/?)$/</span>.<span class="hljs-title function_">test</span>(<br>    value<br>  )<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证日期格式</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">date</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> !<span class="hljs-regexp">/Invalid|NaN/</span>.<span class="hljs-title function_">test</span>(<span class="hljs-keyword">new</span> <span class="hljs-title class_">Date</span>(value).<span class="hljs-title function_">toString</span>())<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证ISO类型的日期格式</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">dateISO</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^\d&#123;4&#125;[\/\-](0?[1-9]|1[012])[\/\-](0?[1-9]|[12][0-9]|3[01])$/</span>.<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证十进制数字</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">number</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^(?:-?\d+|-?\d&#123;1,3&#125;(?:,\d&#123;3&#125;)+)?(?:\.\d+)?$/</span>.<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证整数</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">digits</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^\d+$/</span>.<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证身份证号码</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">idCard</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^[1-9]\d&#123;5&#125;[1-9]\d&#123;3&#125;((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d&#123;3&#125;([0-9]|X)$/</span>.<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 是否车牌号</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">carNo</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-comment">// 新能源车牌</span><br>  <span class="hljs-keyword">const</span> xreg =<br>    <span class="hljs-regexp">/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]&#123;1&#125;[A-Z]&#123;1&#125;(([0-9]&#123;5&#125;[DF]$)|([DF][A-HJ-NP-Z0-9][0-9]&#123;4&#125;$))/</span><br>  <span class="hljs-comment">// 旧车牌</span><br>  <span class="hljs-keyword">const</span> creg =<br>    <span class="hljs-regexp">/^[京津沪渝冀豫云辽黑湘皖鲁新苏浙赣鄂桂甘晋蒙陕吉闽贵粤青藏川宁琼使领A-Z]&#123;1&#125;[A-Z]&#123;1&#125;[A-HJ-NP-Z0-9]&#123;4&#125;[A-HJ-NP-Z0-9挂学警港澳]&#123;1&#125;$/</span><br>  <span class="hljs-keyword">if</span> (value.<span class="hljs-property">length</span> === <span class="hljs-number">7</span>) &#123;<br>    <span class="hljs-keyword">return</span> creg.<span class="hljs-title function_">test</span>(value)<br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (value.<span class="hljs-property">length</span> === <span class="hljs-number">8</span>) &#123;<br>    <span class="hljs-keyword">return</span> xreg.<span class="hljs-title function_">test</span>(value)<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>  &#125;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 金额,只允许2位小数</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">amount</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-comment">//金额，只允许保留两位小数</span><br>  <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^[1-9]\d*(,\d&#123;3&#125;)*(\.\d&#123;1,2&#125;)?$|^0\.\d&#123;1,2&#125;$/</span>.<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 中文</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">chinese</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/^[\u4e00-\u9fa5]+$/gi</span><br>  <span class="hljs-keyword">return</span> reg.<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 只能输入字母</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">letter</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-regexp">/^[a-zA-Z]*$/</span>.<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 只能是字母或者数字</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">enOrNum</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-comment">//英文或者数字</span><br>  <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/^[0-9a-zA-Z]*$/g</span><br>  <span class="hljs-keyword">return</span> reg.<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证是否包含某个值</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">contains</span>(<span class="hljs-params">value, param</span>) &#123;<br>  <span class="hljs-keyword">return</span> value.<span class="hljs-title function_">indexOf</span>(param) &gt;= <span class="hljs-number">0</span><br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证一个值范围[min, max]</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">range</span>(<span class="hljs-params">value, param</span>) &#123;<br>  <span class="hljs-keyword">return</span> value &gt;= param[<span class="hljs-number">0</span>] &amp;&amp; value &lt;= param[<span class="hljs-number">1</span>]<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 验证一个长度范围[min, max]</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">rangeLength</span>(<span class="hljs-params">value, param</span>) &#123;<br>  <span class="hljs-keyword">return</span> value.<span class="hljs-property">length</span> &gt;= param[<span class="hljs-number">0</span>] &amp;&amp; value.<span class="hljs-property">length</span> &lt;= param[<span class="hljs-number">1</span>]<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 是否固定电话</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">landline</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">let</span> reg = <span class="hljs-regexp">/^\d&#123;3,4&#125;-\d&#123;7,8&#125;(-\d&#123;3,4&#125;)?$/</span><br>  <span class="hljs-keyword">return</span> reg.<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 判断是否为空</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">empty</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">switch</span> (<span class="hljs-keyword">typeof</span> value) &#123;<br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;undefined&#x27;</span>:<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;string&#x27;</span>:<br>      <span class="hljs-keyword">if</span> (value.<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/(^[ \t\n\r]*)|([ \t\n\r]*$)/g</span>, <span class="hljs-string">&#x27;&#x27;</span>).<span class="hljs-property">length</span> == <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>      <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;boolean&#x27;</span>:<br>      <span class="hljs-keyword">if</span> (!value) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>      <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;number&#x27;</span>:<br>      <span class="hljs-keyword">if</span> (<span class="hljs-number">0</span> === value || <span class="hljs-built_in">isNaN</span>(value)) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>      <span class="hljs-keyword">break</span><br>    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;object&#x27;</span>:<br>      <span class="hljs-keyword">if</span> (<span class="hljs-literal">null</span> === value || value.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> value) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>      &#125;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 是否json字符串</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">jsonString</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value == <span class="hljs-string">&#x27;string&#x27;</span>) &#123;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-keyword">var</span> obj = <span class="hljs-title class_">JSON</span>.<span class="hljs-title function_">parse</span>(value)<br>      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> obj == <span class="hljs-string">&#x27;object&#x27;</span> &amp;&amp; obj) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span><br>      &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>      &#125;<br>    &#125; <span class="hljs-keyword">catch</span> (e) &#123;<br>      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 是否数组</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">array</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">Array</span>.<span class="hljs-property">isArray</span> === <span class="hljs-string">&#x27;function&#x27;</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Array</span>.<span class="hljs-title function_">isArray</span>(value)<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">call</span>(value) === <span class="hljs-string">&#x27;[object Array]&#x27;</span><br>  &#125;<br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 是否对象</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">object</span>(<span class="hljs-params">value</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>.<span class="hljs-title function_">call</span>(value) === <span class="hljs-string">&#x27;[object Object]&#x27;</span><br>&#125;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 是否短信验证码</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">code</span>(<span class="hljs-params">value, len = <span class="hljs-number">6</span></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RegExp</span>(<span class="hljs-string">`^\\d&#123;<span class="hljs-subst">$&#123;len&#125;</span>&#125;$`</span>).<span class="hljs-title function_">test</span>(value)<br>&#125;<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;<br>  email,<br>  mobile,<br>  url,<br>  date,<br>  dateISO,<br>  number,<br>  digits,<br>  idCard,<br>  carNo,<br>  amount,<br>  chinese,<br>  letter,<br>  enOrNum,<br>  contains,<br>  range,<br>  rangeLength,<br>  empty,<br>  <span class="hljs-attr">isEmpty</span>: empty,<br>  jsonString,<br>  landline,<br>  object,<br>  array,<br>  code,<br>&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/js/" class="category-chain-item">js</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/js/">#js</a>
+      
+        <a href="/blog/tags/utils/">#utils</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2020/11/05/JS/md5/" title="md5加密">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">md5加密</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2020/11/05/JS/throttle/" title="throttle &amp; debounce节流防抖">
+                        <span class="hidden-mobile">throttle &amp; debounce节流防抖</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appKey":"nwLIBSLqc2For9OE49wSuWaf","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"appid":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appkey":"nwLIBSLqc2For9OE49wSuWaf"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <i class="iconfont icon-mail"></i> <a href="#" rel="nofollow noopener"><span>1793980864@qq.com</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

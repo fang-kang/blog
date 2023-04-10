@@ -1,0 +1,726 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://fang-kang.gitee.io/blog-img/head.png">
+  <link rel="icon" href="https://fang-kang.gitee.io/blog-img/head.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="房康的个人博客，凌烟的个人博客，博客，记录生活">
+  
+    <meta name="description" content="过去有很长一段时间，我一直很难理解 reduce() 这个方法的具体用法，平时也很少用到它。事实上，如果你能真正了解它的话，其实在很多地方我们都可以用得上，那么今天我们就来简单聊聊 JS 中 reduce() 的用法。 一、语法 arr.reduce(function(prev,cur,index,arr){…}, init);  其中，arr 表示原数组；prev 表示上一次调用回调时的返回值，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS中 reduce() 的用法">
+<meta property="og:url" content="https://fang-kang.gitee.io/blog/2020/12/12/JS/reduce/index.html">
+<meta property="og:site_name" content="凌烟">
+<meta property="og:description" content="过去有很长一段时间，我一直很难理解 reduce() 这个方法的具体用法，平时也很少用到它。事实上，如果你能真正了解它的话，其实在很多地方我们都可以用得上，那么今天我们就来简单聊聊 JS 中 reduce() 的用法。 一、语法 arr.reduce(function(prev,cur,index,arr){…}, init);  其中，arr 表示原数组；prev 表示上一次调用回调时的返回值，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fang-kang.gitee.io/blog-img/vdysjx.webp">
+<meta property="article:published_time" content="2020-12-12T15:33:01.000Z">
+<meta property="article:modified_time" content="2023-04-10T06:32:05.589Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="js">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fang-kang.gitee.io/blog-img/vdysjx.webp">
+  
+  
+  
+  <title>JS中 reduce() 的用法 - 凌烟</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"fang-kang.gitee.io","root":"/blog/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>凌烟</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://fang-kang.github.io/note">
+                <i class="iconfont icon-books"></i>
+                <span>笔记</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://fang-kang.gitee.io/blog-img/blog/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JS中 reduce() 的用法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-12-12 15:33" pubdate>
+          2020年12月12日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          4.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          42 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JS中 reduce() 的用法</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>过去有很长一段时间，我一直很难理解 <strong>reduce()</strong> 这个方法的具体用法，平时也很少用到它。事实上，如果你能真正了解它的话，其实在很多地方我们都可以用得上，那么今天我们就来简单聊聊 JS 中 reduce() 的用法。</p>
+<h2 id="一、语法"><a href="#一、语法" class="headerlink" title="一、语法"></a>一、语法</h2><blockquote>
+<p>arr.reduce(function(prev,cur,index,arr){<br>…<br>}, init);</p>
+</blockquote>
+<p>其中，<br><strong>arr</strong> 表示原数组；<br><strong>prev</strong> 表示上一次调用回调时的返回值，或者初始值 init;<br><strong>cur</strong> 表示当前正在处理的数组元素；<br><strong>index</strong> 表示当前正在处理的数组元素的索引，若提供 init 值，则索引为 0，否则索引为 1；<br><strong>init</strong> 表示初始值。</p>
+<p>看上去是不是感觉很复杂？没关系，只是看起来而已，其实常用的参数只有两个：<strong>prev</strong> 和 <strong>cur</strong>。接下来我们跟着实例来看看具体用法吧~</p>
+<h2 id="二、实例"><a href="#二、实例" class="headerlink" title="二、实例"></a>二、实例</h2><p>先提供一个原始数组：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> arr = [<span class="hljs-number">3</span>, <span class="hljs-number">9</span>, <span class="hljs-number">4</span>, <span class="hljs-number">3</span>, <span class="hljs-number">6</span>, <span class="hljs-number">0</span>, <span class="hljs-number">9</span>]<br></code></pre></td></tr></table></figure>
+
+<p>实现以下需求的方式有很多，其中就包含使用 reduce()的求解方式，也算是实现起来比较简洁的一种吧。</p>
+<h3 id="1-求数组项之和"><a href="#1-求数组项之和" class="headerlink" title="1. 求数组项之和"></a>1. 求数组项之和</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> sum = arr.<span class="hljs-title function_">reduce</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">prev, cur</span>) &#123;<br>  <span class="hljs-keyword">return</span> prev + cur<br>&#125;, <span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+
+<p>由于传入了初始值 0，所以开始时 prev 的值为 0，cur 的值为数组第一项 3，相加之后返回值为 3 作为下一轮回调的 prev 值，然后再继续与下一个数组项相加，以此类推，直至完成所有数组项的和并返回。</p>
+<h3 id="2-求数组项最大值"><a href="#2-求数组项最大值" class="headerlink" title="2. 求数组项最大值"></a>2. 求数组项最大值</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> max = arr.<span class="hljs-title function_">reduce</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">prev, cur</span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">max</span>(prev, cur)<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+<p>由于未传入初始值，所以开始时 prev 的值为数组第一项 3，cur 的值为数组第二项 9，取两值最大值后继续进入下一轮回调。</p>
+<h3 id="3-数组去重"><a href="#3-数组去重" class="headerlink" title="3. 数组去重"></a>3. 数组去重</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> newArr = arr.<span class="hljs-title function_">reduce</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">prev, cur</span>) &#123;<br>  prev.<span class="hljs-title function_">indexOf</span>(cur) === -<span class="hljs-number">1</span> &amp;&amp; prev.<span class="hljs-title function_">push</span>(cur)<br>  <span class="hljs-keyword">return</span> prev<br>&#125;, [])<br></code></pre></td></tr></table></figure>
+
+<p>实现的基本原理如下：</p>
+<blockquote>
+<p>① 初始化一个空数组<br>② 将需要去重处理的数组中的第 1 项在<strong>初始化数组</strong>中查找，如果找不到（空数组中肯定找不到），就将该项添加到<strong>初始化数组</strong>中<br>③ 将需要去重处理的数组中的第 2 项在<strong>初始化数组</strong>中查找，如果找不到，就将该项继续添加到<strong>初始化数组</strong>中<br>④ ……<br>⑤ 将需要去重处理的数组中的第 n 项在<strong>初始化数组</strong>中查找，如果找不到，就将该项继续添加到<strong>初始化数组</strong>中<br>⑥ 将这个<strong>初始化数组</strong>返回</p>
+</blockquote>
+<h2 id="三、其他相关方法"><a href="#三、其他相关方法" class="headerlink" title="三、其他相关方法"></a>三、其他相关方法</h2><h3 id="1-reduceRight"><a href="#1-reduceRight" class="headerlink" title="1. reduceRight()"></a>1. reduceRight()</h3><p>该方法用法与 reduce()其实是相同的，只是遍历的顺序相反，它是从数组的最后一项开始，向前遍历到第一项。</p>
+<h3 id="2-forEach-、map-、every-、some-和-filter"><a href="#2-forEach-、map-、every-、some-和-filter" class="headerlink" title="2. forEach()、map()、every()、some()和 filter()"></a>2. forEach()、map()、every()、some()和 filter()</h3><p>详情请戳 →<a href="http://fang-kang.gitee.io/views/JS/array.html">简述 forEach()、map()、every()、some()和 filter()的用法</a></p>
+<h2 id="重点总结"><a href="#重点总结" class="headerlink" title="重点总结"></a>重点总结</h2><p>reduce() 是数组的<strong>归并方法</strong>，与 forEach()、map()、filter()等<strong>迭代方法</strong>一样都会对数组每一项进行遍历，但是 reduce() 可同时将前面数组项遍历产生的结果与当前遍历项进行运算，这一点是其他迭代方法无法企及的</p>
+<h3 id="先看-w3c-语法"><a href="#先看-w3c-语法" class="headerlink" title="先看 w3c 语法"></a>先看 w3c 语法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js">array.<span class="hljs-title function_">reduce</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">total, currentValue, currentIndex, arr</span>), initialValue);<br><span class="hljs-comment">/*</span><br><span class="hljs-comment">  total: 必需。初始值, 或者计算结束后的返回值。</span><br><span class="hljs-comment">  currentValue： 必需。当前元素。</span><br><span class="hljs-comment">  currentIndex： 可选。当前元素的索引；</span><br><span class="hljs-comment">  arr： 可选。当前元素所属的数组对象。</span><br><span class="hljs-comment">  initialValue: 可选。传递给函数的初始值，相当于total的初始值。</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="常见用法"><a href="#常见用法" class="headerlink" title="常见用法"></a>常见用法</h3><h4 id="数组求和"><a href="#数组求和" class="headerlink" title="数组求和"></a>数组求和</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">12</span>, <span class="hljs-number">34</span>, <span class="hljs-number">23</span>];<br><span class="hljs-keyword">const</span> sum = arr.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">total, num</span>) =&gt;</span> total + num);<br>&lt;!-- 设定初始值求和 --&gt;<br><span class="hljs-keyword">const</span> arr = [<span class="hljs-number">12</span>, <span class="hljs-number">34</span>, <span class="hljs-number">23</span>];<br><span class="hljs-keyword">const</span> sum = arr.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">total, num</span>) =&gt;</span> total + num, <span class="hljs-number">10</span>);  <span class="hljs-comment">// 以10为初始值求和</span><br>&lt;!-- 对象数组求和 --&gt;<br><span class="hljs-keyword">var</span> result = [<br>  &#123; <span class="hljs-attr">subject</span>: <span class="hljs-string">&#x27;math&#x27;</span>, <span class="hljs-attr">score</span>: <span class="hljs-number">88</span> &#125;,<br>  &#123; <span class="hljs-attr">subject</span>: <span class="hljs-string">&#x27;chinese&#x27;</span>, <span class="hljs-attr">score</span>: <span class="hljs-number">95</span> &#125;,<br>  &#123; <span class="hljs-attr">subject</span>: <span class="hljs-string">&#x27;english&#x27;</span>, <span class="hljs-attr">score</span>: <span class="hljs-number">80</span> &#125;<br>];<br><span class="hljs-keyword">const</span> sum = result.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">accumulator, cur</span>) =&gt;</span> accumulator + cur.<span class="hljs-property">score</span>, <span class="hljs-number">0</span>);<br><span class="hljs-keyword">const</span> sum = result.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">accumulator, cur</span>) =&gt;</span> accumulator + cur.<span class="hljs-property">score</span>, -<span class="hljs-number">10</span>);  <span class="hljs-comment">// 总分扣除10分</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="数组最大值"><a href="#数组最大值" class="headerlink" title="数组最大值"></a>数组最大值</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> a = [<span class="hljs-number">23</span>, <span class="hljs-number">123</span>, <span class="hljs-number">342</span>, <span class="hljs-number">12</span>]<br><span class="hljs-keyword">const</span> max = a.<span class="hljs-title function_">reduce</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">pre, cur, inde, arr</span>) &#123;<br>  <span class="hljs-keyword">return</span> pre &gt; cur ? pre : cur<br>&#125;) <span class="hljs-comment">// 342</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="进阶用法"><a href="#进阶用法" class="headerlink" title="进阶用法"></a>进阶用法</h3><h4 id="数组对象中的用法"><a href="#数组对象中的用法" class="headerlink" title="数组对象中的用法"></a>数组对象中的用法</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 比如生成“老大、老二和老三” --&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> objArr = [&#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;老大&#x27;</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;老二&#x27;</span> &#125;, &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;老三&#x27;</span> &#125;]<br><span class="hljs-keyword">const</span> res = objArr.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">pre, cur, index, arr</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">if</span> (index === <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-keyword">return</span> cur.<span class="hljs-property">name</span><br>  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (index === arr.<span class="hljs-property">length</span> - <span class="hljs-number">1</span>) &#123;<br>    <span class="hljs-keyword">return</span> pre + <span class="hljs-string">&#x27;和&#x27;</span> + cur.<span class="hljs-property">name</span><br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    <span class="hljs-keyword">return</span> pre + <span class="hljs-string">&#x27;、&#x27;</span> + cur.<span class="hljs-property">name</span><br>  &#125;<br>&#125;, <span class="hljs-string">&#x27;&#x27;</span>)<br></code></pre></td></tr></table></figure>
+
+<h4 id="求字符串中字母出现的次数"><a href="#求字符串中字母出现的次数" class="headerlink" title="求字符串中字母出现的次数"></a>求字符串中字母出现的次数</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> str = <span class="hljs-string">&#x27;sfhjasfjgfasjuwqrqadqeiqsajsdaiwqdaklldflas-cmxzmnha&#x27;</span><br><span class="hljs-keyword">const</span> res = str.<span class="hljs-title function_">split</span>(<span class="hljs-string">&#x27;&#x27;</span>).<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">accumulator, cur</span>) =&gt;</span> &#123;<br>  accumulator[cur] ? accumulator[cur]++ : (accumulator[cur] = <span class="hljs-number">1</span>)<br>  <span class="hljs-keyword">return</span> accumulator<br>&#125;, &#123;&#125;)<br></code></pre></td></tr></table></figure>
+
+<h4 id="数组转数组"><a href="#数组转数组" class="headerlink" title="数组转数组"></a>数组转数组</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;!-- 按照一定的规则转成数组 --&gt;<br><span class="hljs-keyword">var</span> arr1 = [<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>, <span class="hljs-number">6</span>]; <span class="hljs-comment">// 每个值的平方</span><br><span class="hljs-keyword">var</span> newarr = arr1.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">accumulator, cur</span>) =&gt;</span> &#123;accumulator.<span class="hljs-title function_">push</span>(cur * cur); <span class="hljs-keyword">return</span> accumulator;&#125;, []);<br></code></pre></td></tr></table></figure>
+
+<h4 id="数组转对象"><a href="#数组转对象" class="headerlink" title="数组转对象"></a>数组转对象</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">&lt;!-- 按照id 取出stream --&gt;<br><span class="hljs-keyword">var</span> streams = [&#123;<span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;技术&#x27;</span>, <span class="hljs-attr">id</span>: <span class="hljs-number">1</span>&#125;, &#123;<span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;设计&#x27;</span>, <span class="hljs-attr">id</span>: <span class="hljs-number">2</span>&#125;];<br><span class="hljs-keyword">var</span> obj = streams.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">accumulator, cur</span>) =&gt;</span> &#123;accumulator[cur.<span class="hljs-property">id</span>] = cur; <span class="hljs-keyword">return</span> accumulator;&#125;, &#123;&#125;);<br></code></pre></td></tr></table></figure>
+
+<h3 id="高级用法"><a href="#高级用法" class="headerlink" title="高级用法"></a>高级用法</h3><h4 id="多维的叠加执行操作"><a href="#多维的叠加执行操作" class="headerlink" title="多维的叠加执行操作"></a>多维的叠加执行操作</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 各科成绩占比重不一样， 求结果 --&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> result = [<br>  &#123; <span class="hljs-attr">subject</span>: <span class="hljs-string">&#x27;math&#x27;</span>, <span class="hljs-attr">score</span>: <span class="hljs-number">88</span> &#125;,<br>  &#123; <span class="hljs-attr">subject</span>: <span class="hljs-string">&#x27;chinese&#x27;</span>, <span class="hljs-attr">score</span>: <span class="hljs-number">95</span> &#125;,<br>  &#123; <span class="hljs-attr">subject</span>: <span class="hljs-string">&#x27;english&#x27;</span>, <span class="hljs-attr">score</span>: <span class="hljs-number">80</span> &#125;,<br>]<br><span class="hljs-keyword">var</span> dis = &#123;<br>  <span class="hljs-attr">math</span>: <span class="hljs-number">0.5</span>,<br>  <span class="hljs-attr">chinese</span>: <span class="hljs-number">0.3</span>,<br>  <span class="hljs-attr">english</span>: <span class="hljs-number">0.2</span>,<br>&#125;<br><span class="hljs-keyword">var</span> res = result.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">accumulator, cur</span>) =&gt;</span> dis[cur.<span class="hljs-property">subject</span>] * cur.<span class="hljs-property">score</span> + accumulator, <span class="hljs-number">0</span>)<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs html"><span class="hljs-comment">&lt;!-- 加大难度， 商品对应不同国家汇率不同，求总价格 --&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> prices = [&#123; <span class="hljs-attr">price</span>: <span class="hljs-number">23</span> &#125;, &#123; <span class="hljs-attr">price</span>: <span class="hljs-number">45</span> &#125;, &#123; <span class="hljs-attr">price</span>: <span class="hljs-number">56</span> &#125;]<br><span class="hljs-keyword">var</span> rates = &#123;<br>  <span class="hljs-attr">us</span>: <span class="hljs-string">&#x27;6.5&#x27;</span>,<br>  <span class="hljs-attr">eu</span>: <span class="hljs-string">&#x27;7.5&#x27;</span>,<br>&#125;<br><span class="hljs-keyword">var</span> initialState = &#123; <span class="hljs-attr">usTotal</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">euTotal</span>: <span class="hljs-number">0</span> &#125;<br><span class="hljs-keyword">var</span> res = prices.<span class="hljs-title function_">reduce</span>(<br>  <span class="hljs-function">(<span class="hljs-params">accumulator, cur1</span>) =&gt;</span><br>    <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(rates).<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">prev2, cur2</span>) =&gt;</span> &#123;<br>      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(accumulator, cur1, prev2, cur2)<br>      accumulator[<span class="hljs-string">`<span class="hljs-subst">$&#123;cur2&#125;</span>Total`</span>] += cur1.<span class="hljs-property">price</span> * rates[cur2]<br>      <span class="hljs-keyword">return</span> accumulator<br>    &#125;, &#123;&#125;),<br>  initialState<br>)<br><br><span class="hljs-keyword">var</span> manageReducers = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;<br>  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">state, item</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(rates).<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">nextState, key</span>) =&gt;</span> &#123;<br>      state[<span class="hljs-string">`<span class="hljs-subst">$&#123;key&#125;</span>Total`</span>] += item.<span class="hljs-property">price</span> * rates[key]<br>      <span class="hljs-keyword">return</span> state<br>    &#125;, &#123;&#125;)<br>  &#125;<br>&#125;<br><span class="hljs-keyword">var</span> res1 = prices.<span class="hljs-title function_">reduce</span>(<span class="hljs-title function_">manageReducers</span>(), initialState)<br></code></pre></td></tr></table></figure>
+
+<h4 id="扁平一个二维数组"><a href="#扁平一个二维数组" class="headerlink" title="扁平一个二维数组"></a>扁平一个二维数组</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">var</span> arr = [<br>  [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">8</span>],<br>  [<span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">9</span>],<br>  [<span class="hljs-number">5</span>, <span class="hljs-number">6</span>, <span class="hljs-number">10</span>],<br>]<br><span class="hljs-keyword">var</span> res = arr.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">x, y</span>) =&gt;</span> x.<span class="hljs-title function_">concat</span>(y), [])<br></code></pre></td></tr></table></figure>
+
+<h4 id="对象数组去重"><a href="#对象数组去重" class="headerlink" title="对象数组去重"></a>对象数组去重</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> hash = &#123;&#125;<br>chatlists = chatlists.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">obj, next: <span class="hljs-built_in">Object</span></span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> hashId = <span class="hljs-string">`<span class="hljs-subst">$&#123;next.topic&#125;</span>_<span class="hljs-subst">$&#123;next.stream_id&#125;</span>`</span><br>  <span class="hljs-keyword">if</span> (!hash[hashId]) &#123;<br>    hash[<span class="hljs-string">`<span class="hljs-subst">$&#123;next.topic&#125;</span>_<span class="hljs-subst">$&#123;next.stream_id&#125;</span>`</span>] = <span class="hljs-literal">true</span><br>    obj.<span class="hljs-title function_">push</span>(next)<br>  &#125;<br>  <span class="hljs-keyword">return</span> obj<br>&#125;, [])<br></code></pre></td></tr></table></figure>
+
+<h4 id="compose-函数"><a href="#compose-函数" class="headerlink" title="compose 函数"></a>compose 函数</h4><blockquote>
+<p>redux compose 源码实现</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">compose</span>(<span class="hljs-params">...funs</span>) &#123;<br>  <span class="hljs-keyword">if</span> (funs.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">arg</span> =&gt;</span> arg<br>  &#125;<br>  <span class="hljs-keyword">if</span> (funs.<span class="hljs-property">length</span> === <span class="hljs-number">1</span>) &#123;<br>    <span class="hljs-keyword">return</span> funs[<span class="hljs-number">0</span>]<br>  &#125;<br>  <span class="hljs-keyword">return</span> funs.<span class="hljs-title function_">reduce</span>(<br>    <span class="hljs-function">(<span class="hljs-params">a, b</span>) =&gt;</span><br>      <span class="hljs-function">(<span class="hljs-params">...arg</span>) =&gt;</span><br>        <span class="hljs-title function_">a</span>(<span class="hljs-title function_">b</span>(...arg))<br>  )<br>&#125;<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/js/" class="category-chain-item">js</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/js/">#js</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2020/12/18/other/markdown/" title="Markdown基本语法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Markdown基本语法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2020/12/12/mongodb/mongodb_base/" title="mongodb基本查询">
+                        <span class="hidden-mobile">mongodb基本查询</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appKey":"nwLIBSLqc2For9OE49wSuWaf","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"appid":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appkey":"nwLIBSLqc2For9OE49wSuWaf"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <i class="iconfont icon-mail"></i> <a href="#" rel="nofollow noopener"><span>1793980864@qq.com</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,720 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://fang-kang.gitee.io/blog-img/head.png">
+  <link rel="icon" href="https://fang-kang.gitee.io/blog-img/head.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="房康的个人博客，凌烟的个人博客，博客，记录生活">
+  
+    <meta name="description" content="uniApp 小程序 腾讯地图&#x2F;百度地图 地理编码与逆编码腾讯地图 申请开发者密钥（key）：申请密钥  开通webserviceAPI服务：控制台 -&gt; key管理 -&gt; 设置（使用该功能的key）-&gt; 勾选webserviceAPI -&gt; 保存  (小程序SDK需要用到webserviceAPI的部分服务，所以使用该功能的KEY需要具备相应的权限)  下载微信小程序Ja">
+<meta property="og:type" content="article">
+<meta property="og:title" content="uniApp小程序 腾讯地图&#x2F;百度地图 地理编码与逆编码">
+<meta property="og:url" content="https://fang-kang.gitee.io/blog/2020/11/05/uniApp/bmap/index.html">
+<meta property="og:site_name" content="凌烟">
+<meta property="og:description" content="uniApp 小程序 腾讯地图&#x2F;百度地图 地理编码与逆编码腾讯地图 申请开发者密钥（key）：申请密钥  开通webserviceAPI服务：控制台 -&gt; key管理 -&gt; 设置（使用该功能的key）-&gt; 勾选webserviceAPI -&gt; 保存  (小程序SDK需要用到webserviceAPI的部分服务，所以使用该功能的KEY需要具备相应的权限)  下载微信小程序Ja">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://fang-kang.gitee.io/blog-img/hero.jpg">
+<meta property="article:published_time" content="2020-11-05T15:33:01.000Z">
+<meta property="article:modified_time" content="2023-04-10T06:32:05.593Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="utils">
+<meta property="article:tag" content="uniApp">
+<meta property="article:tag" content="地图">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://fang-kang.gitee.io/blog-img/hero.jpg">
+  
+  
+  
+  <title>uniApp小程序 腾讯地图/百度地图 地理编码与逆编码 - 凌烟</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/blog/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/blog/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"fang-kang.gitee.io","root":"/blog/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":200}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/blog/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.0.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 60vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/blog/">
+      <strong>凌烟</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" target="_blank" rel="noopener" href="https://fang-kang.github.io/note">
+                <i class="iconfont icon-books"></i>
+                <span>笔记</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://fang-kang.gitee.io/blog-img/blog/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="uniApp小程序 腾讯地图/百度地图 地理编码与逆编码"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-11-05 15:33" pubdate>
+          2020年11月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          <!-- compatible with older versions-->
+          2.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          <!-- compatible with older versions-->
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">uniApp小程序 腾讯地图/百度地图 地理编码与逆编码</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="uniApp-小程序-腾讯地图-百度地图-地理编码与逆编码"><a href="#uniApp-小程序-腾讯地图-百度地图-地理编码与逆编码" class="headerlink" title="uniApp 小程序 腾讯地图/百度地图 地理编码与逆编码"></a>uniApp 小程序 腾讯地图/百度地图 地理编码与逆编码</h2><h3 id="腾讯地图"><a href="#腾讯地图" class="headerlink" title="腾讯地图"></a>腾讯地图</h3><ol>
+<li><p>申请开发者密钥（<code>key</code>）：申请密钥</p>
+</li>
+<li><p>开通<code>webserviceAPI</code>服务：控制台 -&gt; <code>key</code>管理 -&gt; 设置（使用该功能的<code>key</code>）-&gt; 勾选<code>webserviceAPI</code> -&gt; 保存</p>
+</li>
+<li><p>(小程序<code>SDK</code>需要用到<code>webserviceAPI</code>的部分服务，所以使用该功能的<code>KEY</code>需要具备相应的权限)</p>
+</li>
+<li><p>下载微信小程序<code>JavaScriptSDK</code>，微信小程序<a target="_blank" rel="noopener" href="http://3gimg.qq.com/lightmap/xcx/jssdk/qqmap-wx-jssdk1.2.zip">JavaScriptSDK v1.2</a></p>
+</li>
+<li><p>安全域名设置，在“设置” -&gt; “开发设置”中设置<code>request</code>合法域名，添加<code>https://apis.map.qq.com</code></p>
+</li>
+</ol>
+<ul>
+<li>腾讯地图获取地理位置</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">//// 引入SDK核心类</span><br><span class="hljs-keyword">const</span> <span class="hljs-title class_">QQMapWX</span> = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@/libs/qqmap-wx-jssdk.min.js&#x27;</span>);<br><span class="hljs-keyword">var</span> qqmapsdk<br><span class="hljs-keyword">var</span> self;<br><br><span class="hljs-title function_">onLoad</span>(<span class="hljs-params"></span>)&#123;<br> self = <span class="hljs-variable language_">this</span><br> self.<span class="hljs-property">mapCtx</span> = uni.<span class="hljs-title function_">createMapContext</span>(<span class="hljs-string">&#x27;map&#x27;</span>)<br> <span class="hljs-comment">// 实例化API核心类</span><br> qqmapsdk = <span class="hljs-keyword">new</span> <span class="hljs-title class_">QQMapWX</span>(&#123;<br>  <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;your key&#x27;</span><br> &#125;);<br><br> <span class="hljs-comment">//获取地址</span><br> qqmapsdk.<span class="hljs-title function_">reverseGeocoder</span>(&#123;<br>  <span class="hljs-attr">location</span>: &#123;<br>   <span class="hljs-attr">latitude</span>: uni.<span class="hljs-title function_">getStorageSync</span>(<span class="hljs-string">&#x27;latitude&#x27;</span>) ,<br>   <span class="hljs-attr">longitude</span>: uni.<span class="hljs-title function_">getStorageSync</span>(<span class="hljs-string">&#x27;longitude&#x27;</span>),<br>  &#125;,<br>  <span class="hljs-attr">success</span>: <span class="hljs-function">(<span class="hljs-params">res, data</span>) =&gt;</span> &#123;<br>   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res, data)<br>   <span class="hljs-variable language_">this</span>.<span class="hljs-property">location</span> = data.<span class="hljs-property">reverseGeocoderResult</span>.<span class="hljs-property">address_component</span>.<span class="hljs-property">province</span> + data.<span class="hljs-property">reverseGeocoderResult</span>.<span class="hljs-property">address_component</span>.<span class="hljs-property">city</span> +<br>   data.<span class="hljs-property">reverseGeocoderResult</span>.<span class="hljs-property">address_component</span>.<span class="hljs-property">district</span><br>  &#125;<br> &#125;)<br><br><br> <span class="hljs-comment">//获取经纬度</span><br> qqmapsdk.<span class="hljs-title function_">geocoder</span>(&#123;<br>  <span class="hljs-attr">address</span>:<span class="hljs-string">&#x27;北京市海淀区彩和坊路海淀西大街74号&#x27;</span><br>   <span class="hljs-attr">success</span>: <span class="hljs-function">(<span class="hljs-params">res, data</span>) =&gt;</span> &#123;<br>   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res, data)<br>  &#125;<br> &#125;)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="百度地图"><a href="#百度地图" class="headerlink" title="百度地图"></a>百度地图</h3><ol>
+<li><p>注册百度账号，成为百度地图开发者</p>
+</li>
+<li><p>进入百度开放平台官网，点击右上角“API 控制台”，注册成为百度地图开发者。如果未登录百度账号，会引导登录百度账号。如果账号未注册，请根据提示填写正确的邮箱及手机号完成开发者注册流程</p>
+</li>
+<li><p>创建应用 再次点击进入控制台，创建一个新应用。</p>
+</li>
+<li><p>获取密钥（AK）</p>
+</li>
+</ol>
+<blockquote>
+<p>在创建应用页面，录入应用名称、选择应用类型为”微信小程序”、勾选启用服务、填写<code>AppID</code>(小程序 ID)。点击提交后，即可在查看应用页面看到申请成功的密钥（<code>AK</code>）。</p>
+</blockquote>
+<ol start="5">
+<li>引入 JS 模块</li>
+</ol>
+<ul>
+<li>在项目根目录下新建一个路径，下载百度地图微信小程序<a target="_blank" rel="noopener" href="https://mapopen-website-wiki.cdn.bcebos.com/wechat-api/wxapp-jsapi-master.zip">JavaScript API</a>，</li>
+<li>解压后的文件中有 <code>bmap-wx.js</code> 文件(压缩版 <code>bmap-wx.min.js</code> )，将其拷贝到新建的路径下，安装完成。</li>
+<li>新建路径 “<code>libs</code>“ ,将 <code>bmap-wx.js</code> 文件拷贝至 “<code>libs</code>“ 路径下。</li>
+</ul>
+<ol start="6">
+<li>安全域名设置，在“设置” -&gt; “开发设置”中设置<code>request</code>合法域名，添加<code>api.map.baidu.com</code></li>
+</ol>
+<ul>
+<li>百度地图获取地理位置</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 引入SDK核心类</span><br><span class="hljs-keyword">const</span> bmap = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@/libs/bmap-wx.min.js&#x27;</span>);<br><span class="hljs-keyword">var</span> <span class="hljs-title class_">BMap</span>;<br><span class="hljs-keyword">var</span> self;<br><br><span class="hljs-title function_">onLoad</span>(<span class="hljs-params"></span>)&#123;<br> self = <span class="hljs-variable language_">this</span><br> self.<span class="hljs-property">mapCtx</span> = uni.<span class="hljs-title function_">createMapContext</span>(<span class="hljs-string">&#x27;map&#x27;</span>)<br> <span class="hljs-comment">// 实例化API核心类</span><br> <span class="hljs-title class_">BMap</span> = <span class="hljs-keyword">new</span> bmap.<span class="hljs-title class_">BMapWX</span>(&#123;<br>   <span class="hljs-attr">ak</span>: <span class="hljs-string">&#x27;your key&#x27;</span><br>  &#125;);<br><br> <span class="hljs-comment">//获取地址</span><br>  <span class="hljs-title class_">BMap</span>.<span class="hljs-title function_">regeocoding</span>(&#123;<br>   <span class="hljs-attr">location</span>: uni.<span class="hljs-title function_">getStorageSync</span>(<span class="hljs-string">&#x27;longitude&#x27;</span>) + <span class="hljs-string">&#x27;,&#x27;</span> + uni.<span class="hljs-title function_">getStorageSync</span>(<span class="hljs-string">&#x27;latitude&#x27;</span>),<br>   <span class="hljs-attr">success</span>: <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res)<br>   &#125;,<br>   <span class="hljs-attr">fail</span>: <span class="hljs-function">() =&gt;</span> &#123;<br>    uni.<span class="hljs-title function_">showToast</span>(&#123;<br>     <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;请检查位置服务是否开启&#x27;</span>,<br>    &#125;)<br>   &#125;,<br>  &#125;);<br><br><br> <span class="hljs-comment">//获取经纬度</span><br> <span class="hljs-title class_">BMap</span>.<span class="hljs-title function_">geocoding</span>(&#123;<br>  <span class="hljs-attr">address</span>:<span class="hljs-string">&#x27;北京市海淀区彩和坊路海淀西大街74号&#x27;</span><br>   <span class="hljs-attr">success</span>: <span class="hljs-function">(<span class="hljs-params">res, data</span>) =&gt;</span> &#123;<br>   <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res, data)<br>  &#125;<br> &#125;)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/blog/categories/uniApp/" class="category-chain-item">uniApp</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/blog/tags/utils/">#utils</a>
+      
+        <a href="/blog/tags/uniApp/">#uniApp</a>
+      
+        <a href="/blog/tags/%E5%9C%B0%E5%9B%BE/">#地图</a>
+      
+    </div>
+  
+</div>
+
+
+              
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2020/11/05/uniApp/amap/" title="高德地图地理编码与逆编码">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">高德地图地理编码与逆编码</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2020/11/05/uniApp/hybrid/" title="uniapp中前端如何和原生混合开发开发app">
+                        <span class="hidden-mobile">uniapp中前端如何和原生混合开发开发app</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appKey":"nwLIBSLqc2For9OE49wSuWaf","path":"window.location.pathname","placeholder":"说点什么","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":null,"emojiCDN":null,"emojiMaps":null,"enableQQ":false,"appid":"rjYK8gArXwKlWNAj87aLDjel-gzGzoHsz","appkey":"nwLIBSLqc2For9OE49wSuWaf"},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <i class="iconfont icon-mail"></i> <a href="#" rel="nofollow noopener"><span>1793980864@qq.com</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/blog/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/blog/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
