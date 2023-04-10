@@ -2,7 +2,6 @@
 title: React全家桶
 date: 2020-12-10 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/3.png
-sticky: 1
 tags:
   - react
 categories:
@@ -998,7 +997,6 @@ const store = createStore(reducer)
 
 ```jsx
 import { Provider } from 'react-redux'
-
 ;<Provider store={store}>
   <App />
 </Provider>

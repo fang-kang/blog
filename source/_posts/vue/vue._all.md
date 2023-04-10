@@ -1,7 +1,6 @@
 ---
 title: Vue全家桶
 date: 2020-12-10
-sticky: 1
 index_img: https://fang-kang.gitee.io/blog-img/1.png
 tags:
   - vue

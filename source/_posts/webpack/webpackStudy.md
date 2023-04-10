@@ -2,7 +2,6 @@
 title: Webpack入门-学习总结
 date: 2020-12-10 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/4.jpg
-sticky: 1
 tags:
   - webpack
 categories:

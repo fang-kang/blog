@@ -2,7 +2,6 @@
 title: vue.config.js
 date: 2020-11-21 15:33:01
 index_img: https://fang-kang.gitee.io/blog-img/73twhs.webp
-sticky: 1
 tags:
   - vue.config
 categories:
